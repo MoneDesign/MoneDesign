@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UGT Enrollment System — Mone Rodríguez</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;background:#fff;color:#151515;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+:root{--brand:#cc1f72;--dark:#151515;--gray:#6b7280;--border:#edf2f6}
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;max-width:1440px;margin:0 auto}
+.nav-home{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--dark);transition:color .2s}
+.nav-home:hover{color:var(--brand)}
+.nav-home svg{width:18px;height:18px}
+.nav-logo{font-size:20px;font-weight:800;letter-spacing:-0.02em}
+.nav-logo span{color:var(--brand)}
+.proj-hero{padding:64px 48px 48px;max-width:900px;margin:0 auto;text-align:center}
+.proj-tags{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600;background:#f5f5f5;color:#444}
+.agency-label{font-size:14px;color:var(--gray);margin-bottom:8px}
+.proj-title{font-size:clamp(32px,4vw,56px);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:12px}
+.proj-subtitle{font-size:clamp(17px,1.8vw,22px);color:var(--gray);line-height:1.5;max-width:680px;margin:0 auto 28px}
+.hero-img-wrap{width:100%;max-height:600px;overflow:hidden}
+.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top}
+.proj-body{display:grid;grid-template-columns:240px 1fr;max-width:1200px;margin:0 auto;padding:0 48px}
+.sidebar{position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto;padding:48px 32px 48px 0;display:flex;flex-direction:column;gap:32px;border-right:1px solid var(--border)}
+.toc-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.toc-list a{font-size:14px;color:var(--gray);transition:color .2s;line-height:1.4}
+.toc-list a:hover,.toc-list a.active{color:var(--brand);font-weight:600}
+.tools-grid{display:flex;flex-direction:column;gap:8px}
+.tool-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray)}
+.tool-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+.content{padding:48px 0 80px 56px}
+.content-section{margin-bottom:64px;scroll-margin-top:100px}
+.section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:10px}
+.section-title{font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.01em;margin-bottom:16px}
+.section-text{font-size:16px;line-height:1.7;color:#444;margin-bottom:24px}
+.section-img{border-radius:16px;overflow:hidden;margin:24px 0;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
+.section-img img{width:100%;height:auto;display:block}
+.section-img-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.checklist li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#333;line-height:1.5}
+.check-icon{width:22px;height:22px;border-radius:50%;background:#02dc02;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.check-icon svg{width:13px;height:13px;stroke:#fff;stroke-width:2.5;fill:none}
+.process-steps{display:flex;flex-direction:column;gap:16px;margin:20px 0}
+.step{display:flex;align-items:flex-start;gap:16px}
+.step-num{width:32px;height:32px;border-radius:50%;background:#6f00ff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:1px}
+.step-title{font-size:15px;font-weight:700;margin-bottom:2px}
+.step-desc{font-size:14px;color:var(--gray);line-height:1.5}
+.fab{position:fixed;bottom:32px;right:32px;width:52px;height:52px;background:rgba(204,31,114,0.12);border-radius:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;z-index:50}
+.fab:hover{background:rgba(204,31,114,0.22)}
+.fab svg{width:20px;height:20px;stroke:var(--brand);stroke-width:2;fill:none}
+.proj-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 48px;border-top:1px solid var(--border);max-width:1200px;margin:0 auto}
+.proj-nav-link{display:flex;flex-direction:column;gap:4px}
+.proj-nav-label{font-size:12px;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.proj-nav-title{font-size:16px;font-weight:700;transition:color .2s}
+.proj-nav-link:hover .proj-nav-title{color:var(--brand)}
+.nav-lang{display:flex;gap:4px}
+.lang-btn{padding:6px 10px;border:none;background:transparent;font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;border-radius:6px;transition:all .2s;font-family:inherit}
+.lang-btn.active{color:var(--brand);background:rgba(204,31,114,0.1)}
+@media(max-width:768px){
+  .nav-inner,.proj-nav{padding:0 20px}
+  .proj-hero{padding:40px 20px 32px}
+  .proj-body{grid-template-columns:1fr;padding:0}
+  .sidebar{position:static;height:auto;padding:24px 20px;border-right:none;border-bottom:1px solid var(--border)}
+  .toc-list{flex-direction:row;flex-wrap:wrap;gap:8px}
+  .content{padding:32px 20px 60px}
+  .section-img-row{grid-template-columns:1fr}
+  .proj-nav{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <span class="t" data-en="Home" data-es="Inicio">Home</span>
+    </a>
+    <div class="nav-lang">
+      <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+    <div class="nav-logo">MONE<span>.</span></div>
+  </div>
+</nav>
+
+<section class="proj-hero">
+  <div class="proj-tags">
+    <span class="tag">🎯 UX Consulting</span>
+    <span class="tag">🧩 Workshops</span>
+    <span class="tag">🖥️ Web</span>
+  </div>
+  <p class="agency-label t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+  <h1 class="proj-title">Trabajamos en digital</h1>
+  <p class="proj-subtitle t" data-en="Revolutionizing the UGT Enrollment System — delivered in 2 months vs 6+ months industry standard" data-es="Revolucionando el sistema de matriculación de UGT — entregado en 2 meses frente a los 6+ meses del estándar">Revolutionizing the UGT Enrollment System — delivered in 2 months vs 6+ months industry standard</p>
+</section>
+
+<div class="hero-img-wrap">
+  <img src="images/ugt-hero.jpg" alt="UGT Enrollment Hero">
+</div>
+
+<div class="proj-body">
+  <aside class="sidebar">
+    <div>
+      <p class="toc-label t" data-en="Contents" data-es="Contenido">Contents</p>
+      <ul class="toc-list">
+        <li><a href="#challenge"><span class="t" data-en="The Challenge" data-es="El reto">The Challenge</span></a></li>
+        <li><a href="#requirements"><span class="t" data-en="Key Requirements" data-es="Requisitos clave">Key Requirements</span></a></li>
+        <li><a href="#process"><span class="t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</span></a></li>
+        <li><a href="#results"><span class="t" data-en="Results" data-es="Resultados">Results</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="toc-label t" data-en="Tools" data-es="Herramientas">Tools</p>
+      <div class="tools-grid">
+        <div class="tool-item"><div class="tool-icon" style="background:#0acf83;color:#fff">F</div> <span class="t" data-en="Figma" data-es="Figma">Figma</span></div>
+        <div class="tool-item"><div class="tool-icon" style="background:#ff6244;color:#fff">Mi</div> <span class="t" data-en="Miro" data-es="Miro">Miro</span></div>
+        <div class="tool-item"><div class="tool-icon" style="background:#ff9a00;color:#fff">Ai</div> <span class="t" data-en="Illustrator" data-es="Illustrator">Illustrator</span></div>
+        <div class="tool-item"><div class="tool-icon" style="background:#31a8ff;color:#fff">Ps</div> <span class="t" data-en="Photoshop" data-es="Photoshop">Photoshop</span></div>
+        <div class="tool-item"><div class="tool-icon" style="background:#09b585;color:#fff">Br</div> <span class="t" data-en="Brevo" data-es="Brevo">Brevo</span></div>
+        <div class="tool-item"><div class="tool-icon" style="background:#000;color:#fff">No</div> <span class="t" data-en="Notion" data-es="Notion">Notion</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <section class="content-section" id="challenge">
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
+      <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
+      <p class="section-text t" data-en="UGT needed to completely digitize their union course enrollment process — replacing a slow, paper-heavy manual workflow with an AI-powered, integrated digital system. The existing process took 6+ months to complete for each enrollment cycle and was full of manual verification bottlenecks." data-es="UGT necesitaba digitalizar completamente su proceso de matriculación de cursos sindicales — reemplazando un flujo manual lento y lleno de papel por un sistema digital integrado e impulsado por IA. El proceso existente tardaba 6+ meses en completar cada ciclo de matriculación.">UGT needed to completely digitize their union course enrollment process — replacing a slow, paper-heavy manual workflow with an AI-powered, integrated digital system. The existing process took 6+ months to complete for each enrollment cycle and was full of manual verification bottlenecks.</p>
+      <div class="section-img"><img src="images/ugt-img1.jpg" alt="Challenge" loading="lazy"></div>
+      <p class="section-text t" data-en="A 3-day discovery workshop helped map all existing processes, legal constraints, and integration requirements before a single screen was designed. The tight 2-month delivery timeline required perfect alignment from day one." data-es="Un workshop de discovery de 3 días ayudó a mapear todos los procesos existentes, restricciones legales y requisitos de integración antes de diseñar una sola pantalla. El plazo de entrega de 2 meses requería alineación perfecta desde el primer día.">A 3-day discovery workshop helped map all existing processes, legal constraints, and integration requirements before a single screen was designed. The tight 2-month delivery timeline required perfect alignment from day one.</p>
+    </section>
+
+    <section class="content-section" id="requirements">
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
+      <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
+      <div class="section-img"><img src="images/ugt-img2.jpg" alt="Requirements" loading="lazy"></div>
+      <ul class="checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Automated document verification with AI identity validation" data-es="Verificación automatizada de documentos con validación de identidad por IA">Automated document verification with AI identity validation</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full CEOE/CEPYME database integration" data-es="Integración completa con bases de datos CEOE/CEPYME">Full CEOE/CEPYME database integration</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Moodle and Telefónica platform connectivity" data-es="Conectividad con plataformas Moodle y Telefónica">Moodle and Telefónica platform connectivity</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Dynamic high-complexity enrollment form with conditional logic" data-es="Formulario de matriculación dinámico de alta complejidad con lógica condicional">Dynamic high-complexity enrollment form with conditional logic</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Trained chatbot for student support and enrollment guidance" data-es="Chatbot entrenado para soporte a estudiantes y orientación en la matriculación">Trained chatbot for student support and enrollment guidance</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full document management system" data-es="Sistema completo de gestión documental">Full document management system</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Dedicated landing page for course discovery" data-es="Landing page dedicada para descubrir cursos">Dedicated landing page for course discovery</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Custom CRM for enrollment management and reporting" data-es="CRM personalizado para gestión de matriculaciones e informes">Custom CRM for enrollment management and reporting</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full delivery in 2 months" data-es="Entrega completa en 2 meses">Full delivery in 2 months</span></li>
+      </ul>
+    </section>
+
+    <section class="content-section" id="process">
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
+      <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
+      <div class="process-steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="Discovery Workshop (3 days)" data-es="Workshop de Discovery (3 días)">Discovery Workshop (3 days)</p><p class="step-desc t" data-en="Intensive workshop mapping all existing enrollment processes, stakeholder pain points, legal requirements, and integration dependencies." data-es="Workshop intensivo de 3 días mapeando todos los procesos de matriculación existentes, puntos de dolor y dependencias de integración.">Intensive workshop mapping all existing enrollment processes, stakeholder pain points, legal requirements, and integration dependencies.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="System &amp; Automation Mapping" data-es="Mapeo de sistemas y automatizaciones">System &amp; Automation Mapping</p><p class="step-desc t" data-en="Mapped all data flows between UGT, CEOE/CEPYME, Moodle, and Telefónica to define integration architecture." data-es="Mapeo de todos los flujos de datos entre UGT, CEOE/CEPYME, Moodle y Telefónica para definir la arquitectura de integración.">Mapped all data flows between UGT, CEOE/CEPYME, Moodle, and Telefónica to define integration architecture.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><p class="step-title t" data-en="Automation &amp; AI Design" data-es="Diseño de automatizaciones e IA">Automation &amp; AI Design</p><p class="step-desc t" data-en="Designed the AI document verification flow and chatbot conversation architecture for student support." data-es="Diseño del flujo de verificación de documentos por IA y la arquitectura conversacional del chatbot.">Designed the AI document verification flow and chatbot conversation architecture for student support.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Complex Form UX Design" data-es="Diseño UX de formularios complejos">Complex Form UX Design</p><p class="step-desc t" data-en="Designed the dynamic enrollment form with conditional branching, validation states, and error prevention patterns." data-es="Diseño del formulario dinámico de matriculación con ramificación condicional y patrones de prevención de errores.">Designed the dynamic enrollment form with conditional branching, validation states, and error prevention patterns.</p></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><p class="step-title t" data-en="ERP &amp; CRM Development" data-es="Diseño de ERP y CRM">ERP &amp; CRM Development</p><p class="step-desc t" data-en="Designed the custom CRM interface for admin staff to manage enrollments, documents, and communications." data-es="Diseño de la interfaz CRM personalizada para que el personal gestione matriculaciones, documentos y comunicaciones.">Designed the custom CRM interface for admin staff to manage enrollments, documents, and communications.</p></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="Chatbot Integration &amp; Testing" data-es="Integración y testing del chatbot">Chatbot Integration &amp; Testing</p><p class="step-desc t" data-en="Designed chatbot flows, tested with real students, iterated on response accuracy and UX clarity." data-es="Diseño de flujos del chatbot, testing con estudiantes reales e iteración sobre la precisión.">Designed chatbot flows, tested with real students, iterated on response accuracy and UX clarity.</p></div></div>
+        <div class="step"><div class="step-num">7</div><div class="step-content"><p class="step-title t" data-en="Rapid Deployment" data-es="Despliegue rápido">Rapid Deployment</p><p class="step-desc t" data-en="Full handoff and launch support to deliver the complete system in 2 months from kickoff." data-es="Handoff completo y soporte al lanzamiento para entregar el sistema en 2 meses desde el kickoff.">Full handoff and launch support to deliver the complete system in 2 months from kickoff.</p></div></div>
+      </div>
+      <div class="section-img-row">
+        <div class="section-img"><img src="images/ugt-img3.jpg" alt="Process" loading="lazy"></div>
+        <div class="section-img"><img src="images/ugt-img4.jpg" alt="Design" loading="lazy"></div>
+      </div>
+    </section>
+
+    <section class="content-section" id="results">
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
+      <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
+      <ul class="checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Fully automated enrollment replacing a 6-month manual process" data-es="Matriculación completamente automatizada que reemplaza un proceso manual de 6 meses">Fully automated enrollment replacing a 6-month manual process</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Seamless AI identity verification and document processing" data-es="Verificación de identidad por IA y procesamiento documental fluido">Seamless AI identity verification and document processing</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Intuitive UI adopted immediately by staff with minimal training" data-es="UI intuitiva adoptada de inmediato por el personal sin necesidad de formación">Intuitive UI adopted immediately by staff with minimal training</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Smart chatbot reducing support tickets from day one" data-es="Chatbot inteligente reduciendo tickets de soporte desde el primer día">Smart chatbot reducing support tickets from day one</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Custom CRM delivering full visibility and control to management" data-es="CRM personalizado con visibilidad y control total para la dirección">Custom CRM delivering full visibility and control to management</span></li>
+      </ul>
+      <div class="section-img"><img src="images/ugt-img5.jpg" alt="Results" loading="lazy"></div>
+    </section>
+  </main>
+</div>
+
+<div class="proj-nav">
+  <a href="tracker.html" class="proj-nav-link">
+    <span class="proj-nav-label t" data-en="← Previous" data-es="← Anterior">← Previous</span>
+    <span class="proj-nav-title t" data-en="Logistics APP" data-es="App Logística">Logistics APP</span>
+  </a>
+  <a href="yuuju.html" class="proj-nav-link" style="text-align:right">
+    <span class="proj-nav-label t" data-en="Next →" data-es="Siguiente →">Next →</span>
+    <span class="proj-nav-title t" data-en="Utility Services" data-es="Servicios de Suministros">Utility Services</span>
+  </a>
+</div>
+
+<div class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</div>
+
+<script src="lang.js"></script>
+<script>
+const tl=document.querySelectorAll('.toc-list a'),sc=document.querySelectorAll('.content-section');
+sc.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){tl.forEach(l=>l.classList.remove('active'));const a=document.querySelector('.toc-list a[href="#'+en.target.id+'"]');if(a)a.classList.add('active')}})},{threshold:.3,rootMargin:'-80px 0px 0px 0px'}).observe(s));
+</script>
+</body>
+</html>

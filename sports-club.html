@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sports Clubs APP — Mone Rodríguez</title>
+<meta name="description" content="Sports Club APP & Virtual Office — UX case study by Mone Rodríguez">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;background:#fff;color:#151515;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+:root{--brand:#cc1f72;--dark:#151515;--gray:#6b7280;--border:#edf2f6}
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;max-width:1440px;margin:0 auto}
+.nav-home{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--dark);transition:color .2s}
+.nav-home:hover{color:var(--brand)}
+.nav-home svg{width:18px;height:18px}
+.nav-logo{font-size:20px;font-weight:800;letter-spacing:-0.02em}
+.nav-logo span{color:var(--brand)}
+.proj-hero{padding:64px 48px 48px;max-width:900px;margin:0 auto;text-align:center}
+.proj-tags{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600;background:#f5f5f5;color:#444}
+.agency-label{font-size:14px;color:var(--gray);margin-bottom:8px}
+.proj-title{font-size:clamp(32px,4vw,56px);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:12px}
+.proj-subtitle{font-size:clamp(17px,1.8vw,22px);color:var(--gray);line-height:1.5;max-width:680px;margin:0 auto 28px}
+.hero-img-wrap{width:100%;max-height:600px;overflow:hidden}
+.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top}
+.proj-body{display:grid;grid-template-columns:240px 1fr;max-width:1200px;margin:0 auto;padding:0 48px}
+.sidebar{position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto;padding:48px 32px 48px 0;display:flex;flex-direction:column;gap:32px;border-right:1px solid var(--border)}
+.toc-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.toc-list a{font-size:14px;color:var(--gray);transition:color .2s;line-height:1.4}
+.toc-list a:hover,.toc-list a.active{color:var(--brand);font-weight:600}
+.tools-grid{display:flex;flex-direction:column;gap:8px}
+.tool-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray)}
+.tool-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+.content{padding:48px 0 80px 56px}
+.content-section{margin-bottom:64px;scroll-margin-top:100px}
+.section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:10px}
+.section-title{font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.01em;margin-bottom:16px}
+.section-text{font-size:16px;line-height:1.7;color:#444;margin-bottom:24px}
+.section-img{border-radius:16px;overflow:hidden;margin:24px 0;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
+.section-img img{width:100%;height:auto;display:block}
+.section-img-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.checklist li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#333;line-height:1.5}
+.check-icon{width:22px;height:22px;border-radius:50%;background:#02dc02;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.check-icon svg{width:13px;height:13px;stroke:#fff;stroke-width:2.5;fill:none}
+.process-steps{display:flex;flex-direction:column;gap:16px;margin:20px 0}
+.step{display:flex;align-items:flex-start;gap:16px}
+.step-num{width:32px;height:32px;border-radius:50%;background:#6f00ff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:1px}
+.step-title{font-size:15px;font-weight:700;margin-bottom:2px}
+.step-desc{font-size:14px;color:var(--gray);line-height:1.5}
+.fab{position:fixed;bottom:32px;right:32px;width:52px;height:52px;background:rgba(204,31,114,0.12);border-radius:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;z-index:50}
+.fab:hover{background:rgba(204,31,114,0.22)}
+.fab svg{width:20px;height:20px;stroke:var(--brand);stroke-width:2;fill:none}
+.proj-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 48px;border-top:1px solid var(--border);max-width:1200px;margin:0 auto}
+.proj-nav-link{display:flex;flex-direction:column;gap:4px}
+.proj-nav-label{font-size:12px;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.proj-nav-title{font-size:16px;font-weight:700;transition:color .2s}
+.proj-nav-link:hover .proj-nav-title{color:var(--brand)}
+.nav-lang{display:flex;gap:4px}
+.lang-btn{padding:6px 10px;border:none;background:transparent;font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;border-radius:6px;transition:all .2s;font-family:inherit}
+.lang-btn.active{color:var(--brand);background:rgba(204,31,114,0.1)}
+@media(max-width:768px){
+  .nav-inner{padding:0 20px}
+  .proj-hero{padding:40px 20px 32px}
+  .proj-body{grid-template-columns:1fr;padding:0}
+  .sidebar{position:static;height:auto;padding:24px 20px;border-right:none;border-bottom:1px solid var(--border)}
+  .toc-list{flex-direction:row;flex-wrap:wrap;gap:8px}
+  .content{padding:32px 20px 60px}
+  .proj-nav{padding:24px 20px}
+  .section-img-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <span class="t" data-en="Home" data-es="Inicio">Home</span>
+    </a>
+    <div class="nav-lang">
+      <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+    <div class="nav-logo">MONE<span>.</span></div>
+  </div>
+</nav>
+
+<section class="proj-hero">
+  <div class="proj-tags">
+    <span class="tag">📲 APPs</span>
+    <span class="tag">🧩 Workshops</span>
+  </div>
+  <p class="agency-label t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+  <h1 class="proj-title">Sports Club APP &amp; Virtual Office</h1>
+  <p class="proj-subtitle t" data-en="Digital transformation of 4 sports clubs — hybrid app + integrated virtual office with +70% retention" data-es="Transformación digital de 4 clubes deportivos — app híbrida + oficina virtual integrada con +70% de retención">Digital transformation of 4 sports clubs — hybrid app + integrated virtual office with +70% retention</p>
+</section>
+
+<div class="hero-img-wrap">
+  <img src="images/sc-hero.jpg" alt="Sports Club App Hero">
+</div>
+
+<div class="proj-body">
+  <aside class="sidebar">
+    <div>
+      <p class="toc-label t" data-en="Contents" data-es="Contenido">Contents</p>
+      <ul class="toc-list">
+        <li><a href="#challenge"><span class="t" data-en="The Challenge" data-es="El reto">The Challenge</span></a></li>
+        <li><a href="#requirements"><span class="t" data-en="Key Requirements" data-es="Requisitos clave">Key Requirements</span></a></li>
+        <li><a href="#process"><span class="t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</span></a></li>
+        <li><a href="#results"><span class="t" data-en="Results" data-es="Resultados">Results</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="toc-label t" data-en="Tools" data-es="Herramientas">Tools</p>
+      <div class="tools-grid">
+        <div class="tool-item"><div class="tool-icon" style="background:#0acf83;color:#fff">F</div> <span class="t" data-en="Figma" data-es="Figma">Figma</span></div>
+        <div class="tool-item"><div class="tool-icon" style="background:#ff6244;color:#fff">Mi</div> <span class="t" data-en="Miro" data-es="Miro">Miro</span></div>
+        <div class="tool-item"><div class="tool-icon" style="background:#ff9a00;color:#fff">Ai</div> <span class="t" data-en="Illustrator" data-es="Illustrator">Illustrator</span></div>
+        <div class="tool-item"><div class="tool-icon" style="background:#31a8ff;color:#fff">Ps</div> <span class="t" data-en="Photoshop" data-es="Photoshop">Photoshop</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <section class="content-section" id="challenge">
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
+      <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
+      <p class="section-text t" data-en="Four sports clubs each had unique requirements, yet all relied on the same outdated software. A significant percentage of their members — including older adults and non-digital users — were not using the platform. The clubs needed a modern, unified digital experience without losing club-specific identity." data-es="Cuatro clubes deportivos tenían requisitos únicos pero dependían del mismo software obsoleto. Un porcentaje significativo de sus socios — incluidos adultos mayores y usuarios no digitales — no usaba la plataforma. Los clubes necesitaban una experiencia digital moderna y unificada sin perder la identidad de cada club.">Four sports clubs each had unique requirements, yet all relied on the same outdated software. A significant percentage of their members — including older adults and non-digital users — were not using the platform. The clubs needed a modern, unified digital experience without losing club-specific identity.</p>
+      <div class="section-img"><img src="images/sc-img1.jpg" alt="Challenge" loading="lazy"></div>
+      <p class="section-text t" data-en="The project required building a hybrid iOS/Android app plus an integrated web Virtual Office — all designed for users who had never engaged with a digital platform before." data-es="El proyecto requería construir una app híbrida iOS/Android más una Oficina Virtual web integrada — todo diseñado para usuarios que nunca habían interactuado con una plataforma digital.">The project required building a hybrid iOS/Android app plus an integrated web Virtual Office — all designed for users who had never engaged with a digital platform before.</p>
+    </section>
+
+    <section class="content-section" id="requirements">
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
+      <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
+      <div class="section-img"><img src="images/sc-img2.jpg" alt="Requirements" loading="lazy"></div>
+      <ul class="checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Hybrid app (iOS &amp; Android) + integrated Virtual Office web platform" data-es="App híbrida (iOS y Android) + plataforma web de Oficina Virtual integrada">Hybrid app (iOS &amp; Android) + integrated Virtual Office web platform</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Dynamic booking system for facilities, classes, and events" data-es="Sistema de reservas dinámico para instalaciones, clases y eventos">Dynamic booking system for facilities, classes, and events</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Digital wallet with QR code access control" data-es="Monedero digital con control de acceso por código QR">Digital wallet with QR code access control</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Tournament management and push notifications" data-es="Gestión de torneos y notificaciones push">Tournament management and push notifications</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Custom UI kit per club maintaining shared system" data-es="UI kit personalizado por club sobre un sistema compartido">Custom UI kit per club maintaining shared system</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Designed for non-digital users — accessibility first" data-es="Diseñado para usuarios no digitales — accesibilidad primero">Designed for non-digital users — accessibility first</span></li>
+      </ul>
+    </section>
+
+    <section class="content-section" id="process">
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
+      <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
+      <div class="process-steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="Discovery Workshops" data-es="Workshops de Discovery (3 días con stakeholders de cada club)">Discovery Workshops</p><p class="step-desc t" data-en="3-day workshops with each club's stakeholders, members, and staff to map needs, pain points, and workflows." data-es="Mapeo de necesidades, puntos de dolor y flujos de trabajo con stakeholders, socios y personal de cada club.">3-day workshops with each club's stakeholders, members, and staff to map needs, pain points, and workflows.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="User Journey Mapping" data-es="Mapeo de Journey de Usuario (4 tipos de usuario: socios, staff, entrenadores, gestores)">User Journey Mapping</p><p class="step-desc t" data-en="Mapped end-to-end journeys for 4 distinct user types: members, admin staff, coaches, and club managers." data-es="Mapeo de journeys completos para 4 tipos de usuario distintos: socios, staff, entrenadores y gestores.">Mapped end-to-end journeys for 4 distinct user types: members, admin staff, coaches, and club managers.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><p class="step-title t" data-en="Information Architecture" data-es="Arquitectura de la Información (estructura compartida personalizable por club)">Information Architecture</p><p class="step-desc t" data-en="Designed a shared app structure that could be customised per club without duplicating dev effort." data-es="Estructura de app compartida personalizable por club sin duplicar el esfuerzo de desarrollo.">Designed a shared app structure that could be customised per club without duplicating dev effort.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Design System Creation" data-es="Creación del Design System (UI kit con tematización por club — colores, logos, iconos)">Design System Creation</p><p class="step-desc t" data-en="Built a scalable UI kit with club-specific theming — colors, logos, and icons — while sharing components." data-es="UI kit escalable con tematización por club — colores, logos e iconos — compartiendo componentes base.">Built a scalable UI kit with club-specific theming — colors, logos, and icons — while sharing components.</p></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><p class="step-title t" data-en="Prototyping &amp; Testing" data-es="Prototipado y Testing (con socios reales incluidas personas mayores)">Prototyping &amp; Testing</p><p class="step-desc t" data-en="Tested with actual club members including seniors, iterating on onboarding, booking flows, and wallet UX." data-es="Testing con socios reales incluidas personas mayores, iterando sobre onboarding, reservas y monedero.">Tested with actual club members including seniors, iterating on onboarding, booking flows, and wallet UX.</p></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="Handoff &amp; Launch Support" data-es="Handoff y soporte al lanzamiento (specs Figma, librería de componentes)">Handoff &amp; Launch Support</p><p class="step-desc t" data-en="Full dev handoff with annotated Figma specs, component library, and ongoing launch consulting." data-es="Handoff completo con specs Figma anotadas, librería de componentes y consultoría durante el lanzamiento.">Full dev handoff with annotated Figma specs, component library, and ongoing launch consulting.</p></div></div>
+      </div>
+      <div class="section-img-row">
+        <div class="section-img"><img src="images/sc-img3.jpg" alt="Process" loading="lazy"></div>
+        <div class="section-img"><img src="images/sc-img4.jpg" alt="Design" loading="lazy"></div>
+      </div>
+    </section>
+
+    <section class="content-section" id="results">
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
+      <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
+      <ul class="checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="+70% increase in app retention and active daily usage" data-es="+70% de incremento en la retención y uso diario activo de la app">+70% increase in app retention and active daily usage</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Hybrid app deployed across 4 clubs with custom theming" data-es="App híbrida desplegada en 4 clubes con tematización personalizada">Hybrid app deployed across 4 clubs with custom theming</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Virtual Office web platform successfully integrated" data-es="Plataforma web de Oficina Virtual integrada con éxito">Virtual Office web platform successfully integrated</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Digital wallet + QR access adopted by majority of members" data-es="Monedero digital + acceso QR adoptados por la mayoría de socios">Digital wallet + QR access adopted by majority of members</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Non-digital users onboarded successfully via simplified flows" data-es="Usuarios no digitales incorporados con éxito mediante flujos simplificados">Non-digital users onboarded successfully via simplified flows</span></li>
+      </ul>
+      <div class="section-img"><img src="images/sc-img5.jpg" alt="Results" loading="lazy"></div>
+    </section>
+  </main>
+</div>
+
+<div class="proj-nav">
+  <a href="index.html" class="proj-nav-link">
+    <span class="proj-nav-label t" data-en="← Back" data-es="← Volver">← Back</span>
+    <span class="proj-nav-title t" data-en="All Projects" data-es="Todos los proyectos">All Projects</span>
+  </a>
+  <a href="tracker.html" class="proj-nav-link" style="text-align:right">
+    <span class="proj-nav-label t" data-en="Next →" data-es="Siguiente →">Next →</span>
+    <span class="proj-nav-title t" data-en="Logistics APP" data-es="App Logística">Logistics APP</span>
+  </a>
+</div>
+
+<div class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</div>
+
+<script src="lang.js"></script>
+<script>
+const tl=document.querySelectorAll('.toc-list a'),sc=document.querySelectorAll('.content-section');
+sc.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){tl.forEach(l=>l.classList.remove('active'));const a=document.querySelector('.toc-list a[href="#'+en.target.id+'"]');if(a)a.classList.add('active')}})},{threshold:.3,rootMargin:'-80px 0px 0px 0px'}).observe(s));
+</script>
+</body>
+</html>

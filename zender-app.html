@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZenderBox APP — Mone Rodríguez</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;background:#fff;color:#151515;-webkit-font-smoothing:antialiased;overflow-x:hidden}a{text-decoration:none;color:inherit}img{display:block;max-width:100%}
+:root{--brand:#cc1f72;--dark:#151515;--gray:#6b7280;--border:#edf2f6}
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border)}.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;max-width:1440px;margin:0 auto}.nav-home{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--dark);transition:color .2s}.nav-home:hover{color:var(--brand)}.nav-home svg{width:18px;height:18px}.nav-logo{font-size:20px;font-weight:800;letter-spacing:-0.02em}.nav-logo span{color:var(--brand)}
+.proj-hero{padding:64px 48px 48px;max-width:900px;margin:0 auto;text-align:center}.proj-tags{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:24px}.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600;background:#f5f5f5;color:#444}.agency-label{font-size:14px;color:var(--gray);margin-bottom:8px}.proj-title{font-size:clamp(32px,4vw,56px);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:12px}.proj-subtitle{font-size:clamp(17px,1.8vw,22px);color:var(--gray);line-height:1.5;max-width:680px;margin:0 auto 28px}
+.hero-img-wrap{width:100%;max-height:600px;overflow:hidden}.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top}
+.proj-body{display:grid;grid-template-columns:240px 1fr;max-width:1200px;margin:0 auto;padding:0 48px}.sidebar{position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto;padding:48px 32px 48px 0;display:flex;flex-direction:column;gap:32px;border-right:1px solid var(--border)}.toc-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}.toc-list{list-style:none;display:flex;flex-direction:column;gap:8px}.toc-list a{font-size:14px;color:var(--gray);transition:color .2s;line-height:1.4}.toc-list a:hover,.toc-list a.active{color:var(--brand);font-weight:600}.tools-grid{display:flex;flex-direction:column;gap:8px}.tool-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray)}.tool-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+.content{padding:48px 0 80px 56px}.content-section{margin-bottom:64px;scroll-margin-top:100px}.section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:10px}.section-title{font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.01em;margin-bottom:16px}.section-text{font-size:16px;line-height:1.7;color:#444;margin-bottom:24px}.section-img{border-radius:16px;overflow:hidden;margin:24px 0;box-shadow:0 4px 24px rgba(0,0,0,0.08)}.section-img img{width:100%;height:auto;display:block}.section-img-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:12px;margin:20px 0}.checklist li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#333;line-height:1.5}.check-icon{width:22px;height:22px;border-radius:50%;background:#02dc02;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.check-icon svg{width:13px;height:13px;stroke:#fff;stroke-width:2.5;fill:none}
+.process-steps{display:flex;flex-direction:column;gap:16px;margin:20px 0}.step{display:flex;align-items:flex-start;gap:16px}.step-num{width:32px;height:32px;border-radius:50%;background:#6f00ff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:1px}.step-title{font-size:15px;font-weight:700;margin-bottom:2px}.step-desc{font-size:14px;color:var(--gray);line-height:1.5}
+.fab{position:fixed;bottom:32px;right:32px;width:52px;height:52px;background:rgba(204,31,114,0.12);border-radius:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;z-index:50}.fab:hover{background:rgba(204,31,114,0.22)}.fab svg{width:20px;height:20px;stroke:var(--brand);stroke-width:2;fill:none}
+.proj-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 48px;border-top:1px solid var(--border);max-width:1200px;margin:0 auto}.proj-nav-link{display:flex;flex-direction:column;gap:4px}.proj-nav-label{font-size:12px;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:.08em}.proj-nav-title{font-size:16px;font-weight:700;transition:color .2s}.proj-nav-link:hover .proj-nav-title{color:var(--brand)}
+@media(max-width:768px){.nav-inner,.proj-nav{padding:0 20px}.proj-hero{padding:40px 20px 32px}.proj-body{grid-template-columns:1fr;padding:0}.sidebar{position:static;height:auto;padding:24px 20px;border-right:none;border-bottom:1px solid var(--border)}.toc-list{flex-direction:row;flex-wrap:wrap;gap:8px}.content{padding:32px 20px 60px}.section-img-row{grid-template-columns:1fr}.proj-nav{padding:24px 20px}}
+.nav-lang{display:flex;gap:4px}
+.lang-btn{padding:6px 10px;border:none;background:transparent;font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;border-radius:6px;transition:all .2s;font-family:inherit}
+.lang-btn.active{color:var(--brand);background:rgba(204,31,114,0.1)}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="index.html" class="nav-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg><span class="t" data-en="Home" data-es="Inicio">Home</span></a>
+  <div class="nav-lang">
+    <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+  </div>
+  <div class="nav-logo">MONE<span>.</span></div>
+</div></nav>
+
+<section class="proj-hero">
+  <div class="proj-tags"><span class="tag t" data-en="🎯 UX Consulting" data-es="🎯 UX Consulting">🎯 UX Consulting</span><span class="tag t" data-en="📲 APPs" data-es="📲 APPs">📲 APPs</span><span class="tag t" data-en="🌟 Branding" data-es="🌟 Branding">🌟 Branding</span></div>
+  <p class="agency-label t" data-en="Independent project · Freelance" data-es="Proyecto independiente · Freelance">Independent project · Freelance</p>
+  <h1 class="proj-title">ZenderBox APP</h1>
+  <p class="proj-subtitle t" data-en="Redesigning Logistics Through Clarity — a complete iOS &amp; Android redesign without touching the underlying codebase" data-es="Rediseño de la logística a través de la claridad — rediseño completo iOS y Android sin tocar el código base existente">Redesigning Logistics Through Clarity — a complete iOS &amp; Android redesign without touching the underlying codebase</p>
+</section>
+
+<div class="hero-img-wrap"><img src="images/tr-hero.jpg" alt="ZenderBox App Hero"></div>
+
+<div class="proj-body">
+  <aside class="sidebar">
+    <div>
+      <p class="toc-label t" data-en="Contents" data-es="Contenido">Contents</p>
+      <ul class="toc-list">
+        <li><a href="#challenge"><span class="t" data-en="The Challenge" data-es="El reto">The Challenge</span></a></li>
+        <li><a href="#requirements"><span class="t" data-en="Key Requirements" data-es="Requisitos clave">Key Requirements</span></a></li>
+        <li><a href="#process"><span class="t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</span></a></li>
+        <li><a href="#results"><span class="t" data-en="Results" data-es="Resultados">Results</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="toc-label t" data-en="Tools" data-es="Herramientas">Tools</p>
+      <div class="tools-grid">
+        <div class="tool-item"><div class="tool-icon" style="background:#0acf83;color:#fff">F</div> Figma</div>
+        <div class="tool-item"><div class="tool-icon" style="background:#31a8ff;color:#fff">Ps</div> Photoshop</div>
+        <div class="tool-item"><div class="tool-icon" style="background:#ff9a00;color:#fff">Ai</div> Illustrator</div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <section class="content-section" id="challenge">
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
+      <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
+      <p class="section-text t" data-en="ZenderBox is an international locker service operating across Latin America. The existing app had an outdated visual identity, unclear navigation, and poor information hierarchy — yet a full rebuild wasn't an option. The redesign had to stay within the existing technical architecture without adding complexity to the codebase." data-es="ZenderBox es un servicio internacional de casilleros en Latinoamérica. La app existente tenía una identidad visual obsoleta, navegación poco clara y jerarquía de información deficiente — pero una reconstrucción completa no era una opción. El rediseño debía mantenerse dentro de la arquitectura técnica existente sin añadir complejidad al código.">ZenderBox is an international locker service operating across Latin America. The existing app had an outdated visual identity, unclear navigation, and poor information hierarchy — yet a full rebuild wasn't an option. The redesign had to stay within the existing technical architecture without adding complexity to the codebase.</p>
+      <div class="section-img-row">
+        <div class="section-img"><img src="images/tr-img1.jpg" alt="Before" loading="lazy"></div>
+        <div class="section-img"><img src="images/tr-img2.jpg" alt="Problems" loading="lazy"></div>
+      </div>
+      <p class="section-text t" data-en="The core constraint: deliver a modern, intuitive app that feels completely new — without modifying the underlying architecture. Every design decision had to be technically feasible within the existing system." data-es="La restricción principal: entregar una app moderna e intuitiva que se sienta completamente nueva — sin modificar la arquitectura subyacente. Cada decisión de diseño tenía que ser técnicamente viable dentro del sistema existente.">The core constraint: deliver a modern, intuitive app that feels completely new — without modifying the underlying architecture. Every design decision had to be technically feasible within the existing system.</p>
+    </section>
+
+    <section class="content-section" id="requirements">
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
+      <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
+      <div class="section-img"><img src="images/tr-img3.jpg" alt="Requirements" loading="lazy"></div>
+      <ul class="checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Modern visual identity aligned with ZenderBox brand evolution" data-es="Identidad visual moderna alineada con la evolución de la marca ZenderBox">Modern visual identity aligned with ZenderBox brand evolution</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Technically feasible redesign within existing code architecture" data-es="Rediseño técnicamente viable dentro de la arquitectura de código existente">Technically feasible redesign within existing code architecture</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Improved UX structure with clearer navigation and hierarchy" data-es="Estructura UX mejorada con navegación y jerarquía más claras">Improved UX structure with clearer navigation and hierarchy</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Scalable design system with semantic tokens" data-es="Sistema de diseño escalable con tokens semánticos">Scalable design system with semantic tokens</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Visual status signalling system for package states" data-es="Sistema de señalización visual para estados de paquete">Visual status signalling system for package states</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Faster user comprehension of package status and actions" data-es="Comprensión más rápida del estado y acciones disponibles">Faster user comprehension of package status and actions</span></li>
+      </ul>
+    </section>
+
+    <section class="content-section" id="process">
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
+      <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
+      <div class="process-steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="UX/UI Audit" data-es="Auditoría UX/UI">UX/UI Audit</p><p class="step-desc t" data-en="Comprehensive heuristic evaluation of the existing app — identified navigation issues, hierarchy problems, and usability gaps." data-es="Auditoría UX/UI (evaluación heurística completa — navegación, jerarquía, usabilidad)">Comprehensive heuristic evaluation of the existing app — identified navigation issues, hierarchy problems, and usability gaps.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="Structural Reorganisation" data-es="Reorganización estructural">Structural Reorganisation</p><p class="step-desc t" data-en="Redesigned the information architecture: renamed sections, regrouped features, and simplified the tab bar navigation." data-es="Reorganización estructural (IA rediseñada: secciones renombradas, funcionalidades reagrupadas, tab bar simplificado)">Redesigned the information architecture: renamed sections, regrouped features, and simplified the tab bar navigation.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><p class="step-title t" data-en="Naming &amp; Content Strategy" data-es="Estrategia de nomenclatura y contenido">Naming &amp; Content Strategy</p><p class="step-desc t" data-en="Rewrote all microcopy, labels, and section names to be clear, consistent, and user-centric." data-es="Estrategia de nomenclatura y contenido (microcopy, etiquetas y nombres de sección reescritos)">Rewrote all microcopy, labels, and section names to be clear, consistent, and user-centric.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Design System Creation" data-es="Creación del Design System">Design System Creation</p><p class="step-desc t" data-en="Built a new mobile-only design system (Plus Jakarta Sans, semantic color tokens, 430px canvas) compatible with existing tech." data-es="Creación del Design System (nuevo sistema solo para mobile: Plus Jakarta Sans, tokens semánticos, canvas 430px)">Built a new mobile-only design system (Plus Jakarta Sans, semantic color tokens, 430px canvas) compatible with existing tech.</p></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><p class="step-title t" data-en="Visual Hierarchy &amp; Signalling" data-es="Jerarquía visual y señalización">Visual Hierarchy &amp; Signalling</p><p class="step-desc t" data-en="Designed a color-coded package state system: En tienda · En bodega · Despachado · En camino · Entregado." data-es="Jerarquía visual y señalización (sistema de estados de paquete codificado por color)">Designed a color-coded package state system: En tienda · En bodega · Despachado · En camino · Entregado.</p></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="Branding &amp; Market Readiness" data-es="Identidad de marca y posicionamiento">Branding &amp; Market Readiness</p><p class="step-desc t" data-en="Updated the visual language to position ZenderBox competitively in its markets with a fresh, trustworthy identity." data-es="Identidad de marca y posicionamiento (lenguaje visual actualizado para competir en sus mercados)">Updated the visual language to position ZenderBox competitively in its markets with a fresh, trustworthy identity.</p></div></div>
+      </div>
+      <div class="section-img"><img src="images/tr-img4.jpg" alt="Process" loading="lazy"></div>
+    </section>
+
+    <section class="content-section" id="results">
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
+      <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
+      <ul class="checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Fully redesigned app — modern, intuitive, and brand-aligned" data-es="App completamente rediseñada — moderna, intuitiva y alineada con la marca">Fully redesigned app — modern, intuitive, and brand-aligned</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="New design system with semantic tokens ready for development" data-es="Nuevo sistema de diseño con tokens semánticos listo para desarrollo">New design system with semantic tokens ready for development</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Improved navigation reducing user confusion and drop-off" data-es="Navegación mejorada reduciendo confusión y abandono">Improved navigation reducing user confusion and drop-off</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Clear visual package state signalling understood at a glance" data-es="Señalización visual clara de estados de paquete comprensible de un vistazo">Clear visual package state signalling understood at a glance</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Stronger product experience without architectural changes" data-es="Mejor experiencia de producto sin cambios en la arquitectura">Stronger product experience without architectural changes</span></li>
+      </ul>
+      <div class="section-img"><img src="images/tr-img5.jpg" alt="Results" loading="lazy"></div>
+    </section>
+  </main>
+</div>
+
+<div class="proj-nav">
+  <a href="alphabet.html" class="proj-nav-link"><span class="proj-nav-label t" data-en="← Previous" data-es="← Anterior">← Previous</span><span class="proj-nav-title t" data-en="Renting Solutions" data-es="Soluciones de Renting">Renting Solutions</span></a>
+  <a href="trina-solar.html" class="proj-nav-link" style="text-align:right"><span class="proj-nav-label t" data-en="Next →" data-es="Siguiente →">Next →</span><span class="proj-nav-title t" data-en="Interactive Solar Plant" data-es="Planta Solar Interactiva">Interactive Solar Plant</span></a>
+</div>
+
+<div class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div>
+<script src="lang.js"></script>
+<script>
+const tl=document.querySelectorAll('.toc-list a'),sc=document.querySelectorAll('.content-section');
+sc.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){tl.forEach(l=>l.classList.remove('active'));const a=document.querySelector('.toc-list a[href="#'+en.target.id+'"]');if(a)a.classList.add('active')}})},{threshold:.3,rootMargin:'-80px 0px 0px 0px'}).observe(s));
+</script>
+</body>
+</html>

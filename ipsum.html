@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPSUM Agency — Mone Rodríguez</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;background:#fff;color:#151515;-webkit-font-smoothing:antialiased;overflow-x:hidden}a{text-decoration:none;color:inherit}img{display:block;max-width:100%}
+:root{--brand:#cc1f72;--dark:#151515;--gray:#6b7280;--border:#edf2f6}
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border)}.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;max-width:1440px;margin:0 auto}.nav-home{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--dark);transition:color .2s}.nav-home:hover{color:var(--brand)}.nav-home svg{width:18px;height:18px}.nav-logo{font-size:20px;font-weight:800;letter-spacing:-0.02em}.nav-logo span{color:var(--brand)}
+.proj-hero{padding:64px 48px 48px;max-width:900px;margin:0 auto;text-align:center}.proj-tags{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:24px}.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600;background:#f5f5f5;color:#444}.agency-label{font-size:14px;color:var(--gray);margin-bottom:8px}.proj-title{font-size:clamp(32px,4vw,56px);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:12px}.proj-subtitle{font-size:clamp(17px,1.8vw,22px);color:var(--gray);line-height:1.5;max-width:680px;margin:0 auto 28px}
+.hero-img-wrap{width:100%;max-height:600px;overflow:hidden}.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top}
+.proj-body{display:grid;grid-template-columns:240px 1fr;max-width:1200px;margin:0 auto;padding:0 48px}.sidebar{position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto;padding:48px 32px 48px 0;display:flex;flex-direction:column;gap:32px;border-right:1px solid var(--border)}.toc-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}.toc-list{list-style:none;display:flex;flex-direction:column;gap:8px}.toc-list a{font-size:14px;color:var(--gray);transition:color .2s;line-height:1.4}.toc-list a:hover,.toc-list a.active{color:var(--brand);font-weight:600}.tools-grid{display:flex;flex-direction:column;gap:8px}.tool-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray)}.tool-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+.content{padding:48px 0 80px 56px}.content-section{margin-bottom:64px;scroll-margin-top:100px}.section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:10px}.section-title{font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.01em;margin-bottom:16px}.section-text{font-size:16px;line-height:1.7;color:#444;margin-bottom:24px}.section-img{border-radius:16px;overflow:hidden;margin:24px 0;box-shadow:0 4px 24px rgba(0,0,0,0.08)}.section-img img{width:100%;height:auto;display:block}.section-img-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.fab{position:fixed;bottom:32px;right:32px;width:52px;height:52px;background:rgba(204,31,114,0.12);border-radius:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;z-index:50}.fab:hover{background:rgba(204,31,114,0.22)}.fab svg{width:20px;height:20px;stroke:var(--brand);stroke-width:2;fill:none}
+.proj-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 48px;border-top:1px solid var(--border);max-width:1200px;margin:0 auto}.proj-nav-link{display:flex;flex-direction:column;gap:4px}.proj-nav-label{font-size:12px;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:.08em}.proj-nav-title{font-size:16px;font-weight:700;transition:color .2s}.proj-nav-link:hover .proj-nav-title{color:var(--brand)}
+@media(max-width:768px){.nav-inner,.proj-nav{padding:0 20px}.proj-hero{padding:40px 20px 32px}.proj-body{grid-template-columns:1fr;padding:0}.sidebar{position:static;height:auto;padding:24px 20px;border-right:none;border-bottom:1px solid var(--border)}.toc-list{flex-direction:row;flex-wrap:wrap;gap:8px}.content{padding:32px 20px 60px}.section-img-row{grid-template-columns:1fr}.proj-nav{padding:24px 20px}}
+.nav-lang{display:flex;gap:4px}
+.lang-btn{padding:6px 10px;border:none;background:transparent;font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;border-radius:6px;transition:all .2s;font-family:inherit}
+.lang-btn.active{color:var(--brand);background:rgba(204,31,114,0.1)}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="index.html" class="nav-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg><span class="t" data-en="Home" data-es="Inicio">Home</span></a>
+  <div class="nav-lang">
+    <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+  </div>
+  <div class="nav-logo">MONE<span>.</span></div>
+</div></nav>
+
+<section class="proj-hero">
+  <div class="proj-tags"><span class="tag">🌟 Branding</span></div>
+  <p class="agency-label t" data-en="Freelance work" data-es="Proyecto Freelance">Freelance work</p>
+  <h1 class="proj-title">IPSUM — Agency</h1>
+  <p class="proj-subtitle t" data-en="Building a bold &amp; digital-first identity for a marketing startup — a complete brand from scratch with no room for compromise" data-es="Construyendo una identidad audaz y digital-first para una startup de marketing — una marca completa desde cero sin margen para el compromiso">Building a bold &amp; digital-first identity for a marketing startup — a complete brand from scratch with no room for compromise</p>
+</section>
+
+<div class="hero-img-wrap">
+  <img src="images/ipsum-hero.jpg" alt="IPSUM Agency Hero">
+</div>
+
+<div class="proj-body">
+  <aside class="sidebar">
+    <div>
+      <p class="toc-label t" data-en="Contents" data-es="Contenido">Contents</p>
+      <ul class="toc-list">
+        <li><a href="#brand"><span class="t" data-en="The Brand" data-es="La marca">The Brand</span></a></li>
+        <li><a href="#results"><span class="t" data-en="Results &amp; Impact" data-es="Resultados e impacto">Results &amp; Impact</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="toc-label t" data-en="Tools" data-es="Herramientas">Tools</p>
+      <div class="tools-grid">
+        <div class="tool-item"><div class="tool-icon" style="background:#ff9a00;color:#fff">Ai</div> Illustrator</div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <section class="content-section" id="brand">
+      <p class="section-label t" data-en="01 — Brand" data-es="01 — Marca">01 — Brand</p>
+      <h2 class="section-title t" data-en="Crafting a Distinctive &amp; Scalable Brand" data-es="Creando una marca distintiva y escalable">Crafting a Distinctive &amp; Scalable Brand</h2>
+      <p class="section-text t" data-en="A newly founded digital marketing agency, Ipsum, approached me with a clear vision — to establish a strong brand presence that would position them as a premium player in the market from day one. The agency needed an identity that felt confident, cutting-edge, and entirely ownable in a crowded digital landscape." data-es="Ipsum, una agencia de marketing digital recién fundada, me contactó con una visión clara — establecer una fuerte presencia de marca que los posicionara como referente premium en el mercado desde el primer día. La agencia necesitaba una identidad que transmitiera confianza, vanguardia y total propiedad en un panorama digital muy competitivo.">A newly founded digital marketing agency, Ipsum, approached me with a clear vision — to establish a strong brand presence that would position them as a premium player in the market from day one. The agency needed an identity that felt confident, cutting-edge, and entirely ownable in a crowded digital landscape.</p>
+      <p class="section-text t" data-en="The design direction drew from the digital landscape itself: grid structures, UI-inspired geometric accents, and a typography-first approach that turned the brand name into a visual asset. Every element was designed to scale — from business cards to large-format campaigns." data-es="La dirección creativa bebió del propio paisaje digital: estructuras de cuadrícula, acentos geométricos inspirados en UI y un enfoque tipográfico que convirtió el nombre de la marca en un activo visual. Cada elemento fue diseñado para escalar — desde tarjetas de visita hasta campañas de gran formato.">The design direction drew from the digital landscape itself: grid structures, UI-inspired geometric accents, and a typography-first approach that turned the brand name into a visual asset. Every element was designed to scale — from business cards to large-format campaigns.</p>
+      <div class="section-img-row">
+        <div class="section-img"><img src="images/ipsum-img1.jpg" alt="Logo system" loading="lazy"></div>
+        <div class="section-img"><img src="images/ipsum-img2.jpg" alt="Color palette" loading="lazy"></div>
+      </div>
+      <div class="section-img-row">
+        <div class="section-img"><img src="images/ipsum-img3.jpg" alt="Typography" loading="lazy"></div>
+        <div class="section-img"><img src="images/ipsum-img4.jpg" alt="Brand elements" loading="lazy"></div>
+      </div>
+    </section>
+
+    <section class="content-section" id="results">
+      <p class="section-label t" data-en="02 — Results &amp; Impact" data-es="02 — Resultados e impacto">02 — Results &amp; Impact</p>
+      <h2 class="section-title t" data-en="Positioned to Win" data-es="Posicionada para ganar">Positioned to Win</h2>
+      <p class="section-text t" data-en="The resulting brand positioned IPSUM as a cutting-edge, premium agency — not a startup trying to look established, but a confident new voice with a clear point of view. The identity provided a solid foundation for all future marketing, digital, and client-facing materials." data-es="La marca resultante posicionó a IPSUM como una agencia premium de vanguardia — no una startup intentando parecer consolidada, sino una nueva voz segura con un punto de vista claro. La identidad proporcionó una base sólida para todos los materiales futuros de marketing, digitales y de cara al cliente.">The resulting brand positioned IPSUM as a cutting-edge, premium agency — not a startup trying to look established, but a confident new voice with a clear point of view. The identity provided a solid foundation for all future marketing, digital, and client-facing materials.</p>
+      <div class="section-img-row">
+        <div class="section-img"><img src="images/ipsum-img5.jpg" alt="Brand in use" loading="lazy"></div>
+        <div class="section-img"><img src="images/ipsum-img6.jpg" alt="Applications" loading="lazy"></div>
+      </div>
+      <div class="section-img"><img src="images/ipsum-img7.jpg" alt="Final brand system" loading="lazy"></div>
+    </section>
+  </main>
+</div>
+
+<div class="proj-nav">
+  <a href="vmg.html" class="proj-nav-link"><span class="proj-nav-label t" data-en="← Previous" data-es="← Anterior">← Previous</span><span class="proj-nav-title t" data-en="Branding for VMG" data-es="Branding para VMG">Branding for VMG</span></a>
+  <a href="index.html" class="proj-nav-link" style="text-align:right"><span class="proj-nav-label t" data-en="↩ Back to" data-es="↩ Volver a">↩ Back to</span><span class="proj-nav-title t" data-en="All Projects" data-es="Todos los proyectos">All Projects</span></a>
+</div>
+
+<div class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div>
+<script src="lang.js"></script>
+<script>
+const tl=document.querySelectorAll('.toc-list a'),sc=document.querySelectorAll('.content-section');
+sc.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){tl.forEach(l=>l.classList.remove('active'));const a=document.querySelector('.toc-list a[href="#'+en.target.id+'"]');if(a)a.classList.add('active')}})},{threshold:.3,rootMargin:'-80px 0px 0px 0px'}).observe(s));
+</script>
+</body>
+</html>

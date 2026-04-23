@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trina Solar — Mone Rodríguez</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;background:#fff;color:#151515;-webkit-font-smoothing:antialiased;overflow-x:hidden}a{text-decoration:none;color:inherit}img{display:block;max-width:100%}
+:root{--brand:#cc1f72;--dark:#151515;--gray:#6b7280;--border:#edf2f6}
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border)}.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;max-width:1440px;margin:0 auto}.nav-home{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--dark);transition:color .2s}.nav-home:hover{color:var(--brand)}.nav-home svg{width:18px;height:18px}.nav-logo{font-size:20px;font-weight:800;letter-spacing:-0.02em}.nav-logo span{color:var(--brand)}
+.proj-hero{padding:64px 48px 48px;max-width:900px;margin:0 auto;text-align:center}.proj-tags{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:24px}.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600;background:#f5f5f5;color:#444}.proj-title{font-size:clamp(32px,4vw,56px);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:12px}.proj-subtitle{font-size:clamp(17px,1.8vw,22px);color:var(--gray);line-height:1.5;max-width:680px;margin:0 auto 28px}.btn-site{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--brand);color:#fff;border-radius:100px;font-size:15px;font-weight:700;transition:opacity .2s}.btn-site:hover{opacity:.85}
+.hero-img-wrap{width:100%;max-height:600px;overflow:hidden}.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top}
+.proj-body{display:grid;grid-template-columns:240px 1fr;max-width:1200px;margin:0 auto;padding:0 48px}.sidebar{position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto;padding:48px 32px 48px 0;display:flex;flex-direction:column;gap:32px;border-right:1px solid var(--border)}.toc-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}.toc-list{list-style:none;display:flex;flex-direction:column;gap:8px}.toc-list a{font-size:14px;color:var(--gray);transition:color .2s;line-height:1.4}.toc-list a:hover,.toc-list a.active{color:var(--brand);font-weight:600}.tools-grid{display:flex;flex-direction:column;gap:8px}.tool-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray)}.tool-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+.content{padding:48px 0 80px 56px}.content-section{margin-bottom:64px;scroll-margin-top:100px}.section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:10px}.section-title{font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.01em;margin-bottom:16px}.section-text{font-size:16px;line-height:1.7;color:#444;margin-bottom:24px}.section-img{border-radius:16px;overflow:hidden;margin:24px 0;box-shadow:0 4px 24px rgba(0,0,0,0.08)}.section-img img{width:100%;height:auto;display:block}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:12px;margin:20px 0}.checklist li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#333;line-height:1.5}.check-icon{width:22px;height:22px;border-radius:50%;background:#02dc02;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.check-icon svg{width:13px;height:13px;stroke:#fff;stroke-width:2.5;fill:none}
+.process-steps{display:flex;flex-direction:column;gap:16px;margin:20px 0}.step{display:flex;align-items:flex-start;gap:16px}.step-num{width:32px;height:32px;border-radius:50%;background:#6f00ff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:1px}.step-title{font-size:15px;font-weight:700;margin-bottom:2px}.step-desc{font-size:14px;color:var(--gray);line-height:1.5}
+.fab{position:fixed;bottom:32px;right:32px;width:52px;height:52px;background:rgba(204,31,114,0.12);border-radius:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;z-index:50}.fab:hover{background:rgba(204,31,114,0.22)}.fab svg{width:20px;height:20px;stroke:var(--brand);stroke-width:2;fill:none}
+.proj-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 48px;border-top:1px solid var(--border);max-width:1200px;margin:0 auto}.proj-nav-link{display:flex;flex-direction:column;gap:4px}.proj-nav-label{font-size:12px;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:.08em}.proj-nav-title{font-size:16px;font-weight:700;transition:color .2s}.proj-nav-link:hover .proj-nav-title{color:var(--brand)}
+@media(max-width:768px){.nav-inner,.proj-nav{padding:0 20px}.proj-hero{padding:40px 20px 32px}.proj-body{grid-template-columns:1fr;padding:0}.sidebar{position:static;height:auto;padding:24px 20px;border-right:none;border-bottom:1px solid var(--border)}.toc-list{flex-direction:row;flex-wrap:wrap;gap:8px}.content{padding:32px 20px 60px}.proj-nav{padding:24px 20px}}
+.nav-lang{display:flex;gap:4px}
+.lang-btn{padding:6px 10px;border:none;background:transparent;font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;border-radius:6px;transition:all .2s;font-family:inherit}
+.lang-btn.active{color:var(--brand);background:rgba(204,31,114,0.1)}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="index.html" class="nav-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg><span class="t" data-en="Home" data-es="Inicio">Home</span></a>
+  <div class="nav-lang">
+    <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+  </div>
+  <div class="nav-logo">MONE<span>.</span></div>
+</div></nav>
+
+<section class="proj-hero">
+  <div class="proj-tags"><span class="tag t" data-en="🎯 UX Consulting" data-es="🎯 UX Consulting">🎯 UX Consulting</span><span class="tag t" data-en="🖥️ Web" data-es="🖥️ Web">🖥️ Web</span></div>
+  <h1 class="proj-title">Interactive Solar Plant</h1>
+  <p class="proj-subtitle t" data-en="Revolutionising solar plant design with a real-time interactive web configurator — built from scratch with 3D integration" data-es="Revolucionando el diseño de plantas solares con un configurador web interactivo en tiempo real — construido desde cero con integración 3D">Revolutionising solar plant design with a real-time interactive web configurator — built from scratch with 3D integration</p>
+  <a href="https://interactivepvplant.trinasolar.com/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a>
+</section>
+
+<div class="hero-img-wrap"><img src="images/ts-hero.jpg" alt="Trina Solar Hero"></div>
+
+<div class="proj-body">
+  <aside class="sidebar">
+    <div>
+      <p class="toc-label t" data-en="Contents" data-es="Contenido">Contents</p>
+      <ul class="toc-list">
+        <li><a href="#challenge"><span class="t" data-en="The Challenge" data-es="El reto">The Challenge</span></a></li>
+        <li><a href="#requirements"><span class="t" data-en="Key Requirements" data-es="Requisitos clave">Key Requirements</span></a></li>
+        <li><a href="#process"><span class="t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</span></a></li>
+        <li><a href="#results"><span class="t" data-en="Results" data-es="Resultados">Results</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="toc-label t" data-en="Tools" data-es="Herramientas">Tools</p>
+      <div class="tools-grid">
+        <div class="tool-item"><div class="tool-icon" style="background:#0acf83;color:#fff">F</div> Figma</div>
+        <div class="tool-item"><div class="tool-icon" style="background:#31a8ff;color:#fff">Ps</div> Photoshop</div>
+        <div class="tool-item"><div class="tool-icon" style="background:#ff9a00;color:#fff">Ai</div> Illustrator</div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <section class="content-section" id="challenge">
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
+      <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
+      <p class="section-text t" data-en="Trina Solar, a global leader in solar energy, needed an interactive web platform that would allow engineers and buyers to design custom solar plants in real time. Budget constraints meant the configurator had to be built from scratch — no off-the-shelf solution could meet their requirements." data-es="Trina Solar, líder mundial en energía solar, necesitaba una plataforma web interactiva para que ingenieros y compradores pudieran diseñar plantas solares personalizadas en tiempo real. Las restricciones presupuestarias significaban que el configurador tenía que construirse desde cero.">Trina Solar, a global leader in solar energy, needed an interactive web platform that would allow engineers and buyers to design custom solar plants in real time. Budget constraints meant the configurator had to be built from scratch — no off-the-shelf solution could meet their requirements.</p>
+      <div class="section-img"><img src="images/ts-img1.jpg" alt="Challenge" loading="lazy"></div>
+      <p class="section-text t" data-en="The platform required 3D model integration, terrain adaptation across multiple surface types, real-time inventory selection, configuration saving, and PDF report generation — all within a web browser, accessible to both technical and non-technical users." data-es="La plataforma requería integración de modelos 3D, adaptación a distintos tipos de terreno, selección de inventario en tiempo real, guardado de configuraciones y generación de informes PDF — todo en el navegador, accesible para usuarios técnicos y no técnicos.">The platform required 3D model integration, terrain adaptation across multiple surface types, real-time inventory selection, configuration saving, and PDF report generation — all within a web browser, accessible to both technical and non-technical users.</p>
+    </section>
+
+    <section class="content-section" id="requirements">
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
+      <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
+      <div class="section-img"><img src="images/ts-img2.jpg" alt="Requirements" loading="lazy"></div>
+      <ul class="checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Fully interactive solar plant configurator in the browser" data-es="Configurador solar completamente interactivo en el navegador">Fully interactive solar plant configurator in the browser</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Terrain adaptation across flat, hillside, and rooftop surfaces" data-es="Adaptación a distintos tipos de terreno (plano, ladera, tejado)">Terrain adaptation across flat, hillside, and rooftop surfaces</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Real-time configuration with inventory selection" data-es="Configuración en tiempo real con selección de inventario">Real-time configuration with inventory selection</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Save configurations and export detailed PDF reports" data-es="Guardar configuraciones y exportar informes PDF detallados">Save configurations and export detailed PDF reports</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Modular and scalable design system" data-es="Sistema de diseño modular y escalable">Modular and scalable design system</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="3D model integration for visual plant representation" data-es="Integración de modelos 3D para representación visual de la planta">3D model integration for visual plant representation</span></li>
+      </ul>
+    </section>
+
+    <section class="content-section" id="process">
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
+      <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
+      <div class="process-steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="Research &amp; Analysis" data-es="Investigación y análisis">Research &amp; Analysis</p><p class="step-desc t" data-en="Studied solar plant engineering workflows, user profiles (engineers, procurement, sales), and competitive landscape." data-es="Investigación y análisis (workflows de ingeniería solar, perfiles de usuario, análisis competitivo)">Studied solar plant engineering workflows, user profiles (engineers, procurement, sales), and competitive landscape.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="Concept &amp; Wireframing" data-es="Concepto y wireframing">Concept &amp; Wireframing</p><p class="step-desc t" data-en="Defined the configurator interaction model — panel placement, terrain selection, inventory sidebar — through low-fi wireframes." data-es="Concepto y wireframing (modelo de interacción del configurador: colocación de paneles, selección de terreno, barra lateral de inventario)">Defined the configurator interaction model — panel placement, terrain selection, inventory sidebar — through low-fi wireframes.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><p class="step-title t" data-en="Prototyping &amp; UI Design" data-es="Prototipado y diseño UI">Prototyping &amp; UI Design</p><p class="step-desc t" data-en="High-fidelity interactive prototypes simulating the real-time configurator experience, tested with solar engineers." data-es="Prototipado y diseño UI (prototipos interactivos de alta fidelidad, testing con ingenieros solares)">High-fidelity interactive prototypes simulating the real-time configurator experience, tested with solar engineers.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Design System" data-es="Design System">Design System</p><p class="step-desc t" data-en="Built a modular design system aligned with Trina Solar's brand — controls, panels, status indicators, and data tables." data-es="Design System (sistema modular alineado con la marca Trina Solar)">Built a modular design system aligned with Trina Solar's brand — controls, panels, status indicators, and data tables.</p></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><p class="step-title t" data-en="Usability Testing" data-es="Tests de usabilidad">Usability Testing</p><p class="step-desc t" data-en="Tested with engineers and non-technical buyers, iterating on the configuration flow and PDF output format." data-es="Tests de usabilidad (con ingenieros y compradores no técnicos, iterando en flujos y PDFs)">Tested with engineers and non-technical buyers, iterating on the configuration flow and PDF output format.</p></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="Final Implementation" data-es="Implementación final">Final Implementation</p><p class="step-desc t" data-en="Full handoff with detailed specs for 3D integration, interaction states, and responsive breakpoints." data-es="Implementación final (handoff con specs para integración 3D, estados de interacción y breakpoints)">Full handoff with detailed specs for 3D integration, interaction states, and responsive breakpoints.</p></div></div>
+      </div>
+      <div class="section-img"><img src="images/ts-img3.jpg" alt="Process" loading="lazy"></div>
+    </section>
+
+    <section class="content-section" id="results">
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
+      <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
+      <ul class="checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Fully interactive configurator live at trinasolar.com" data-es="Configurador completamente interactivo en producción en trinasolar.com">Fully interactive configurator live at trinasolar.com</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Terrain adaptation across multiple surface types" data-es="Adaptación a distintos tipos de terreno">Terrain adaptation across multiple surface types</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Modular design system reused across product pages" data-es="Sistema de diseño modular reutilizado en páginas de producto">Modular design system reused across product pages</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Dynamic configuration with real-time inventory updates" data-es="Configuración dinámica con actualizaciones de inventario en tiempo real">Dynamic configuration with real-time inventory updates</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Exportable PDF reports used by sales and engineering teams" data-es="Informes PDF exportables utilizados por equipos de ventas e ingeniería">Exportable PDF reports used by sales and engineering teams</span></li>
+      </ul>
+      <div class="section-img"><img src="images/ts-img4.jpg" alt="Results" loading="lazy"></div>
+      <div class="section-img"><img src="images/ts-img5.jpg" alt="Live platform" loading="lazy"></div>
+      <div style="margin-top:24px"><a href="https://interactivepvplant.trinasolar.com/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a></div>
+    </section>
+  </main>
+</div>
+
+<div class="proj-nav">
+  <a href="zender-app.html" class="proj-nav-link"><span class="proj-nav-label t" data-en="← Previous" data-es="← Anterior">← Previous</span><span class="proj-nav-title">ZenderBox APP</span></a>
+  <a href="global.html" class="proj-nav-link" style="text-align:right"><span class="proj-nav-label t" data-en="Next →" data-es="Siguiente →">Next →</span><span class="proj-nav-title">Global Cover Solutions</span></a>
+</div>
+
+<div class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div>
+<script src="lang.js"></script>
+<script>
+const tl=document.querySelectorAll('.toc-list a'),sc=document.querySelectorAll('.content-section');
+sc.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){tl.forEach(l=>l.classList.remove('active'));const a=document.querySelector('.toc-list a[href="#'+en.target.id+'"]');if(a)a.classList.add('active')}})},{threshold:.3,rootMargin:'-80px 0px 0px 0px'}).observe(s));
+</script>
+</body>
+</html>

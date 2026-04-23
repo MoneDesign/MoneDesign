@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mone Rodríguez — UX Strategist & Designer</title>
+<meta name="description" content="Senior Product Designer & UX Strategist with 12+ years of experience designing digital products that move metrics.">
+
+<style>
+/* ─── RESET ───────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+  background: #fff;
+  color: #151515;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+/* ─── VARIABLES ───────────────────────────────────────── */
+:root {
+  --brand:      #cc1f72;
+  --brand-15:   #f7ddea;
+  --dark:       #151515;
+  --dark2:      #1e1e1e;
+  --gray:       #8c8c91;
+  --gray2:      #a0aec0;
+  --gray-light: #f5f5f5;
+  --border:     #edf2f6;
+  --radius:     12px;
+  --pad:        80px;
+  --transition: 220ms ease;
+}
+
+/* ─── NAV ─────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition);
+}
+.nav.scrolled { border-color: var(--border); }
+
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--pad);
+  height: 79px;
+  max-width: 1440px; margin: 0 auto;
+}
+
+.nav-logo img { height: 24px; width: auto; }
+
+.lang-switcher {
+  display: flex; align-items: center;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 10px;
+  box-shadow: 0 0 25px rgba(173,170,194,0.18);
+  gap: 4px;
+}
+.lang-btn {
+  padding: 8px 16px; border-radius: 100px;
+  font-size: 15px; cursor: pointer;
+  border: none; background: transparent;
+  font-family: inherit; transition: all var(--transition);
+  font-weight: 500; color: var(--gray); line-height: 1;
+}
+.lang-btn.active {
+  background: var(--brand); color: #fff; font-weight: 700;
+}
+
+/* ─── HERO ────────────────────────────────────────────── */
+.hero {
+  display: flex; align-items: center; gap: 24px;
+  padding: 48px var(--pad);
+  max-width: 1440px; margin: 0 auto;
+  min-height: calc(100vh - 79px - 67px);
+}
+
+.hero-photo-wrap {
+  flex-shrink: 0;
+  width: 317px; height: 359px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.hero-photo-card {
+  width: 359px; height: 317px;
+  border-radius: 12px;
+  overflow: hidden;
+  transform: rotate(90deg) scaleY(-1);
+  transform-origin: center center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+
+.hero-photo-card img {
+  width: 100%; height: 100%; object-fit: cover; object-position: top center;
+}
+
+.hero-content {
+  flex: 1; display: flex; flex-direction: column; gap: 23px;
+  padding-right: 139px;
+}
+
+.hero-byline {
+  font-size: 23px; line-height: 1.3;
+  color: var(--gray);
+}
+.hero-byline strong {
+  font-weight: 700; color: var(--brand);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+}
+
+.hero-headline {
+  font-size: clamp(36px, 3.8vw, 55px);
+  font-weight: 700;
+  line-height: 1.236;
+  letter-spacing: -0.01em;
+  color: var(--dark);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+}
+
+.hero-contacts {
+  display: flex; gap: 23px; flex-wrap: wrap;
+  font-size: 16px; color: var(--dark);
+}
+.hero-contact-item {
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-contact-item a {
+  font-weight: 590; text-decoration: underline;
+  transition: color var(--transition);
+}
+.hero-contact-item a:hover { color: var(--brand); }
+
+/* ─── FILTER BAR ──────────────────────────────────────── */
+.filter-bar-wrap {
+  position: sticky; top: 79px; z-index: 90;
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-bottom: 1px solid rgba(237,242,246,0.6);
+}
+
+.filter-bar {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px;
+  padding: 8px var(--pad);
+  max-width: 1440px; margin: 0 auto;
+  height: 67px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+
+.filter-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 16px 24px; border-radius: 100px;
+  font-size: 16px; font-weight: 590;
+  cursor: pointer; border: none;
+  background: var(--gray-light); color: var(--dark);
+  font-family: inherit; white-space: nowrap;
+  transition: all var(--transition); flex-shrink: 0;
+}
+.filter-btn.active {
+  background: var(--brand-15); color: var(--brand);
+}
+.filter-btn:hover:not(.active) {
+  background: #ebebeb;
+}
+
+/* ─── PROJECTS SECTION ────────────────────────────────── */
+.projects-section {
+  padding: 80px var(--pad);
+  max-width: 1440px; margin: 0 auto;
+}
+
+.projects-header {
+  display: flex; flex-direction: column; gap: 32px;
+  margin-bottom: 80px;
+}
+
+.section-title {
+  font-size: 40px; font-weight: 700;
+  letter-spacing: -0.01em; color: var(--dark2);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+}
+
+.confidentiality-notice {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--brand-15);
+  padding: 8px 16px; border-radius: 12px;
+  max-width: 640px;
+}
+.confidentiality-notice .notice-icon {
+  font-size: 28px; color: var(--brand); flex-shrink: 0;
+}
+.confidentiality-notice p {
+  font-size: 16px; font-weight: 590; color: var(--brand); line-height: 1.4;
+}
+
+/* ─── PROJECT GRID ────────────────────────────────────── */
+.projects-grid {
+  display: flex; flex-direction: column; gap: 80px;
+}
+
+.projects-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  align-items: start;
+}
+
+/* Single item rows */
+.projects-row.single { grid-template-columns: 1fr 1fr; }
+.projects-row.single .proj-card:only-child { max-width: calc(50% - 12px); }
+
+.proj-card {
+  display: flex; flex-direction: column; gap: 32px;
+  cursor: pointer; transition: opacity var(--transition);
+  color: inherit; text-decoration: none;
+}
+.proj-card:hover .proj-img-wrap { box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+.proj-card[data-hidden="true"] { display: none; }
+
+.proj-img-wrap {
+  height: 384px; border-radius: var(--radius);
+  overflow: hidden; position: relative;
+  transition: box-shadow var(--transition);
+  flex-shrink: 0;
+}
+
+.proj-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 400ms ease;
+}
+.proj-card:hover .proj-img-wrap img { transform: scale(1.03); }
+
+.proj-overlay-color {
+  position: absolute; inset: 0; border-radius: var(--radius);
+}
+
+.proj-info { display: flex; flex-direction: column; gap: 8px; }
+
+.proj-title {
+  font-size: 32px; font-weight: 700;
+  letter-spacing: -0.01em; color: var(--dark2);
+  line-height: 1.2;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+}
+
+.proj-context {
+  font-size: 18px; color: var(--gray2);
+  letter-spacing: -0.01em; line-height: 1.3;
+}
+
+.proj-desc {
+  font-size: 18px; color: var(--dark2);
+  line-height: 25px; letter-spacing: -0.01em;
+}
+
+/* ─── FOOTER ──────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px var(--pad);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+  max-width: 1440px; margin: 0 auto;
+}
+
+.footer-logo img { height: 20px; width: auto; }
+
+.footer-links {
+  display: flex; gap: 24px; align-items: center;
+}
+.footer-links a {
+  font-size: 14px; color: var(--gray);
+  transition: color var(--transition);
+}
+.footer-links a:hover { color: var(--brand); }
+
+.footer-copy { font-size: 13px; color: var(--gray); }
+
+/* ─── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 1100px) {
+  :root { --pad: 48px; }
+  .hero-content { padding-right: 48px; }
+}
+
+@media (max-width: 900px) {
+  .projects-row { grid-template-columns: 1fr; }
+  .projects-row.single .proj-card:only-child { max-width: 100%; }
+}
+
+@media (max-width: 768px) {
+  :root { --pad: 24px; }
+
+  .nav-inner { padding: 0 24px; height: 64px; }
+  .nav-logo img { height: 20px; }
+  .lang-btn { font-size: 13px; padding: 6px 12px; }
+
+  /* Hero mobile: stacked */
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    padding: 36px 24px;
+    min-height: auto;
+  }
+
+  .hero-photo-wrap {
+    width: 100%; height: 260px;
+    justify-content: flex-start;
+  }
+
+  .hero-photo-card {
+    width: 100%; max-width: 300px;
+    height: 220px;
+    transform: none;
+    border-radius: 16px;
+  }
+
+  .hero-content { padding-right: 0; gap: 16px; }
+  .hero-byline { font-size: 18px; }
+  .hero-headline { font-size: 28px; line-height: 1.2; }
+  .hero-contacts { font-size: 14px; flex-direction: column; gap: 10px; }
+
+  .filter-bar-wrap { top: 64px; }
+  .filter-bar { padding: 8px 16px; justify-content: flex-start; gap: 8px; }
+  .filter-btn { font-size: 14px; padding: 10px 16px; }
+
+  .projects-section { padding: 48px 24px; }
+  .projects-header { gap: 20px; margin-bottom: 48px; }
+  .section-title { font-size: 28px; }
+  .projects-grid { gap: 48px; }
+
+  .proj-img-wrap { height: 240px; }
+  .proj-title { font-size: 22px; }
+  .proj-context { font-size: 15px; }
+  .proj-desc { font-size: 15px; }
+  .proj-card { gap: 20px; }
+
+  footer { flex-direction: column; align-items: flex-start; padding: 32px 24px; gap: 12px; }
+  .footer-links { flex-wrap: wrap; gap: 16px; }
+}
+
+@media (max-width: 480px) {
+  .hero-headline { font-size: 24px; }
+  .projects-row { gap: 40px; }
+  .proj-img-wrap { height: 200px; }
+}
+
+/* ─── TRANSITION for filter ──────────────────────────── */
+.proj-card {
+  animation: fadeIn 300ms ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════ -->
+<header>
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="images/nav-logo.png" alt="Mone Rodríguez" onerror="this.outerHTML='<span style=\'font-size:22px;font-weight:800;letter-spacing:-0.03em\'>MONE</span>'">
+      </a>
+      <div class="lang-switcher">
+        <button class="lang-btn" id="btn-es" data-lang="es" onclick="setLang('es')">Español</button>
+        <button class="lang-btn active" id="btn-en" data-lang="en" onclick="setLang('en')">English</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-photo-wrap">
+    <div class="hero-photo-card">
+      <img src="images/hero-photo.png" alt="Mone Rodríguez">
+    </div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-byline">
+      <strong>Mone Rodríguez</strong>
+      <span class="t" data-en=" UX Strategist &amp; Designer – Resolutive and Simplifier" data-es=" UX Strategist &amp; Diseñadora – Resolutiva y Simplificadora"> UX Strategist &amp; Designer – Resolutive and Simplifier</span>
+    </p>
+    <h1 class="hero-headline t" data-en="I turn challenges into digital solutions that simplify and enhance people's lives." data-es="Convierto retos en soluciones digitales que simplifican y mejoran la vida de las personas.">
+      I turn challenges into digital solutions that simplify and enhance people's lives.
+    </h1>
+    <div class="hero-contacts">
+      <div class="hero-contact-item">
+        <span>✉️</span>
+        <a href="mailto:monerodriguez@gmail.com">monerodriguez@gmail.com</a>
+      </div>
+      <div class="hero-contact-item">
+        <span>📞</span>
+        <a href="tel:+34691472439">+34 691 472 439</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FILTER BAR ════════════════════════════════════════ -->
+<div class="filter-bar-wrap">
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">♥ <span class="t" data-en="All" data-es="Todos">All</span></button>
+    <button class="filter-btn" data-filter="ux-consulting">🎯 <span class="t" data-en="UX Consulting" data-es="UX Consulting">UX Consulting</span></button>
+    <button class="filter-btn" data-filter="apps">📲 APPs</button>
+    <button class="filter-btn" data-filter="workshops">🧩 <span class="t" data-en="Workshops" data-es="Workshops">Workshops</span></button>
+    <button class="filter-btn" data-filter="web">🖥️ Web</button>
+    <button class="filter-btn" data-filter="branding">🌟 Branding</button>
+  </div>
+</div>
+
+<!-- ══ PROJECTS ══════════════════════════════════════════ -->
+<main class="projects-section">
+
+  <div class="projects-header">
+    <h2 class="section-title t" data-en="Selected Work" data-es="Proyectos Seleccionados">Selected Work</h2>
+    <div class="confidentiality-notice">
+      <span class="notice-icon">ℹ️</span>
+      <p class="t" data-en="For confidentiality and data protection reasons, the names of some of the companies involved have been changed or omitted." data-es="Por razones de confidencialidad y protección de datos, los nombres de algunas empresas han sido modificados u omitidos.">
+        For confidentiality and data protection reasons, the names of some of the companies involved have been changed or omitted.
+      </p>
+    </div>
+  </div>
+
+  <div class="projects-grid" id="projects-grid">
+
+    <!-- ROW 1 -->
+    <div class="projects-row" id="row-1">
+
+      <a href="tracker.html" class="proj-card" data-categories="apps ux-consulting">
+        <div class="proj-img-wrap">
+          <div class="proj-overlay-color" style="background:rgba(241,238,255,0.5)"></div>
+          <img src="images/proj-logistics.png" alt="Logistics APP" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="Logistics APP" data-es="App de Logística">Logistics APP</h3>
+          <p class="proj-context t" data-en="Product UX · Mone Rodriguez" data-es="Product UX · Mone Rodriguez">Product UX · Mone Rodriguez</p>
+          <p class="proj-desc t"
+            data-en="ZenderBox is an international locker service operating across the Americas, allowing users to shop abroad and track, manage, and receive their packages seamlessly."
+            data-es="ZenderBox es un servicio internacional de casilleros en América, que permite a los usuarios comprar en el extranjero y gestionar sus paquetes.">
+            ZenderBox is an international locker service operating across the Americas, allowing users to shop abroad and track, manage, and receive their packages seamlessly.
+          </p>
+        </div>
+      </a>
+
+      <a href="yuuju.html" class="proj-card" data-categories="web ux-consulting">
+        <div class="proj-img-wrap">
+          <div class="proj-overlay-color" style="background:rgba(241,238,255,0.5)"></div>
+          <img src="images/proj-utility.png" alt="Utility Services" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="Utility Services" data-es="Servicios de Suministros">Utility Services</h3>
+          <p class="proj-context t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+          <p class="proj-desc t"
+            data-en="Creating a seamless and intuitive digital experience for a highly complex, multi-layered contracting system was a major challenge. The platform needed to handle multiple user types simultaneously."
+            data-es="Crear una experiencia digital intuitiva para un sistema de contratación complejo fue un gran reto. La plataforma debía gestionar múltiples tipos de usuario simultáneamente.">
+            Creating a seamless and intuitive digital experience for a highly complex, multi-layered contracting system was a major challenge. The platform needed to handle multiple user types simultaneously.
+          </p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="projects-row" id="row-2">
+
+      <a href="zender-app.html" class="proj-card" data-categories="apps">
+        <div class="proj-img-wrap">
+          <div class="proj-overlay-color" style="background:rgba(7,171,255,0.10)"></div>
+          <img src="images/proj-tracking.png" alt="Tracking APP" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="The Tracking APP iOS/Android" data-es="App de Seguimiento iOS/Android">The Tracking APP iOS/Android</h3>
+          <p class="proj-context t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+          <p class="proj-desc t"
+            data-en="The app lacked a structured user experience, making interactions unclear, with no intuitive states or feedback mechanisms to guide users through their journey."
+            data-es="La app carecía de una experiencia estructurada, con interacciones poco claras y sin mecanismos de feedback que guiaran al usuario.">
+            The app lacked a structured user experience, making interactions unclear, with no intuitive states or feedback mechanisms to guide users through their journey.
+          </p>
+        </div>
+      </a>
+
+      <a href="sports-club.html" class="proj-card" data-categories="apps">
+        <div class="proj-img-wrap">
+          <div class="proj-overlay-color" style="background:rgba(0,0,0,0.12)"></div>
+          <img src="images/proj-sports.png" alt="Sports Clubs APP" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="Sports Clubs APP &amp; VO" data-es="App Clubes Deportivos &amp; Oficina Virtual">Sports Clubs APP &amp; VO</h3>
+          <p class="proj-context t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+          <p class="proj-desc t"
+            data-en="Each club had unique requirements, yet all were reliant on the same outdated software. A significant percentage of their members were not using the digital platform."
+            data-es="Cada club tenía requisitos únicos pero dependían del mismo software obsoleto. Un porcentaje significativo de sus socios no usaba la plataforma digital.">
+            Each club had unique requirements, yet all were reliant on the same outdated software. A significant percentage of their members were not using the digital platform.
+          </p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- ROW 3 -->
+    <div class="projects-row" id="row-3">
+
+      <a href="alphabet.html" class="proj-card" data-categories="web">
+        <div class="proj-img-wrap">
+          <div class="proj-overlay-color" style="background:rgba(24,28,89,0.12)"></div>
+          <img src="images/proj-renting.png" alt="Renting Solutions" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="Renting Solutions" data-es="Soluciones de Renting">Renting Solutions</h3>
+          <p class="proj-context t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+          <p class="proj-desc t"
+            data-en="The project had to maintain the visual consistency of the international CMS while ensuring an optimal user experience tailored to the Spanish market and its specific legal requirements."
+            data-es="El proyecto debía mantener la consistencia visual del CMS internacional mientras ofrecía una UX óptima adaptada al mercado español y sus requisitos legales.">
+            The project had to maintain the visual consistency of the international CMS while ensuring an optimal user experience tailored to the Spanish market and its specific legal requirements.
+          </p>
+        </div>
+      </a>
+
+      <a href="trina-solar.html" class="proj-card" data-categories="web">
+        <div class="proj-img-wrap">
+          <div class="proj-overlay-color" style="background:rgba(111,112,114,0.15)"></div>
+          <img src="images/proj-solar.png" alt="Interactive Solar Plant" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="Interactive Solar Plant" data-es="Configurador Solar Interactivo">Interactive Solar Plant</h3>
+          <p class="proj-context t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+          <p class="proj-desc t"
+            data-en="A solar energy company specialising in the manufacturing and installation of solar plants sought to create an interactive web platform that would allow real-time plant configuration."
+            data-es="Una empresa de energía solar buscaba crear una plataforma web interactiva para configurar plantas solares en tiempo real con modelos 3D.">
+            A solar energy company specialising in the manufacturing and installation of solar plants sought to create an interactive web platform that would allow real-time plant configuration.
+          </p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- ROW 4 -->
+    <div class="projects-row" id="row-4">
+
+      <a href="ugt.html" class="proj-card" data-categories="ux-consulting workshops">
+        <div class="proj-img-wrap">
+          <div class="proj-overlay-color" style="background:rgba(229,0,43,0.08)"></div>
+          <img src="images/proj-public.png" alt="Public Services" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="Public Services" data-es="Servicios Públicos">Public Services</h3>
+          <p class="proj-context t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+          <p class="proj-desc t"
+            data-en="After the success of our previous enrollment project, Public Services division needed a more advanced enrollment system tailored to their specific workflows and legal validations."
+            data-es="Tras el éxito del proyecto anterior, la división de Servicios Públicos necesitaba un sistema de matriculación avanzado adaptado a sus flujos legales específicos.">
+            After the success of our previous enrollment project, Public Services division needed a more advanced enrollment system tailored to their specific workflows and legal validations.
+          </p>
+        </div>
+      </a>
+
+      <a href="ugt.html" class="proj-card" data-categories="ux-consulting workshops">
+        <div class="proj-img-wrap">
+          <div class="proj-overlay-color" style="background:rgba(52,59,69,0.15)"></div>
+          <img src="images/proj-enrollment.png" alt="Enrollment" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="Enrollment" data-es="Matriculación">Enrollment</h3>
+          <p class="proj-context t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+          <p class="proj-desc t"
+            data-en="The enrollment process required multiple validations and integrations, but they had no structured system in place. To design a fully functional and compliant solution from scratch."
+            data-es="El proceso de matriculación requería múltiples validaciones e integraciones sin un sistema estructurado previo. Diseñamos una solución funcional desde cero.">
+            The enrollment process required multiple validations and integrations, but they had no structured system in place. To design a fully functional and compliant solution from scratch.
+          </p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- ROW 5 -->
+    <div class="projects-row" id="row-5">
+
+      <a href="radianna.html" class="proj-card" data-categories="branding">
+        <div class="proj-img-wrap" style="background:#f1eeff;">
+          <img src="images/proj-branding-ris.png" alt="Branding for a RIS" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="Branding for a RIS" data-es="Branding para un RIS">Branding for a RIS</h3>
+          <p class="proj-context t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+          <p class="proj-desc t"
+            data-en="Radianna is a radiology RIS system already implemented and sold to hospitals, with a clear expansion plan in place. Despite having a functional product, it lacked a cohesive brand identity."
+            data-es="Radianna es un sistema RIS de radiología vendido a hospitales con un plan de expansión claro. A pesar de tener un producto funcional, carecía de identidad de marca.">
+            Radianna is a radiology RIS system already implemented and sold to hospitals, with a clear expansion plan in place. Despite having a functional product, it lacked a cohesive brand identity.
+          </p>
+        </div>
+      </a>
+
+      <a href="global.html" class="proj-card" data-categories="branding web">
+        <div class="proj-img-wrap">
+          <div class="proj-overlay-color" style="background:rgba(229,0,43,0.08)"></div>
+          <img src="images/proj-gcs.png" alt="Branding and website for GCS" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="Branding and website for GCS" data-es="Branding y web para GCS">Branding and website for GCS</h3>
+          <p class="proj-context t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+          <p class="proj-desc t"
+            data-en="Global Cover Solutions, a logistics and transportation company, sought a complete brand and website refresh to modernize its image and enhance its digital presence."
+            data-es="Global Cover Solutions, empresa de logística y transporte, buscaba una renovación completa de marca y web para modernizar su imagen.">
+            Global Cover Solutions, a logistics and transportation company, sought a complete brand and website refresh to modernize its image and enhance its digital presence.
+          </p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- ROW 6 -->
+    <div class="projects-row" id="row-6">
+
+      <a href="ipsum.html" class="proj-card" data-categories="branding">
+        <div class="proj-img-wrap" style="background:#fff;">
+          <img src="images/proj-ipsum.png" alt="Branding for IPSUM" loading="lazy" style="object-fit:contain; padding:32px;">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="Branding for IPSUM" data-es="Branding para IPSUM">Branding for IPSUM</h3>
+          <p class="proj-context t" data-en="Work done as a Freelance" data-es="Proyecto Freelance">Work done as a Freelance</p>
+          <p class="proj-desc t"
+            data-en="A newly founded digital marketing agency, Ipsum, approached me with a vision — to establish a strong brand presence that would position them as a premium player in the market."
+            data-es="Ipsum, una agencia de marketing digital recién fundada, quería establecer una fuerte presencia de marca que los posicionara como referente en el mercado.">
+            A newly founded digital marketing agency, Ipsum, approached me with a vision — to establish a strong brand presence that would position them as a premium player in the market.
+          </p>
+        </div>
+      </a>
+
+      <a href="vmg.html" class="proj-card" data-categories="branding">
+        <div class="proj-img-wrap" style="background:#009cde;">
+          <img src="images/proj-vmg.png" alt="Branding for VMG" loading="lazy" style="object-fit:contain; padding:40px;">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="Branding for VMG" data-es="Branding para VMG">Branding for VMG</h3>
+          <p class="proj-context t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+          <p class="proj-desc t"
+            data-en="VMG, a company specializing in hyperbaric chambers, needed a strong and modern brand identity that would reflect trust, innovation, and a connection to health and technology."
+            data-es="VMG, empresa especializada en cámaras hiperbáricas, necesitaba una identidad de marca moderna que reflejara confianza, innovación y tecnología médica.">
+            VMG, a company specializing in hyperbaric chambers, needed a strong and modern brand identity that would reflect trust, innovation, and a connection to health and technology.
+          </p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- ROW 7 — single -->
+    <div class="projects-row single" id="row-7">
+
+      <a href="kdpof.html" class="proj-card" data-categories="branding">
+        <div class="proj-img-wrap" style="background:#290e76;">
+          <img src="images/proj-kdpof.png" alt="From KDPOF to KD" loading="lazy" style="object-fit:contain; padding:48px;">
+        </div>
+        <div class="proj-info">
+          <h3 class="proj-title t" data-en="From KDPOF to KD" data-es="De KDPOF a KD">From KDPOF to KD</h3>
+          <p class="proj-context t" data-en="Work done as a Freelance" data-es="Proyecto Freelance">Work done as a Freelance</p>
+          <p class="proj-desc t"
+            data-en="KDPOF, a leading company in high-speed optical communication solutions for harsh environments, decided to take a strategic leap to expand its reach and modernize its brand positioning."
+            data-es="KDPOF, empresa líder en comunicaciones ópticas de alta velocidad, decidió dar un salto estratégico para ampliar su alcance y modernizar su posicionamiento de marca.">
+            KDPOF, a leading company in high-speed optical communication solutions for harsh environments, decided to take a strategic leap to expand its reach and modernize its brand positioning.
+          </p>
+        </div>
+      </a>
+
+    </div>
+
+  </div><!-- /projects-grid -->
+</main>
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-logo">
+    <img src="images/nav-logo.png" alt="Mone Rodríguez" onerror="this.outerHTML='<span style=\'font-size:18px;font-weight:800\'>MONE</span>'">
+  </div>
+  <div class="footer-links">
+    <a href="https://linkedin.com/in/monerodriguez" target="_blank">LinkedIn</a>
+    <a href="https://behance.net/monerodriguez" target="_blank">Behance</a>
+    <a href="https://figma.com/design/DDsMnxXQVBPHOY0qkq0Wb1/PORTFOLIO" target="_blank">Figma Portfolio</a>
+    <a href="mailto:monerodriguez@gmail.com">monerodriguez@gmail.com</a>
+  </div>
+  <p class="footer-copy">© 2026 Mone Rodríguez</p>
+</footer>
+
+<!-- ══ JS ════════════════════════════════════════════════ -->
+<script>
+/* ── Nav scroll ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 10);
+}, { passive: true });
+
+/* ── Filter ── */
+const filterBtns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.proj-card');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const filter = btn.dataset.filter;
+    cards.forEach(card => {
+      const cats = card.dataset.categories || '';
+      const show = filter === 'all' || cats.includes(filter);
+      card.dataset.hidden = show ? 'false' : 'true';
+    });
+  });
+});
+
+/* ── Smooth load ── */
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.style.opacity = '0';
+  requestAnimationFrame(() => {
+    document.body.style.transition = 'opacity 300ms ease';
+    document.body.style.opacity = '1';
+  });
+});
+</script>
+<script src="lang.js"></script>
+
+</body>
+</html>

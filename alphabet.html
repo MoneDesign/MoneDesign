@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alphabet Renting Solutions — Mone Rodríguez</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;background:#fff;color:#151515;-webkit-font-smoothing:antialiased;overflow-x:hidden}a{text-decoration:none;color:inherit}img{display:block;max-width:100%}
+:root{--brand:#cc1f72;--dark:#151515;--gray:#6b7280;--border:#edf2f6}
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border)}.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;max-width:1440px;margin:0 auto}.nav-home{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--dark);transition:color .2s}.nav-home:hover{color:var(--brand)}.nav-home svg{width:18px;height:18px}.nav-logo{font-size:20px;font-weight:800;letter-spacing:-0.02em}.nav-logo span{color:var(--brand)}
+.proj-hero{padding:64px 48px 48px;max-width:900px;margin:0 auto;text-align:center}.proj-tags{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:24px}.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600;background:#f5f5f5;color:#444}.agency-label{font-size:14px;color:var(--gray);margin-bottom:8px}.proj-title{font-size:clamp(32px,4vw,56px);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:12px}.proj-subtitle{font-size:clamp(17px,1.8vw,22px);color:var(--gray);line-height:1.5;max-width:680px;margin:0 auto 28px}.btn-site{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--brand);color:#fff;border-radius:100px;font-size:15px;font-weight:700;transition:opacity .2s}.btn-site:hover{opacity:.85}
+.hero-img-wrap{width:100%;max-height:600px;overflow:hidden}.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top}
+.proj-body{display:grid;grid-template-columns:240px 1fr;max-width:1200px;margin:0 auto;padding:0 48px}.sidebar{position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto;padding:48px 32px 48px 0;display:flex;flex-direction:column;gap:32px;border-right:1px solid var(--border)}.toc-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}.toc-list{list-style:none;display:flex;flex-direction:column;gap:8px}.toc-list a{font-size:14px;color:var(--gray);transition:color .2s;line-height:1.4}.toc-list a:hover,.toc-list a.active{color:var(--brand);font-weight:600}.tools-grid{display:flex;flex-direction:column;gap:8px}.tool-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray)}.tool-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+.content{padding:48px 0 80px 56px}.content-section{margin-bottom:64px;scroll-margin-top:100px}.section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:10px}.section-title{font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.01em;margin-bottom:16px}.section-text{font-size:16px;line-height:1.7;color:#444;margin-bottom:24px}.section-img{border-radius:16px;overflow:hidden;margin:24px 0;box-shadow:0 4px 24px rgba(0,0,0,0.08)}.section-img img{width:100%;height:auto;display:block}.section-img-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:12px;margin:20px 0}.checklist li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#333;line-height:1.5}.check-icon{width:22px;height:22px;border-radius:50%;background:#02dc02;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.check-icon svg{width:13px;height:13px;stroke:#fff;stroke-width:2.5;fill:none}
+.process-steps{display:flex;flex-direction:column;gap:16px;margin:20px 0}.step{display:flex;align-items:flex-start;gap:16px}.step-num{width:32px;height:32px;border-radius:50%;background:#6f00ff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:1px}.step-title{font-size:15px;font-weight:700;margin-bottom:2px}.step-desc{font-size:14px;color:var(--gray);line-height:1.5}
+.fab{position:fixed;bottom:32px;right:32px;width:52px;height:52px;background:rgba(204,31,114,0.12);border-radius:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;z-index:50}.fab:hover{background:rgba(204,31,114,0.22)}.fab svg{width:20px;height:20px;stroke:var(--brand);stroke-width:2;fill:none}
+.proj-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 48px;border-top:1px solid var(--border);max-width:1200px;margin:0 auto}.proj-nav-link{display:flex;flex-direction:column;gap:4px}.proj-nav-label{font-size:12px;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:.08em}.proj-nav-title{font-size:16px;font-weight:700;transition:color .2s}.proj-nav-link:hover .proj-nav-title{color:var(--brand)}
+@media(max-width:768px){.nav-inner,.proj-nav{padding:0 20px}.proj-hero{padding:40px 20px 32px}.proj-body{grid-template-columns:1fr;padding:0}.sidebar{position:static;height:auto;padding:24px 20px;border-right:none;border-bottom:1px solid var(--border)}.toc-list{flex-direction:row;flex-wrap:wrap;gap:8px}.content{padding:32px 20px 60px}.section-img-row{grid-template-columns:1fr}.proj-nav{padding:24px 20px}}
+.nav-lang{display:flex;gap:4px}
+.lang-btn{padding:6px 10px;border:none;background:transparent;font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;border-radius:6px;transition:all .2s;font-family:inherit}
+.lang-btn.active{color:var(--brand);background:rgba(204,31,114,0.1)}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="index.html" class="nav-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg><span class="t" data-en="Home" data-es="Inicio">Home</span></a>
+  <div class="nav-lang">
+    <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+  </div>
+  <div class="nav-logo">MONE<span>.</span></div>
+</div></nav>
+
+<section class="proj-hero">
+  <div class="proj-tags"><span class="tag t" data-en="🎯 UX Consulting" data-es="🎯 UX Consulting">🎯 UX Consulting</span><span class="tag t" data-en="🖥️ Web" data-es="🖥️ Web">🖥️ Web</span></div>
+  <h1 class="proj-title">Renting Solutions</h1>
+  <p class="proj-subtitle t" data-en="Empowering Alphabet Renting Spain with a custom digital solution — Drupal 9 migration with SSO, advanced filtering, and automated communications" data-es="Solución digital de renting a medida para Alphabet España — migración a Drupal 9 con SSO, filtrado avanzado y comunicaciones automatizadas">Empowering Alphabet Renting Spain with a custom digital solution — Drupal 9 migration with SSO, advanced filtering, and automated communications</p>
+  <a href="https://www.ofertas-renting.alphabet.es/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a>
+</section>
+
+<div class="hero-img-wrap"><img src="images/al-hero.jpg" alt="Alphabet Renting Hero"></div>
+
+<div class="proj-body">
+  <aside class="sidebar">
+    <div>
+      <p class="toc-label t" data-en="Contents" data-es="Contenido">Contents</p>
+      <ul class="toc-list">
+        <li><a href="#challenge"><span class="t" data-en="The Challenge" data-es="El reto">The Challenge</span></a></li>
+        <li><a href="#requirements"><span class="t" data-en="Key Requirements" data-es="Requisitos clave">Key Requirements</span></a></li>
+        <li><a href="#process"><span class="t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</span></a></li>
+        <li><a href="#results"><span class="t" data-en="Results" data-es="Resultados">Results</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="toc-label t" data-en="Tools" data-es="Herramientas">Tools</p>
+      <div class="tools-grid">
+        <div class="tool-item"><div class="tool-icon" style="background:#0acf83;color:#fff">F</div> Figma</div>
+        <div class="tool-item"><div class="tool-icon" style="background:#ff6244;color:#fff">Mi</div> Miro</div>
+        <div class="tool-item"><div class="tool-icon" style="background:#ff9a00;color:#fff">Ai</div> Illustrator</div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <section class="content-section" id="challenge">
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
+      <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
+      <p class="section-text t" data-en="Alphabet (a BMW Group company) needed to migrate its Spanish renting site to Drupal 9 while building a completely custom renting solution tailored to the Spanish market. The challenge: preserve the international brand's visual consistency while creating a highly localised, legally compliant experience." data-es="Alphabet (empresa del Grupo BMW) necesitaba migrar su web de renting española a Drupal 9 construyendo una solución de renting completamente a medida para el mercado español. El reto: preservar la coherencia visual de la marca internacional creando una experiencia muy localizada y con cumplimiento legal.">Alphabet (a BMW Group company) needed to migrate its Spanish renting site to Drupal 9 while building a completely custom renting solution tailored to the Spanish market. The challenge: preserve the international brand's visual consistency while creating a highly localised, legally compliant experience.</p>
+      <div class="section-img"><img src="images/al-img1.jpg" alt="Challenge" loading="lazy"></div>
+      <p class="section-text t" data-en="The platform required SSO user authentication, advanced traceable filtering, automated lead communications, and a CRM adaptation — all within Drupal 9's architecture." data-es="La plataforma requería autenticación SSO, filtrado avanzado con trazabilidad, comunicaciones de leads automatizadas y adaptación del CRM — todo dentro de la arquitectura de Drupal 9.">The platform required SSO user authentication, advanced traceable filtering, automated lead communications, and a CRM adaptation — all within Drupal 9's architecture.</p>
+      <div class="section-img"><img src="images/al-img2.jpg" alt="Analysis" loading="lazy"></div>
+    </section>
+
+    <section class="content-section" id="requirements">
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
+      <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
+      <div class="section-img"><img src="images/al-img3.jpg" alt="Requirements" loading="lazy"></div>
+      <ul class="checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Maintain international brand visual consistency" data-es="Mantener la coherencia visual de la marca internacional">Maintain international brand visual consistency</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="SSO user area with personalised dashboard" data-es="Área de usuario SSO con dashboard personalizado">SSO user area with personalised dashboard</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Advanced vehicle filtering with full search trazability" data-es="Filtrado avanzado de vehículos con trazabilidad completa">Advanced vehicle filtering with full search trazability</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Automated lead communications and follow-up flows" data-es="Comunicaciones de leads automatizadas y flujos de seguimiento">Automated lead communications and follow-up flows</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Mobile-first responsive design" data-es="Diseño mobile-first responsivo">Mobile-first responsive design</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="CRM adaptation for Spanish market requirements" data-es="Adaptación del CRM para requisitos del mercado español">CRM adaptation for Spanish market requirements</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full Drupal 9 compatibility" data-es="Compatibilidad total con Drupal 9">Full Drupal 9 compatibility</span></li>
+      </ul>
+    </section>
+
+    <section class="content-section" id="process">
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
+      <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
+      <div class="process-steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="Stakeholder Interviews" data-es="Entrevistas con stakeholders">Stakeholder Interviews</p><p class="step-desc t" data-en="Interviews with Alphabet Spain's marketing, sales, and IT teams to align on requirements and constraints." data-es="Entrevistas con stakeholders (marketing, ventas y TI de Alphabet España)">Interviews with Alphabet Spain's marketing, sales, and IT teams to align on requirements and constraints.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="End-to-End Journey Mapping" data-es="Mapeo end-to-end del journey">End-to-End Journey Mapping</p><p class="step-desc t" data-en="Mapped the full user journey from vehicle discovery through enquiry, SSO login, and CRM handoff." data-es="Mapeo end-to-end del journey del usuario desde descubrimiento hasta handoff al CRM">Mapped the full user journey from vehicle discovery through enquiry, SSO login, and CRM handoff.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><p class="step-title t" data-en="Mobile-First Design Strategy" data-es="Estrategia de diseño mobile-first">Mobile-First Design Strategy</p><p class="step-desc t" data-en="Designed all flows mobile-first, ensuring the renting experience worked flawlessly on small screens." data-es="Estrategia de diseño mobile-first para todos los flujos">Designed all flows mobile-first, ensuring the renting experience worked flawlessly on small screens.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Automated Validation &amp; Forms" data-es="Formularios y validación automatizada">Automated Validation &amp; Forms</p><p class="step-desc t" data-en="Designed lead capture forms with inline validation, conditional fields, and clear error states." data-es="Formularios de captación de leads con validación inline y campos condicionales">Designed lead capture forms with inline validation, conditional fields, and clear error states.</p></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><p class="step-title t" data-en="Automation &amp; Communication Flow" data-es="Automatización y flujos de comunicación">Automation &amp; Communication Flow</p><p class="step-desc t" data-en="Mapped automated email sequences and CRM triggers for each stage of the customer journey." data-es="Flujos de email automatizados y triggers CRM para cada etapa del journey">Mapped automated email sequences and CRM triggers for each stage of the customer journey.</p></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="CRM Evolution &amp; Handoff" data-es="Evolución del CRM y handoff">CRM Evolution &amp; Handoff</p><p class="step-desc t" data-en="Redesigned CRM views for the Spanish sales team and delivered full Drupal-compatible specs." data-es="Vistas CRM rediseñadas para el equipo de ventas español con handoff para Drupal">Redesigned CRM views for the Spanish sales team and delivered full Drupal-compatible specs.</p></div></div>
+      </div>
+      <div class="section-img-row">
+        <div class="section-img"><img src="images/al-img4.jpg" alt="Process" loading="lazy"></div>
+        <div class="section-img"><img src="images/al-img5.jpg" alt="Design" loading="lazy"></div>
+      </div>
+    </section>
+
+    <section class="content-section" id="results">
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
+      <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
+      <ul class="checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Custom renting platform live on Drupal 9" data-es="Plataforma de renting a medida en producción con Drupal 9">Custom renting platform live on Drupal 9</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="SSO user area with personalised vehicle history" data-es="Área de usuario SSO con historial de vehículos personalizado">SSO user area with personalised vehicle history</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Advanced filtering with full trazability for analytics" data-es="Filtrado avanzado con trazabilidad completa para analítica">Advanced filtering with full trazability for analytics</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Automated communication flows reducing manual follow-up" data-es="Flujos de comunicación automatizados reduciendo el seguimiento manual">Automated communication flows reducing manual follow-up</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Mobile-first experience serving the majority of traffic" data-es="Experiencia mobile-first sirviendo la mayoría del tráfico">Mobile-first experience serving the majority of traffic</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="CRM adapted and adopted by the Spanish sales team" data-es="CRM adaptado y adoptado por el equipo de ventas español">CRM adapted and adopted by the Spanish sales team</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="International branding preserved across all touchpoints" data-es="Marca internacional preservada en todos los puntos de contacto">International branding preserved across all touchpoints</span></li>
+      </ul>
+      <div class="section-img"><img src="images/al-img1.jpg" alt="Results" loading="lazy"></div>
+      <div style="margin-top:24px"><a href="https://www.ofertas-renting.alphabet.es/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a></div>
+    </section>
+  </main>
+</div>
+
+<div class="proj-nav">
+  <a href="yuuju.html" class="proj-nav-link"><span class="proj-nav-label t" data-en="← Previous" data-es="← Anterior">← Previous</span><span class="proj-nav-title t" data-en="Utility Services" data-es="Servicios de Suministros">Utility Services</span></a>
+  <a href="zender-app.html" class="proj-nav-link" style="text-align:right"><span class="proj-nav-label t" data-en="Next →" data-es="Siguiente →">Next →</span><span class="proj-nav-title">ZenderBox APP</span></a>
+</div>
+
+<div class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div>
+<script src="lang.js"></script>
+<script>
+const tl=document.querySelectorAll('.toc-list a'),sc=document.querySelectorAll('.content-section');
+sc.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){tl.forEach(l=>l.classList.remove('active'));const a=document.querySelector('.toc-list a[href="#'+en.target.id+'"]');if(a)a.classList.add('active')}})},{threshold:.3,rootMargin:'-80px 0px 0px 0px'}).observe(s));
+</script>
+</body>
+</html>

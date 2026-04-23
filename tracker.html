@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logistics APP — Mone Rodríguez</title>
+<meta name="description" content="Mobile App Logistics iOS/Android — UX case study by Mone Rodríguez">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;background:#fff;color:#151515;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+:root{--brand:#cc1f72;--dark:#151515;--gray:#6b7280;--border:#edf2f6;--radius:12px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;max-width:1440px;margin:0 auto}
+.nav-home{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--dark);transition:color .2s}
+.nav-home:hover{color:var(--brand)}
+.nav-home svg{width:18px;height:18px}
+.nav-logo{font-size:20px;font-weight:800;letter-spacing:-0.02em;color:var(--dark)}
+.nav-logo span{color:var(--brand)}
+
+/* HERO SECTION */
+.proj-hero{padding:64px 48px 48px;max-width:900px;margin:0 auto;text-align:center}
+.proj-tags{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600;background:#f5f5f5;color:#444}
+.agency-label{font-size:14px;color:var(--gray);margin-bottom:8px;text-align:center}
+.proj-title{font-size:clamp(32px,4vw,56px);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:12px;color:var(--dark)}
+.proj-subtitle{font-size:clamp(17px,1.8vw,22px);color:var(--gray);line-height:1.5;max-width:680px;margin:0 auto 28px}
+.btn-site{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--brand);color:#fff;border-radius:100px;font-size:15px;font-weight:700;transition:opacity .2s}
+.btn-site:hover{opacity:.85}
+
+/* HERO IMAGE */
+.hero-img-wrap{width:100%;max-height:600px;overflow:hidden;margin-bottom:0}
+.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top}
+
+/* BODY LAYOUT */
+.proj-body{display:grid;grid-template-columns:240px 1fr;gap:0;max-width:1200px;margin:0 auto;padding:0 48px}
+
+/* SIDEBAR */
+.sidebar{position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto;padding:48px 32px 48px 0;display:flex;flex-direction:column;gap:32px;border-right:1px solid var(--border)}
+.toc-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.toc-list a{font-size:14px;color:var(--gray);transition:color .2s;line-height:1.4}
+.toc-list a:hover,.toc-list a.active{color:var(--brand);font-weight:600}
+.tools-section{}
+.tools-grid{display:flex;flex-direction:column;gap:8px}
+.tool-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray)}
+.tool-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+
+/* CONTENT */
+.content{padding:48px 0 80px 56px}
+.content-section{margin-bottom:64px;scroll-margin-top:100px}
+.section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:10px}
+.section-title{font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.01em;margin-bottom:16px;color:var(--dark)}
+.section-text{font-size:16px;line-height:1.7;color:#444;margin-bottom:24px}
+.section-img{border-radius:16px;overflow:hidden;margin:24px 0;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
+.section-img img{width:100%;height:auto;display:block}
+.section-img-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+
+/* CHECKLIST */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.checklist li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#333;line-height:1.5}
+.check-icon{width:22px;height:22px;border-radius:50%;background:#02dc02;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.check-icon svg{width:13px;height:13px;stroke:#fff;stroke-width:2.5;fill:none}
+
+/* PROCESS STEPS */
+.process-steps{display:flex;flex-direction:column;gap:16px;margin:20px 0}
+.step{display:flex;align-items:flex-start;gap:16px}
+.step-num{width:32px;height:32px;border-radius:50%;background:#6f00ff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:1px}
+.step-content{}
+.step-title{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:2px}
+.step-desc{font-size:14px;color:var(--gray);line-height:1.5}
+
+/* FAB */
+.fab{position:fixed;bottom:32px;right:32px;width:52px;height:52px;background:rgba(204,31,114,0.12);border-radius:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;z-index:50}
+.fab:hover{background:rgba(204,31,114,0.22)}
+.fab svg{width:20px;height:20px;stroke:var(--brand);stroke-width:2;fill:none}
+
+/* PREV/NEXT */
+.proj-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 48px;border-top:1px solid var(--border);max-width:1200px;margin:0 auto}
+.proj-nav-link{display:flex;flex-direction:column;gap:4px}
+.proj-nav-label{font-size:12px;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.proj-nav-title{font-size:16px;font-weight:700;color:var(--dark);transition:color .2s}
+.proj-nav-link:hover .proj-nav-title{color:var(--brand)}
+
+.nav-lang{display:flex;gap:4px}
+.lang-btn{padding:6px 10px;border:none;background:transparent;font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;border-radius:6px;transition:all .2s;font-family:inherit}
+.lang-btn.active{color:var(--brand);background:rgba(204,31,114,0.1)}
+
+@media(max-width:768px){
+  .nav-inner{padding:0 20px}
+  .proj-hero{padding:40px 20px 32px}
+  .proj-body{grid-template-columns:1fr;padding:0}
+  .sidebar{position:static;height:auto;padding:24px 20px;border-right:none;border-bottom:1px solid var(--border)}
+  .toc-list{flex-direction:row;flex-wrap:wrap;gap:8px}
+  .content{padding:32px 20px 60px}
+  .proj-nav{padding:24px 20px}
+  .section-img-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <span class="t" data-en="Home" data-es="Inicio">Home</span>
+    </a>
+    <div class="nav-lang">
+      <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+    <div class="nav-logo">MONE<span>.</span></div>
+  </div>
+</nav>
+
+<section class="proj-hero">
+  <div class="proj-tags">
+    <span class="tag">🎯 UX Consulting</span>
+    <span class="tag">📲 APPs</span>
+  </div>
+  <p class="agency-label t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
+  <h1 class="proj-title">Mobile App Logística</h1>
+  <p class="proj-subtitle t" data-en="Designing a seamless cross-border logistics experience for iOS &amp; Android users across multiple countries" data-es="Diseñando una experiencia logística transfronteriza para usuarios de iOS y Android en múltiples países">Designing a seamless cross-border logistics experience for iOS &amp; Android users across multiple countries</p>
+</section>
+
+<div class="hero-img-wrap">
+  <img src="images/za-hero.jpg" alt="Logistics App Hero">
+</div>
+
+<div class="proj-body">
+  <aside class="sidebar">
+    <div>
+      <p class="toc-label t" data-en="Contents" data-es="Contenido">Contents</p>
+      <ul class="toc-list">
+        <li><a href="#challenge"><span class="t" data-en="The Challenge" data-es="El reto">The Challenge</span></a></li>
+        <li><a href="#requirements"><span class="t" data-en="Key Requirements" data-es="Requisitos clave">Key Requirements</span></a></li>
+        <li><a href="#process"><span class="t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</span></a></li>
+        <li><a href="#results"><span class="t" data-en="Results" data-es="Resultados">Results</span></a></li>
+      </ul>
+    </div>
+    <div class="tools-section">
+      <p class="toc-label t" data-en="Tools" data-es="Herramientas">Tools</p>
+      <div class="tools-grid">
+        <div class="tool-item"><div class="tool-icon" style="background:#0acf83;color:#fff">F</div> <span class="t" data-en="Figma" data-es="Figma">Figma</span></div>
+        <div class="tool-item"><div class="tool-icon" style="background:#ff6244;color:#fff">Mi</div> <span class="t" data-en="Miro" data-es="Miro">Miro</span></div>
+        <div class="tool-item"><div class="tool-icon" style="background:#ff9a00;color:#fff">Ai</div> <span class="t" data-en="Illustrator" data-es="Illustrator">Illustrator</span></div>
+        <div class="tool-item"><div class="tool-icon" style="background:#31a8ff;color:#fff">Ps</div> <span class="t" data-en="Photoshop" data-es="Photoshop">Photoshop</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <section class="content-section" id="challenge">
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
+      <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
+      <p class="section-text t" data-en="ZenderBox is an international locker service operating across the Americas, allowing users to shop abroad and track, manage, and receive their packages seamlessly. The app lacked a structured user experience, making interactions unclear, with no intuitive states or feedback mechanisms to guide users through their journey." data-es="ZenderBox es un servicio internacional de casilleros en las Américas que permite a los usuarios comprar en el extranjero y gestionar sus paquetes de forma sencilla. La app carecía de una experiencia de usuario estructurada, con interacciones poco claras y sin mecanismos de feedback que guiaran al usuario.">ZenderBox is an international locker service operating across the Americas, allowing users to shop abroad and track, manage, and receive their packages seamlessly. The app lacked a structured user experience, making interactions unclear, with no intuitive states or feedback mechanisms to guide users through their journey.</p>
+      <div class="section-img"><img src="images/za-img1.jpg" alt="Challenge overview" loading="lazy"></div>
+      <p class="section-text t" data-en="Users across multiple countries with varying levels of digital literacy needed an app that felt effortless — clear package states, intuitive navigation, and a trustworthy interface that could scale across markets." data-es="Usuarios de múltiples países con distintos niveles de digitalización necesitaban una app intuitiva con estados de paquete claros, navegación sencilla y una interfaz de confianza que pudiera escalar entre mercados.">Users across multiple countries with varying levels of digital literacy needed an app that felt effortless — clear package states, intuitive navigation, and a trustworthy interface that could scale across markets.</p>
+    </section>
+
+    <section class="content-section" id="requirements">
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
+      <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
+      <div class="section-img"><img src="images/za-img2.jpg" alt="Requirements" loading="lazy"></div>
+      <ul class="checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="End-to-end UX design for iOS and Android native apps" data-es="Diseño UX end-to-end para apps nativas iOS y Android">End-to-end UX design for iOS and Android native apps</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Clear visual package status system with color-coded states" data-es="Sistema visual de estados de paquete con codificación por color">Clear visual package status system with color-coded states</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Intuitive navigation for users with low digital literacy" data-es="Navegación intuitiva para usuarios con baja digitalización">Intuitive navigation for users with low digital literacy</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Multi-country cross-border experience with localization" data-es="Experiencia transfronteriza multi-país con localización">Multi-country cross-border experience with localization</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Scalable design system for future feature expansion" data-es="Sistema de diseño escalable para futuras funcionalidades">Scalable design system for future feature expansion</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Prototype testing and usability validation before development" data-es="Prototipado y validación de usabilidad antes del desarrollo">Prototype testing and usability validation before development</span></li>
+      </ul>
+    </section>
+
+    <section class="content-section" id="process">
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
+      <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
+      <div class="process-steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="Discovery &amp; User Research" data-es="Investigación y descubrimiento">Discovery &amp; User Research</p><p class="step-desc t" data-en="Stakeholder interviews, competitive analysis, and user journey mapping across different country profiles." data-es="Entrevistas con stakeholders, análisis competitivo y mapeo de journeys para distintos perfiles de país.">Stakeholder interviews, competitive analysis, and user journey mapping across different country profiles.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="Information Architecture" data-es="Arquitectura de la información">Information Architecture</p><p class="step-desc t" data-en="Restructured navigation and content hierarchy to make the most critical tasks — tracking, managing, and receiving packages — immediately accessible." data-es="Reestructuración de la navegación y la jerarquía de contenido para hacer accesibles las tareas clave.">Restructured navigation and content hierarchy to make the most critical tasks — tracking, managing, and receiving packages — immediately accessible.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><p class="step-title t" data-en="Wireframing &amp; Prototyping" data-es="Wireframing y prototipado">Wireframing &amp; Prototyping</p><p class="step-desc t" data-en="Low to high fidelity wireframes, interactive prototypes for testing across both iOS and Android platforms." data-es="Wireframes de baja a alta fidelidad, prototipos interactivos para iOS y Android.">Low to high fidelity wireframes, interactive prototypes for testing across both iOS and Android platforms.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Visual Design &amp; Design System" data-es="Diseño visual y sistema de diseño">Visual Design &amp; Design System</p><p class="step-desc t" data-en="Created a scalable UI kit with semantic color tokens for package states, typography, and component variants." data-es="UI kit escalable con tokens de color semánticos para estados de paquete, tipografía y variantes de componentes.">Created a scalable UI kit with semantic color tokens for package states, typography, and component variants.</p></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><p class="step-title t" data-en="Usability Testing" data-es="Tests de usabilidad">Usability Testing</p><p class="step-desc t" data-en="Moderated testing sessions with real users across different markets to validate flows and iterate on friction points." data-es="Sesiones de testing moderadas con usuarios reales de distintos mercados para validar flujos.">Moderated testing sessions with real users across different markets to validate flows and iterate on friction points.</p></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="Dev Handoff &amp; Consulting" data-es="Handoff y consultoría">Dev Handoff &amp; Consulting</p><p class="step-desc t" data-en="Detailed Figma handoff with annotations, interaction specs, and ongoing product consulting through launch." data-es="Handoff detallado en Figma con anotaciones, especificaciones de interacción y consultoría durante el lanzamiento.">Detailed Figma handoff with annotations, interaction specs, and ongoing product consulting through launch.</p></div></div>
+      </div>
+      <div class="section-img-row">
+        <div class="section-img"><img src="images/za-img3.jpg" alt="Process detail" loading="lazy"></div>
+        <div class="section-img"><img src="images/za-img4.jpg" alt="Wireframes" loading="lazy"></div>
+      </div>
+    </section>
+
+    <section class="content-section" id="results">
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
+      <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
+      <ul class="checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="+85% increase in app usage across all markets" data-es="+85% de incremento en el uso de la app en todos los mercados">+85% increase in app usage across all markets</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Complete native design system for iOS and Android" data-es="Sistema de diseño nativo completo para iOS y Android">Complete native design system for iOS and Android</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Intuitive package state system with clear visual signalling" data-es="Sistema visual de estados de paquete claro de un vistazo">Intuitive package state system with clear visual signalling</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Reduced user drop-off during onboarding by improving clarity" data-es="Reducción del abandono durante el onboarding al mejorar la claridad">Reduced user drop-off during onboarding by improving clarity</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full dev handoff documentation delivered on time" data-es="Documentación completa de handoff entregada a tiempo">Full dev handoff documentation delivered on time</span></li>
+      </ul>
+      <div class="section-img"><img src="images/za-hero.jpg" alt="Results" loading="lazy"></div>
+    </section>
+  </main>
+</div>
+
+<div class="proj-nav">
+  <a href="sports-club.html" class="proj-nav-link">
+    <span class="proj-nav-label t" data-en="← Previous" data-es="← Anterior">← Previous</span>
+    <span class="proj-nav-title">Sports Clubs APP &amp; VO</span>
+  </a>
+  <a href="ugt.html" class="proj-nav-link" style="text-align:right">
+    <span class="proj-nav-label t" data-en="Next →" data-es="Siguiente →">Next →</span>
+    <span class="proj-nav-title t" data-en="UGT Enrollment System" data-es="Sistema de Matriculación UGT">UGT Enrollment System</span>
+  </a>
+</div>
+
+<div class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</div>
+
+<script src="lang.js"></script>
+<script>
+const tl=document.querySelectorAll('.toc-list a'),sc=document.querySelectorAll('.content-section');
+sc.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){tl.forEach(l=>l.classList.remove('active'));const a=document.querySelector('.toc-list a[href="#'+en.target.id+'"]');if(a)a.classList.add('active')}})},{threshold:.3,rootMargin:'-80px 0px 0px 0px'}).observe(s));
+</script>
+</body>
+</html>

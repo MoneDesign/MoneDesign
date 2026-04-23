@@ -76,9 +76,8 @@ img { display: block; max-width: 100%; }
 /* ─── HERO ────────────────────────────────────────────── */
 .hero {
   display: flex; align-items: center; gap: 24px;
-  padding: 48px var(--pad);
+  padding: 40px var(--pad);
   max-width: 1440px; margin: 0 auto;
-  min-height: calc(100vh - 79px - 67px);
 }
 
 .hero-photo-wrap {
@@ -204,17 +203,9 @@ img { display: block; max-width: 100%; }
 
 /* ─── PROJECT GRID ────────────────────────────────────── */
 .projects-grid {
-  display: flex; flex-direction: column; gap: 80px;
-}
-
-.projects-row {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px 24px;
   align-items: start;
 }
-
-/* Single item rows */
-.projects-row.single { grid-template-columns: 1fr 1fr; }
-.projects-row.single .proj-card:only-child { max-width: calc(50% - 12px); }
 
 .proj-card {
   display: flex; flex-direction: column; gap: 32px;
@@ -289,8 +280,7 @@ footer {
 }
 
 @media (max-width: 900px) {
-  .projects-row { grid-template-columns: 1fr; }
-  .projects-row.single .proj-card:only-child { max-width: 100%; }
+  .projects-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
@@ -347,7 +337,7 @@ footer {
 
 @media (max-width: 480px) {
   .hero-headline { font-size: 24px; }
-  .projects-row { gap: 40px; }
+  .projects-grid { gap: 40px; }
   .proj-img-wrap { height: 200px; }
 }
 
@@ -433,9 +423,6 @@ footer {
 
   <div class="projects-grid" id="projects-grid">
 
-    <!-- ROW 1 -->
-    <div class="projects-row" id="row-1">
-
       <a href="tracker.html" class="proj-card" data-categories="apps ux-consulting">
         <div class="proj-img-wrap">
           <div class="proj-overlay-color" style="background:rgba(241,238,255,0.5)"></div>
@@ -452,7 +439,7 @@ footer {
         </div>
       </a>
 
-      <a href="yuuju.html" class="proj-card" data-categories="web ux-consulting">
+      <a href="yuuju.html" class="proj-card" data-categories="web ux-consulting workshops">
         <div class="proj-img-wrap">
           <div class="proj-overlay-color" style="background:rgba(241,238,255,0.5)"></div>
           <img src="images/proj-utility.png" alt="Utility Services" loading="lazy">
@@ -468,12 +455,7 @@ footer {
         </div>
       </a>
 
-    </div>
-
-    <!-- ROW 2 -->
-    <div class="projects-row" id="row-2">
-
-      <a href="zender-app.html" class="proj-card" data-categories="apps">
+      <a href="zender-app.html" class="proj-card" data-categories="apps ux-consulting">
         <div class="proj-img-wrap">
           <div class="proj-overlay-color" style="background:rgba(7,171,255,0.10)"></div>
           <img src="images/proj-tracking.png" alt="Tracking APP" loading="lazy">
@@ -489,7 +471,7 @@ footer {
         </div>
       </a>
 
-      <a href="sports-club.html" class="proj-card" data-categories="apps">
+      <a href="sports-club.html" class="proj-card" data-categories="apps ux-consulting">
         <div class="proj-img-wrap">
           <div class="proj-overlay-color" style="background:rgba(0,0,0,0.12)"></div>
           <img src="images/proj-sports.png" alt="Sports Clubs APP" loading="lazy">
@@ -505,12 +487,7 @@ footer {
         </div>
       </a>
 
-    </div>
-
-    <!-- ROW 3 -->
-    <div class="projects-row" id="row-3">
-
-      <a href="alphabet.html" class="proj-card" data-categories="web">
+      <a href="alphabet.html" class="proj-card" data-categories="web ux-consulting">
         <div class="proj-img-wrap">
           <div class="proj-overlay-color" style="background:rgba(24,28,89,0.12)"></div>
           <img src="images/proj-renting.png" alt="Renting Solutions" loading="lazy">
@@ -526,7 +503,7 @@ footer {
         </div>
       </a>
 
-      <a href="trina-solar.html" class="proj-card" data-categories="web">
+      <a href="trina-solar.html" class="proj-card" data-categories="web ux-consulting">
         <div class="proj-img-wrap">
           <div class="proj-overlay-color" style="background:rgba(111,112,114,0.15)"></div>
           <img src="images/proj-solar.png" alt="Interactive Solar Plant" loading="lazy">
@@ -541,11 +518,6 @@ footer {
           </p>
         </div>
       </a>
-
-    </div>
-
-    <!-- ROW 4 -->
-    <div class="projects-row" id="row-4">
 
       <a href="ugt.html" class="proj-card" data-categories="ux-consulting workshops">
         <div class="proj-img-wrap">
@@ -579,11 +551,6 @@ footer {
         </div>
       </a>
 
-    </div>
-
-    <!-- ROW 5 -->
-    <div class="projects-row" id="row-5">
-
       <a href="radianna.html" class="proj-card" data-categories="branding">
         <div class="proj-img-wrap" style="background:#f1eeff;">
           <img src="images/proj-branding-ris.png" alt="Branding for a RIS" loading="lazy">
@@ -615,11 +582,6 @@ footer {
         </div>
       </a>
 
-    </div>
-
-    <!-- ROW 6 -->
-    <div class="projects-row" id="row-6">
-
       <a href="ipsum.html" class="proj-card" data-categories="branding">
         <div class="proj-img-wrap" style="background:#fff;">
           <img src="images/proj-ipsum.png" alt="Branding for IPSUM" loading="lazy" style="object-fit:contain; padding:32px;">
@@ -650,12 +612,7 @@ footer {
         </div>
       </a>
 
-    </div>
-
-    <!-- ROW 7 — single -->
-    <div class="projects-row single" id="row-7">
-
-      <a href="kdpof.html" class="proj-card" data-categories="branding">
+      <a href="kdpof.html" class="proj-card" data-categories="branding workshops">
         <div class="proj-img-wrap" style="background:#290e76;">
           <img src="images/proj-kdpof.png" alt="From KDPOF to KD" loading="lazy" style="object-fit:contain; padding:48px;">
         </div>
@@ -669,8 +626,6 @@ footer {
           </p>
         </div>
       </a>
-
-    </div>
 
   </div><!-- /projects-grid -->
 </main>

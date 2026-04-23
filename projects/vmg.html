@@ -24,7 +24,7 @@
 </head>
 <body>
 <nav class="nav"><div class="nav-inner">
-  <a href="index.html" class="nav-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg><span class="t" data-en="Home" data-es="Inicio">Home</span></a>
+  <a href="../index.html" class="nav-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg><span class="t" data-en="Home" data-es="Inicio">Home</span></a>
   <div class="nav-lang">
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
@@ -39,7 +39,7 @@
 </section>
 
 <div class="hero-banner">
-  <img src="images/vmg-hero.jpg" alt="VMG brand identity">
+  <img src="../images/vmg-hero.jpg" alt="VMG brand identity">
 </div>
 
 <div class="proj-body">
@@ -68,8 +68,8 @@
       <p class="section-text t" data-en="VMG specialises in hyperbaric chambers — medical devices used in oxygen therapy and rehabilitation. The company's philosophy, &quot;Moving Forward&quot;, needed to be translated into a brand identity that communicated trust, innovation, and a deep connection to health and technology. Before this project, VMG operated without a consistent visual identity." data-es="VMG se especializa en cámaras hiperbáricas — dispositivos médicos utilizados en oxigenoterapia y rehabilitación. La filosofía de la empresa, &quot;Moving Forward&quot;, debía traducirse en una identidad de marca que comunicara confianza, innovación y una profunda conexión con la salud y la tecnología. Antes de este proyecto, VMG operaba sin una identidad visual consistente.">VMG specialises in hyperbaric chambers — medical devices used in oxygen therapy and rehabilitation. The company's philosophy, "Moving Forward", needed to be translated into a brand identity that communicated trust, innovation, and a deep connection to health and technology. Before this project, VMG operated without a consistent visual identity.</p>
       <p class="section-text t" data-en="The brand palette — Indigo and Bondi Blue — was chosen to evoke calmness, professionalism, and the clinical precision associated with medical environments, while remaining approachable and human." data-es="La paleta de la marca — Índigo y Bondi Blue — fue elegida para evocar calma, profesionalidad y la precisión clínica asociada a entornos médicos, manteniendo un tono accesible y humano.">The brand palette — Indigo and Bondi Blue — was chosen to evoke calmness, professionalism, and the clinical precision associated with medical environments, while remaining approachable and human.</p>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/vmg-img1.jpg" alt="VMG logo" loading="lazy"></div>
-        <div class="section-img"><img src="images/vmg-img2.jpg" alt="Brand book" loading="lazy"></div>
+        <div class="section-img"><img src="../images/vmg-img1.jpg" alt="VMG logo" loading="lazy"></div>
+        <div class="section-img"><img src="../images/vmg-img2.jpg" alt="Brand book" loading="lazy"></div>
       </div>
     </section>
 
@@ -82,7 +82,7 @@
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Essential product information structured for medical buyers" data-es="Información esencial del producto estructurada para compradores del sector médico">Essential product information structured for medical buyers</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full brand consistency across every page element" data-es="Consistencia total de marca en cada elemento de la página">Full brand consistency across every page element</span></li>
       </ul>
-      <div class="section-img"><img src="images/vmg-img3.jpg" alt="VMG website" loading="lazy"></div>
+      <div class="section-img"><img src="../images/vmg-img3.jpg" alt="VMG website" loading="lazy"></div>
     </section>
   </main>
 </div>
@@ -93,7 +93,7 @@
 </div>
 
 <div class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div>
-<script src="lang.js"></script>
+<script src="../lang.js"></script>
 <script>
 const tl=document.querySelectorAll('.toc-list a'),sc=document.querySelectorAll('.content-section');
 sc.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){tl.forEach(l=>l.classList.remove('active'));const a=document.querySelector('.toc-list a[href="#'+en.target.id+'"]');if(a)a.classList.add('active')}})},{threshold:.3,rootMargin:'-80px 0px 0px 0px'}).observe(s));

@@ -36,13 +36,14 @@ img { display: block; max-width: 100%; }
 }
 
 /* ─── NAV ─────────────────────────────────────────────── */
-.nav {
+header {
   position: sticky; top: 0; z-index: 100;
   background: #fff;
   border-bottom: 1px solid transparent;
   transition: border-color var(--transition);
 }
-.nav.scrolled { border-color: var(--border); }
+.nav {}
+header.scrolled { border-color: var(--border); }
 
 .nav-inner {
   display: flex; align-items: center; justify-content: space-between;
@@ -637,9 +638,8 @@ footer {
 <!-- ══ JS ════════════════════════════════════════════════ -->
 <script>
 /* ── Nav scroll ── */
-const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 10);
+  document.querySelector('header').classList.toggle('scrolled', window.scrollY > 10);
 }, { passive: true });
 
 /* ── Filter ── */

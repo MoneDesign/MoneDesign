@@ -41,7 +41,7 @@ body{
 }
 
 /* ─── SIDEBAR ────────────────────────────────────────────── */
-.sidebar{
+#sidebar{
   width:var(--sidebar-w); height:100vh;
   background:var(--sidebar-bg); border-right:1px solid var(--border);
   display:flex; flex-direction:column;
@@ -212,7 +212,7 @@ body{
 [data-theme="dark"] #proj-content .toc-list a,
 [data-theme="dark"] #proj-content .tool-item { color: var(--text-3) !important; }
 [data-theme="dark"] #proj-content .deliverable-card,
-[data-theme="dark"] #proj-content .sidebar { background: var(--surface) !important; border-color: var(--border) !important; }
+[data-theme="dark"] #proj-content aside.sidebar { background: var(--surface) !important; border-color: var(--border) !important; }
 [data-theme="dark"] #proj-content .deliverable-card h4 { color: var(--text-1) !important; }
 [data-theme="dark"] #proj-content .deliverable-card p { color: var(--text-2) !important; }
 [data-theme="dark"] #proj-content .section-img { box-shadow: 0 4px 24px rgba(0,0,0,.4); }
@@ -280,8 +280,8 @@ body{
 @media(max-width:860px){
   html,body{ overflow:auto; }
   :root{ --sidebar-w:0px; }
-  .sidebar{ transform:translateX(-260px); transition:transform 300ms ease; width:260px; }
-  .sidebar.open{ transform:translateX(0); }
+  #sidebar{ transform:translateX(-260px); transition:transform 300ms ease; width:260px; }
+  #sidebar.open{ transform:translateX(0); }
   .dash-main{ margin-left:0; height:auto; overflow:visible; }
   .dash-content{ height:auto; overflow:visible; }
   #view-home.active,#view-projects.active,#view-about.active,#view-project.active{ height:auto; overflow:visible; }
@@ -291,6 +291,11 @@ body{
   .hamburger{ display:flex; }
   .topbar{ padding:0 16px; }
   .metrics-row{ grid-template-columns:1fr 1fr; }
+  #proj-content aside.sidebar{ display:none !important; }
+  #proj-content .proj-body{ grid-template-columns:1fr !important; padding:0 !important; }
+  #proj-content .content{ padding:20px 16px 60px !important; }
+  #proj-content .hero-img-wrap{ margin-bottom:0 !important; }
+  #proj-content .proj-hero{ padding:32px 16px 24px !important; }
 }
 @media(max-width:640px){
   .profile-card{ flex-direction:column; height:auto; }

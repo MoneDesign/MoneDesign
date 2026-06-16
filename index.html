@@ -119,6 +119,12 @@ body{
 .plink.plink-about{ background:var(--brand); border-color:var(--brand); color:#fff; }
 .plink.plink-about:hover{ background:#a8195e; border-color:#a8195e; }
 
+/* ─── OPEN TO WORK BADGE ─────────────────────────────────── */
+.profile-name-row{ display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
+.otw-badge{ display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; letter-spacing:.03em; color:#16a34a; background:rgba(22,163,74,.12); border:1px solid rgba(22,163,74,.35); padding:4px 10px; border-radius:100px; white-space:nowrap; }
+.otw-dot{ width:7px; height:7px; border-radius:50%; background:#16a34a; flex-shrink:0; animation:otw-pulse 1.8s ease-in-out infinite; }
+@keyframes otw-pulse{ 0%,100%{ opacity:1; transform:scale(1); box-shadow:0 0 0 0 rgba(22,163,74,.5); } 50%{ opacity:.7; transform:scale(1.2); box-shadow:0 0 0 5px rgba(22,163,74,0); } }
+
 /* ─── HOME GRID ──────────────────────────────────────────── */
 .home-grid{ flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:12px; }
 .sec-hd{ display:flex; align-items:baseline; gap:8px; flex-shrink:0; }
@@ -396,7 +402,10 @@ body{
           <img src="images/Mone_Rodriguez.png" alt="Mone Rodríguez">
         </div>
         <div class="profile-info">
-          <div class="profile-name">Hi, I'm <em>Mone</em> Rodríguez</div>
+          <div class="profile-name-row">
+            <div class="profile-name">Hi, I'm <em>Mone</em> Rodríguez</div>
+            <span class="otw-badge"><span class="otw-dot"></span><span data-en="Open to Work" data-es="Open to Work">Open to Work</span></span>
+          </div>
           <div class="profile-role">Product Manager, Senior Product Designer &amp; UX Strategist · 12+ years of experience</div>
           <p class="profile-headline">I turn challenges into digital solutions that simplify and enhance people's lives.</p>
           <div class="profile-links">

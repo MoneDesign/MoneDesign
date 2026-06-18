@@ -2,7 +2,7 @@
 
 Portafolio personal de Mone Rodríguez, Product Designer & UX Strategist con 12+ años de experiencia. Contiene los case studies de trabajo seleccionado, construido a mano en HTML/CSS/JS vanilla sin frameworks.
 
-**Ver en vivo →** [monerodriguez.com](https://monerodriguez.com) *(próximamente)*
+**Ver en vivo →** [monedesign.github.io/MoneDesign](https://monedesign.github.io/MoneDesign/)
 
 ---
 

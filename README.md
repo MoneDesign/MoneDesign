@@ -23,6 +23,7 @@ Soy diseñadora de producto y estratega UX con 12 años de experiencia. Este es 
 | Yuuju | Product Design · App | Yuuju |
 | ZenderBox App | Product Design · iOS/Android | ZenderBox |
 | ZenderBox Ecosystem | Brand + Web + DS | ZenderBox |
+| ZenderHub | Brand + Web + DS | ZenderHub |
 
 ---
 

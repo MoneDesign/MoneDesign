@@ -128,6 +128,10 @@ body{
 .plink.plink-about{ background:var(--brand); border-color:var(--brand); color:#fff; }
 .plink.plink-about:hover{ background:#a8195e; border-color:#a8195e; }
 .plink.plink-hiw{ background:transparent; border-color:var(--brand); color:var(--brand); }
+.profile-langs{ display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; }
+.plang{ display:flex; align-items:center; gap:4px; font-size:11px; font-weight:600; color:var(--text-2); padding:3px 9px; border-radius:100px; background:var(--surface-2); border:1px solid var(--border); }
+.plang-flag{ font-size:12px; }
+.plang-level{ font-weight:400; color:var(--text-3); }
 .plink.plink-hiw:hover{ background:rgba(204,31,114,.08); }
 [data-theme="dark"] .plink.plink-hiw:hover{ background:rgba(204,31,114,.14); }
 
@@ -455,6 +459,11 @@ body{
               <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
               LinkedIn
             </a>
+          </div>
+          <div class="profile-langs">
+            <span class="plang"><span class="plang-flag">🇪🇸</span> ES <span class="plang-level" data-en="Native" data-es="Nativo">Native</span></span>
+            <span class="plang"><span class="plang-flag">🇬🇧</span> EN <span class="plang-level">C2</span></span>
+            <span class="plang"><span class="plang-flag">🇩🇪</span> DE <span class="plang-level">B2</span></span>
           </div>
         </div>
       </div>

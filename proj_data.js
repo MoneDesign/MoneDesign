@@ -1,872 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-09KYHTFP6Q"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-09KYHTFP6Q');
-  </script>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mone Rodríguez · Portfolio Dashboard</title>
-<style>
-/* ─── RESET ─────────────────────────────────────────────── */
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-a{text-decoration:none;color:inherit;}
-img{display:block;max-width:100%;}
-button{cursor:pointer;border:none;background:none;font-family:inherit;}
-
-/* ─── TOKENS ─────────────────────────────────────────────── */
-:root{
-  --brand:#cc1f72;
-  --bg:#f4f4f7; --surface:#ffffff; --surface-2:#f0f0f4;
-  --sidebar-bg:#ffffff; --border:#e6e6ef; --border-2:#d0d0dc;
-  --text-1:#111118; --text-2:#56566a; --text-3:#9898b0;
-  --sh-sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-  --sh-md:0 4px 16px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.04);
-  --sidebar-w:260px; --topbar-h:60px;
-  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px;
-  --tr:200ms ease;
-}
-[data-theme="dark"]{
-  --bg:#0d0d13; --surface:#15151e; --surface-2:#1c1c28;
-  --sidebar-bg:#111119; --border:#20202e; --border-2:#2c2c3c;
-  --text-1:#eeeef8; --text-2:#9090a8; --text-3:#8080a0;
-  --sh-sm:0 1px 3px rgba(0,0,0,.4),0 1px 2px rgba(0,0,0,.3);
-  --sh-md:0 4px 16px rgba(0,0,0,.5),0 2px 4px rgba(0,0,0,.3);
-}
-
-/* ─── VIEWPORT LAYOUT ────────────────────────────────────── */
-html, body { height: 100%; overflow: hidden; }
-body{
-  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;
-  background:var(--bg); color:var(--text-1);
-  -webkit-font-smoothing:antialiased;
-  display:flex;
-}
-
-/* ─── SIDEBAR ────────────────────────────────────────────── */
-#sidebar{
-  width:var(--sidebar-w); height:100vh;
-  background:var(--sidebar-bg); border-right:1px solid var(--border);
-  display:flex; flex-direction:column;
-  position:fixed; top:0; left:0; bottom:0; z-index:200;
-  overflow-y:auto; flex-shrink:0;
-  scrollbar-width:thin; scrollbar-color:var(--border) transparent;
-}
-.sidebar-logo{ padding:20px 20px 18px; display:flex; align-items:center; border-bottom:1px solid var(--border); flex-shrink:0; }
-.sidebar-logo img{ height:20px; width:auto; }
-.logo-fb{ font-size:18px; font-weight:800; letter-spacing:-.04em; color:var(--text-1); display:none; }
-.logo-fb em{ color:var(--brand); font-style:normal; }
-.sidebar-nav{ flex:1; padding:10px 10px 16px; }
-.nav-label{ font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-3); padding:14px 8px 5px; }
-.nav-item{
-  display:flex; align-items:center; gap:9px; padding:7px 10px; border-radius:var(--r-sm);
-  font-size:13.5px; font-weight:500; color:var(--text-2);
-  transition:all var(--tr); cursor:pointer; text-decoration:none;
-}
-.nav-item:hover{ background:var(--surface-2); color:var(--text-1); }
-.nav-item.active{ background:rgba(204,31,114,.1); color:var(--brand); font-weight:600; }
-[data-theme="dark"] .nav-item.active{ background:rgba(204,31,114,.14); color:#e8509a; }
-[data-theme="dark"] .nav-item.active .nav-badge{ color:#e8509a; background:rgba(232,80,154,.12); }
-.nav-item svg{ width:15px; height:15px; flex-shrink:0; opacity:.7; }
-.nav-item.active svg,.nav-item:hover svg{ opacity:1; }
-.nav-badge{ margin-left:auto; font-size:11px; font-weight:600; background:var(--surface-2); color:var(--text-3); padding:2px 7px; border-radius:100px; }
-.nav-item.active .nav-badge{ background:rgba(204,31,114,.12); color:var(--brand); }
-.nav-sub{ padding-left:10px; }
-.nav-sub .nav-item{ font-size:13px; padding:6px 10px; }
-
-/* ─── MAIN ───────────────────────────────────────────────── */
-.dash-main{ margin-left:var(--sidebar-w); flex:1; height:100vh; overflow:hidden; display:flex; flex-direction:column; }
-
-/* ─── TOPBAR ─────────────────────────────────────────────── */
-.topbar{
-  height:var(--topbar-h); flex-shrink:0;
-  background:var(--surface); border-bottom:1px solid var(--border);
-  display:flex; align-items:center; padding:0 28px; gap:12px;
-  box-shadow:var(--sh-sm); z-index:100;
-}
-.hamburger{ display:none; align-items:center; justify-content:center; width:34px; height:34px; border-radius:var(--r-sm); background:var(--surface-2); color:var(--text-2); border:1px solid var(--border); flex-shrink:0; }
-.hamburger svg{ width:16px; height:16px; }
-.topbar-title{ font-size:15px; font-weight:600; color:var(--text-1); flex:1; }
-.topbar-controls{ display:flex; align-items:center; flex-shrink:0; }
-.theme-btn{ display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:var(--r-sm); background:var(--surface-2); border:1px solid var(--border); color:var(--text-2); transition:all var(--tr); }
-.theme-btn:hover{ border-color:var(--brand); color:var(--brand); }
-.theme-btn svg{ width:15px; height:15px; }
-.lang-sw{ display:flex; border:1px solid var(--border); border-radius:var(--r-sm); overflow:hidden; margin-right:8px; }
-.lang-sw button{ padding:0 10px; height:34px; font-size:12px; font-weight:600; color:var(--text-3); background:transparent; transition:all var(--tr); border:none; cursor:pointer; font-family:inherit; }
-.lang-sw button:hover{ color:var(--text-1); background:var(--surface-2); }
-.lang-sw button.active{ background:var(--brand); color:#fff; }
-
-/* ─── CONTENT AREA ───────────────────────────────────────── */
-.dash-content{ flex:1; min-height:0; padding:18px 28px 18px; display:flex; flex-direction:column; overflow:hidden; }
-
-/* ─── VIEWS ──────────────────────────────────────────────── */
-.view{ display:none; }
-#view-home.active{ display:flex; flex-direction:column; gap:14px; height:100%; overflow:hidden; }
-#view-projects.active,#view-about.active{ display:flex; flex-direction:column; gap:18px; height:100%; overflow-y:auto; padding-right:2px; scrollbar-width:thin; scrollbar-color:var(--border) transparent; }
-#view-project.active{ display:flex; flex-direction:column; gap:14px; height:100%; overflow:hidden; }
-
-/* ─── PROFILE CARD ───────────────────────────────────────── */
-.profile-card{ flex-shrink:0; height:200px; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-xl); box-shadow:var(--sh-sm); display:flex; overflow:hidden; }
-.profile-photo-col{ flex-shrink:0; width:200px; position:relative; overflow:hidden; background:var(--surface-2); }
-.profile-photo-col img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 25%; }
-.profile-info{ flex:1; padding:22px 24px; display:flex; flex-direction:column; gap:8px; position:relative; }
-.profile-name{ font-size:21px; font-weight:800; letter-spacing:-.025em; color:var(--text-1); line-height:1.1; }
-.profile-name em{ color:var(--brand); font-style:normal; }
-.profile-role{ font-size:12px; font-weight:500; color:var(--text-2); }
-.profile-headline{ font-size:19px; font-weight:600; line-height:1.45; color:var(--text-1); letter-spacing:-.02em; max-width:560px; }
-.profile-links{ display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; }
-.plink{ display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:500; color:var(--text-2); padding:5px 10px; border-radius:100px; background:var(--surface-2); border:1px solid var(--border); transition:all var(--tr); text-decoration:none; }
-.plink:hover{ border-color:var(--brand); color:var(--brand); }
-[data-theme="dark"] .plink:hover{ background:rgba(204,31,114,.08); }
-.plink svg{ width:12px; height:12px; flex-shrink:0; }
-.plink.plink-about{ background:var(--brand); border-color:var(--brand); color:#fff; }
-.plink.plink-about:hover{ background:#a8195e; border-color:#a8195e; }
-
-/* ─── OPEN TO WORK BADGE ─────────────────────────────────── */
-.otw-badge{ position:absolute; top:20px; right:20px; display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; letter-spacing:.03em; color:#16a34a; background:rgba(22,163,74,.12); border:1px solid rgba(22,163,74,.35); padding:4px 12px; border-radius:100px; white-space:nowrap; }
-.otw-dot{ width:7px; height:7px; border-radius:50%; background:#16a34a; flex-shrink:0; animation:otw-pulse 1.8s ease-in-out infinite; }
-@keyframes otw-pulse{ 0%,100%{ opacity:1; transform:scale(1); box-shadow:0 0 0 0 rgba(22,163,74,.5); } 50%{ opacity:.7; transform:scale(1.2); box-shadow:0 0 0 5px rgba(22,163,74,0); } }
-
-/* ─── HOME GRID ──────────────────────────────────────────── */
-.home-grid{ flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:12px; }
-.sec-hd{ display:flex; align-items:baseline; gap:8px; flex-shrink:0; }
-.sec-title{ font-size:13px; font-weight:700; letter-spacing:-.01em; color:var(--text-1); }
-.sec-sub{ font-size:11px; color:var(--text-3); }
-
-.cat-card{ position:relative; overflow:hidden; border-radius:var(--r-md); cursor:pointer; text-decoration:none; transition:box-shadow var(--tr),transform var(--tr); background:var(--surface-2); }
-.cat-card:hover{ box-shadow:0 6px 24px rgba(0,0,0,.3); transform:translateY(-2px); }
-.cat-bg{ position:absolute; inset:0; background-size:cover; background-position:center; transition:transform 400ms ease; }
-.cat-card:hover .cat-bg{ transform:scale(1.06); }
-.cat-overlay{ position:absolute; inset:0; background:linear-gradient(to bottom,rgba(0,0,0,.28) 0%,rgba(0,0,0,.86) 100%); }
-.cat-body{ position:absolute; bottom:0; left:0; right:0; padding:14px 18px; color:#fff; display:flex; flex-direction:column; gap:3px; }
-.cat-badge{ align-self:flex-start; margin-bottom:2px; font-size:9px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; background:rgba(255,255,255,.16); backdrop-filter:blur(6px); color:rgba(255,255,255,.9); padding:2px 7px; border-radius:100px; }
-.cat-name-lbl{ font-size:17px; font-weight:800; letter-spacing:-.02em; line-height:1.1; }
-.cat-cta-lbl{ font-size:11px; font-weight:600; color:rgba(255,255,255,.65); display:flex; align-items:center; gap:3px; }
-.cat-cta-lbl svg{ width:10px; height:10px; }
-
-/* ─── KEY IMPACT ─────────────────────────────────────────── */
-.impact-section{ display:flex; flex-direction:column; gap:8px; min-height:0; }
-.impact-stack{ flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.impact-card{ flex:1; min-height:0; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-md); padding:14px; box-shadow:var(--sh-sm); display:flex; flex-direction:column; gap:5px; cursor:pointer; transition:box-shadow var(--tr),transform var(--tr); }
-.impact-card:hover{ box-shadow:var(--sh-md); transform:translateY(-2px); }
-.impact-metric{ font-size:22px; font-weight:800; letter-spacing:-.03em; color:var(--brand); line-height:1; }
-.impact-desc{ font-size:11.5px; font-weight:600; color:var(--text-1); line-height:1.35; }
-.impact-proj{ font-size:10.5px; color:var(--text-3); margin-top:auto; }
-
-/* ─── TOOLS PANEL ────────────────────────────────────────── */
-.tools-section{ display:flex; flex-direction:column; gap:8px; min-height:0; }
-.tools-card{ flex:1; min-height:0; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-md); padding:16px; box-shadow:var(--sh-sm); display:flex; flex-direction:column; justify-content:space-between; overflow-y:auto; scrollbar-width:none; }
-.tools-card::-webkit-scrollbar{ display:none; }
-.tg{ display:flex; flex-direction:column; gap:6px; }
-.tg-name{ font-size:9px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-3); }
-.tg-items{ display:flex; flex-wrap:wrap; gap:4px; }
-.tg-item{ font-size:10.5px; padding:2px 7px; border-radius:100px; background:var(--surface-2); border:1px solid var(--border); color:var(--text-2); }
-.tg-item.ai{ background:rgba(204,31,114,.08); border-color:rgba(204,31,114,.22); color:var(--brand); }
-
-/* ─── SHARED VIEW HEADER ─────────────────────────────────── */
-.view-header{ display:flex; align-items:center; gap:14px; flex-shrink:0; }
-.back-btn{ display:flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--text-2); padding:7px 12px; border-radius:var(--r-sm); background:var(--surface); border:1px solid var(--border); cursor:pointer; transition:all var(--tr); flex-shrink:0; }
-.back-btn:hover{ color:var(--brand); border-color:var(--brand); }
-.back-btn svg{ width:13px; height:13px; }
-.view-heading{ font-size:20px; font-weight:800; letter-spacing:-.025em; color:var(--text-1); }
-.view-count{ font-size:12px; font-weight:500; color:var(--text-3); }
-.view-actions{ margin-left:auto; display:flex; gap:8px; }
-.dl-btn{ display:flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:#fff; padding:7px 14px; border-radius:var(--r-sm); background:var(--brand); transition:all var(--tr); text-decoration:none; }
-.dl-btn:hover{ background:#a8195e; }
-.dl-btn svg{ width:14px; height:14px; flex-shrink:0; }
-
-/* ─── PROJECTS VIEW ──────────────────────────────────────── */
-.filter-pills{ display:flex; flex-wrap:wrap; gap:8px; flex-shrink:0; }
-.pill{ padding:6px 15px; border-radius:100px; font-size:12.5px; font-weight:500; background:var(--surface); border:1px solid var(--border); color:var(--text-2); cursor:pointer; transition:all var(--tr); }
-.pill:hover{ border-color:var(--brand); color:var(--brand); }
-.pill.active{ background:var(--brand); border-color:var(--brand); color:#fff; font-weight:600; }
-
-.proj-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
-.proj-card{ background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; display:flex; flex-direction:column; cursor:pointer; transition:all var(--tr); box-shadow:var(--sh-sm); }
-.proj-card:hover{ box-shadow:var(--sh-md); transform:translateY(-3px); }
-.proj-thumb{ height:180px; overflow:hidden; flex-shrink:0; }
-.proj-thumb img{ width:100%; height:100%; object-fit:cover; transition:transform 420ms ease; }
-.proj-card:hover .proj-thumb img{ transform:scale(1.04); }
-.proj-body{ padding:14px; display:flex; flex-direction:column; gap:5px; flex:1; }
-.proj-title{ font-size:14px; font-weight:700; letter-spacing:-.02em; color:var(--text-1); line-height:1.2; }
-.proj-ctx{ font-size:11px; color:var(--text-3); }
-.proj-desc{ font-size:12px; line-height:1.5; color:var(--text-2); }
-.proj-tags{ display:flex; flex-wrap:wrap; gap:4px; margin-top:auto; padding-top:6px; }
-.proj-tag{ font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:2px 7px; border-radius:100px; background:var(--surface-2); color:var(--text-3); border:1px solid var(--border); }
-
-/* ─── PROJECT CONTENT ────────────────────────────────────── */
-#view-project.active{ overflow-y:auto; padding-bottom:32px; }
-#proj-content{ flex:1; min-height:0; width:100%; overflow-x:hidden; background:transparent !important; }
-#proj-content-loading{ display:none; align-items:center; justify-content:center; flex:1; color:var(--text-3); font-size:14px; gap:8px; }
-#proj-content-loading.show{ display:flex; }
-/* Dark mode overrides for injected project content */
-[data-theme="dark"] #proj-content .proj-hero,
-[data-theme="dark"] #proj-content .proj-body,
-[data-theme="dark"] #proj-content .content { color: var(--text-1); }
-[data-theme="dark"] #proj-content .proj-title,
-[data-theme="dark"] #proj-content .section-title,
-[data-theme="dark"] #proj-content .step-title,
-[data-theme="dark"] #proj-content h1,[data-theme="dark"] #proj-content h2,[data-theme="dark"] #proj-content h3,[data-theme="dark"] #proj-content h4 { color: var(--text-1) !important; }
-[data-theme="dark"] #proj-content .proj-subtitle,
-[data-theme="dark"] #proj-content .section-text,
-[data-theme="dark"] #proj-content .step-desc,
-[data-theme="dark"] #proj-content p,[data-theme="dark"] #proj-content li { color: var(--text-2) !important; }
-[data-theme="dark"] #proj-content .agency-label,
-[data-theme="dark"] #proj-content .toc-list a,
-[data-theme="dark"] #proj-content .tool-item { color: var(--text-3) !important; }
-[data-theme="dark"] #proj-content .deliverable-card { background: var(--surface) !important; border-color: var(--border) !important; }
-[data-theme="dark"] #proj-content .deliverable-card h4 { color: var(--text-1) !important; }
-[data-theme="dark"] #proj-content .deliverable-card p { color: var(--text-2) !important; }
-[data-theme="dark"] #proj-content .section-img { box-shadow: 0 4px 24px rgba(0,0,0,.4); }
-
-/* ─── ABOUT VIEW ─────────────────────────────────────────── */
-.about-grid{ display:grid; grid-template-columns:1fr 340px; gap:20px; align-items:start; }
-.about-col{ display:flex; flex-direction:column; gap:16px; }
-
-.bio-card{ background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:24px; box-shadow:var(--sh-sm); }
-.bio-top{ display:flex; align-items:center; gap:18px; margin-bottom:14px; }
-.bio-photo{ width:68px; height:68px; border-radius:50%; overflow:hidden; flex-shrink:0; border:2px solid var(--brand); }
-.bio-photo img{ width:100%; height:100%; object-fit:cover; object-position:50% 20%; }
-.bio-name{ font-size:19px; font-weight:800; letter-spacing:-.03em; color:var(--text-1); }
-.bio-name em{ color:var(--brand); font-style:normal; }
-.bio-role{ font-size:12px; color:var(--text-2); margin-top:2px; }
-.bio-meta{ font-size:11px; color:var(--text-3); margin-top:3px; }
-.bio-text{ font-size:13.5px; line-height:1.7; color:var(--text-2); }
-
-.metrics-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
-.metric-chip{ background:var(--surface); border:1px solid var(--border); border-radius:var(--r-md); padding:16px; text-align:center; }
-.metric-chip .metric-val{ font-size:22px; font-weight:800; color:var(--brand); letter-spacing:-.03em; }
-.metric-chip .metric-label{ font-size:11px; color:var(--text-2); line-height:1.4; margin-top:4px; }
-
-.section-card{ background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:22px; box-shadow:var(--sh-sm); }
-.section-card-title{ font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--brand); margin-bottom:18px; }
-
-.exp-list{ display:flex; flex-direction:column; }
-.exp-item{ padding-left:18px; border-left:2px solid var(--border-2); padding-bottom:22px; position:relative; }
-.exp-item:last-child{ padding-bottom:0; border-left-color:transparent; }
-.exp-item::before{ content:''; position:absolute; left:-5px; top:4px; width:8px; height:8px; background:var(--brand); border-radius:50%; box-shadow:0 0 0 3px var(--surface); }
-.exp-period{ font-size:11px; color:var(--text-3); margin-bottom:2px; }
-.exp-role{ font-size:14px; font-weight:700; color:var(--text-1); }
-.exp-company{ font-size:12px; color:var(--brand); margin-bottom:8px; }
-.exp-bullets{ list-style:none; display:flex; flex-direction:column; gap:4px; }
-.exp-bullets li{ font-size:12.5px; color:var(--text-2); line-height:1.5; padding-left:12px; position:relative; }
-.exp-bullets li::before{ content:'·'; position:absolute; left:0; color:var(--brand); font-weight:700; }
-
-.skills-groups{ display:flex; flex-direction:column; gap:14px; }
-.skill-group-label{ font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-3); margin-bottom:7px; }
-.skill-tags{ display:flex; flex-wrap:wrap; gap:5px; }
-.skill-tag{ font-size:12px; padding:4px 10px; border-radius:100px; background:var(--surface-2); border:1px solid var(--border); color:var(--text-2); }
-
-.tool-groups{ display:flex; flex-direction:column; gap:14px; }
-.tool-group-name{ font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-3); margin-bottom:7px; }
-.tool-tags{ display:flex; flex-wrap:wrap; gap:5px; }
-.tool-tag{ font-size:12px; padding:4px 10px; border-radius:100px; background:var(--surface-2); border:1px solid var(--border); color:var(--text-2); }
-.tool-tag.tool-ai{ background:rgba(204,31,114,.08); border-color:rgba(204,31,114,.25); color:var(--brand); }
-
-.edu-list{ display:flex; flex-direction:column; gap:12px; }
-.edu-degree{ font-size:13px; font-weight:600; color:var(--text-1); }
-.edu-school{ font-size:12px; color:var(--text-2); }
-.edu-year{ font-size:11px; color:var(--text-3); }
-
-.lang-list{ display:flex; flex-direction:column; gap:8px; }
-.lang-item{ display:flex; justify-content:space-between; align-items:center; }
-.lang-name{ font-size:13px; font-weight:600; color:var(--text-1); }
-.lang-level{ font-size:11px; padding:2px 8px; border-radius:100px; background:var(--surface-2); color:var(--text-3); }
-.lang-level.native{ background:rgba(204,31,114,.1); color:var(--brand); }
-
-/* ─── RESPONSIVE ─────────────────────────────────────────── */
-@media(max-width:1100px){
-  .proj-grid{ grid-template-columns:repeat(2,1fr); }
-  .about-grid{ grid-template-columns:1fr; }
-}
-@media(max-width:860px){
-  html,body{ overflow:auto; }
-  :root{ --sidebar-w:0px; }
-  #sidebar{ transform:translateX(-260px); transition:transform 300ms ease; width:260px; }
-  #sidebar.open{ transform:translateX(0); }
-  .dash-main{ margin-left:0; height:auto; overflow:visible; }
-  .dash-content{ height:auto; overflow:visible; }
-  #view-home.active,#view-projects.active,#view-about.active,#view-project.active{ height:auto; overflow:visible; }
-  #proj-iframe{ height:80vh; }
-  .home-grid{ grid-template-columns:1fr; grid-template-rows:180px auto 180px auto; }
-  .cat-card{ height:180px; }
-  .hamburger{ display:flex; }
-  .topbar{ padding:0 16px; }
-  .metrics-row{ grid-template-columns:1fr 1fr; }
-  #proj-content aside.sidebar{ display:none !important; }
-  #proj-content .proj-body{ grid-template-columns:1fr !important; padding:0 !important; }
-  #proj-content .content{ padding:20px 16px 60px !important; }
-  #proj-content .hero-img-wrap{ margin-bottom:0 !important; }
-  #proj-content .proj-hero{ padding:32px 16px 24px !important; }
-}
-@media(max-width:640px){
-  .profile-card{ flex-direction:column; height:auto; }
-  .profile-photo-col{ width:100%; height:200px; }
-  .profile-info{ padding:20px; }
-  .proj-grid{ grid-template-columns:1fr; }
-  .metrics-row{ grid-template-columns:1fr 1fr; }
-}
-.sidebar-overlay{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:199; }
-.sidebar-overlay.show{ display:block; }
-</style>
-</head>
-<body>
-
-<!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-logo">
-    <img src="images/logo.png" alt="Mone" id="logo-img"
-         onerror="this.style.display='none';document.getElementById('logo-fb').style.display='block'">
-    <span class="logo-fb" id="logo-fb">MO<em>NE</em></span>
-  </div>
-  <nav class="sidebar-nav">
-    <a class="nav-item active" id="nav-home" onclick="showView('home');return false;" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      Home
-    </a>
-    <a class="nav-item" id="nav-about" onclick="showView('about');return false;" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      About Me
-    </a>
-    <div class="nav-label">PROJECTS</div>
-    <a class="nav-item" id="nav-selected" onclick="showView('projects','selected');return false;" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      Selected Work
-      <span class="nav-badge">4</span>
-    </a>
-    <a class="nav-item" id="nav-all" onclick="showView('projects','all');return false;" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      All Projects
-      <span class="nav-badge">13</span>
-    </a>
-    <div class="nav-sub">
-      <a class="nav-item" id="nav-ux-consulting" onclick="showView('projects','ux-consulting');return false;" href="#">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-        UX Consulting <span class="nav-badge">9</span>
-      </a>
-      <a class="nav-item" id="nav-apps" onclick="showView('projects','apps');return false;" href="#">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
-        APPs <span class="nav-badge">4</span>
-      </a>
-      <a class="nav-item" id="nav-workshops" onclick="showView('projects','workshops');return false;" href="#">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-        Workshops <span class="nav-badge">4</span>
-      </a>
-      <a class="nav-item" id="nav-web" onclick="showView('projects','web');return false;" href="#">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        Web <span class="nav-badge">5</span>
-      </a>
-      <a class="nav-item" id="nav-branding" onclick="showView('projects','branding');return false;" href="#">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        Branding <span class="nav-badge">6</span>
-      </a>
-    </div>
-    <div class="nav-label">DOCUMENTS</div>
-    <a class="nav-item" href="files/cv-mone-rodriguez.pdf" download>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6m-3 3 3 3 3-3"/></svg>
-      Download CV
-    </a>
-    <div class="nav-label">CONNECT</div>
-    <a class="nav-item" href="https://linkedin.com/in/monerodriguez" target="_blank">
-      <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-      LinkedIn
-    </a>
-    <a class="nav-item" href="mailto:monerodriguez@gmail.com">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      <span data-en="Contact me" data-es="Contáctame">Contact me</span>
-    </a>
-  </nav>
-</aside>
-
-<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
-
-<!-- ══ MAIN ══════════════════════════════════════════════════ -->
-<div class="dash-main">
-  <div class="topbar">
-    <button class="hamburger" id="hamburger" onclick="openSidebar()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
-    <div class="topbar-title" id="topbar-title">Portfolio Dashboard</div>
-    <div class="topbar-controls">
-      <div class="lang-sw">
-        <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
-        <button id="btn-es" onclick="setLang('es')">ES</button>
-      </div>
-      <button class="theme-btn" onclick="toggleTheme()">
-        <svg id="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        <svg id="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <div class="dash-content">
-
-    <!-- ══ HOME ══════════════════════════════════════════════ -->
-    <div class="view active" id="view-home">
-      <div class="profile-card">
-        <div class="profile-photo-col">
-          <img src="images/mone-rodriguez.png" alt="Mone Rodríguez">
-        </div>
-        <div class="profile-info">
-          <div class="profile-name">Hi, I'm <em>Mone</em> Rodríguez</div>
-          <span class="otw-badge"><span class="otw-dot"></span><span data-en="Open to Work" data-es="Open to Work">Open to Work</span></span>
-          <div class="profile-role">Product Manager, Senior Product Designer &amp; UX Strategist · 12+ years of experience</div>
-          <p class="profile-headline">I turn challenges into digital solutions that simplify and enhance people's lives.</p>
-          <div class="profile-links">
-            <button class="plink plink-about" onclick="showView('about')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span class="plink-about" data-en="About Me &amp; CV" data-es="Sobre mí &amp; CV">About Me &amp; CV</span>
-            </button>
-            <a href="mailto:monerodriguez@gmail.com" class="plink">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              monerodriguez@gmail.com
-            </a>
-            <a href="https://linkedin.com/in/monerodriguez" target="_blank" class="plink">
-              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="home-grid">
-
-        <!-- Project card: Selected Work -->
-        <div class="cat-card" onclick="showView('projects','selected')">
-          <div class="cat-bg" style="background-image:url('images/proj-sports.png')"></div>
-          <div class="cat-overlay"></div>
-          <div class="cat-body">
-            <span class="cat-badge" data-en="4 projects" data-es="4 proyectos">4 projects</span>
-            <div class="cat-name-lbl" data-en="Selected Work" data-es="Trabajos destacados">Selected Work</div>
-            <div class="cat-cta-lbl" data-en="View selection" data-es="Ver selección">View selection <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-          </div>
-        </div>
-
-        <!-- Key Impact -->
-        <div class="impact-section">
-          <div class="sec-hd">
-            <span class="sec-title" data-en="Key Impact" data-es="Impacto clave">Key Impact</span>
-            <span class="sec-sub" data-en="Measured outcomes" data-es="Resultados medidos">Measured outcomes</span>
-          </div>
-          <div class="impact-stack">
-            <div class="impact-card" onclick="showView('projects','selected')">
-              <div class="impact-metric">−45%</div>
-              <div class="impact-desc" data-en="Reduced scope creep" data-es="Reducción del scope creep">Reduced scope creep</div>
-              <div class="impact-proj" data-en="Across B2B &amp; B2C projects" data-es="En proyectos B2B y B2C">Across B2B &amp; B2C projects</div>
-            </div>
-            <div class="impact-card" onclick="showView('projects','selected')">
-              <div class="impact-metric">−80%</div>
-              <div class="impact-desc" data-en="Compressed delivery cycles" data-es="Ciclos de entrega reducidos">Compressed delivery cycles</div>
-              <div class="impact-proj" data-en="Design systems &amp; DesignOps" data-es="Design systems y DesignOps">Design systems &amp; DesignOps</div>
-            </div>
-            <div class="impact-card" onclick="showView('projects','selected')">
-              <div class="impact-metric">+85%</div>
-              <div class="impact-desc" data-en="Improved product engagement" data-es="Mayor engagement de producto">Improved product engagement</div>
-              <div class="impact-proj" data-en="Mobile apps · iOS &amp; Android" data-es="Apps móviles · iOS y Android">Mobile apps · iOS &amp; Android</div>
-            </div>
-            <div class="impact-card" onclick="showView('projects','selected')">
-              <div class="impact-metric">+40%</div>
-              <div class="impact-desc" data-en="Operational efficiency" data-es="Eficiencia operacional">Operational efficiency</div>
-              <div class="impact-proj" data-en="Multidisciplinary alignment teams" data-es="Equipos multidisciplinarios alineados">Multidisciplinary alignment teams</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project card: All Projects -->
-        <div class="cat-card" onclick="showView('projects','all')">
-          <div class="cat-bg" style="background-image:url('images/proj-zenderbox-ecosystem.png')"></div>
-          <div class="cat-overlay"></div>
-          <div class="cat-body">
-            <span class="cat-badge" data-en="13 projects" data-es="13 proyectos">13 projects</span>
-            <div class="cat-name-lbl" data-en="All Projects" data-es="Todos los proyectos">All Projects</div>
-            <div class="cat-cta-lbl" data-en="Browse all" data-es="Ver todos">Browse all <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-          </div>
-        </div>
-
-        <!-- Tools -->
-        <div class="tools-section">
-          <div class="sec-hd">
-            <span class="sec-title" data-en="Tools" data-es="Herramientas">Tools</span>
-          </div>
-          <div class="tools-card">
-            <div class="tg">
-              <div class="tg-name" data-en="Design" data-es="Diseño">Design</div>
-              <div class="tg-items">
-                <span class="tg-item">Figma</span>
-                <span class="tg-item">Sketch</span>
-                <span class="tg-item">Illustrator</span>
-                <span class="tg-item">Photoshop</span>
-                <span class="tg-item">After Effects</span>
-                <span class="tg-item">Miro</span>
-              </div>
-            </div>
-            <div class="tg">
-              <div class="tg-name" data-en="Research" data-es="Research">Research</div>
-              <div class="tg-items">
-                <span class="tg-item">HotJar</span>
-                <span class="tg-item">Maze</span>
-                <span class="tg-item">UserTesting</span>
-              </div>
-            </div>
-            <div class="tg">
-              <div class="tg-name">DevOps</div>
-              <div class="tg-items">
-                <span class="tg-item">Jira</span>
-                <span class="tg-item">Confluence</span>
-                <span class="tg-item">Notion</span>
-                <span class="tg-item">GitHub</span>
-              </div>
-            </div>
-            <div class="tg">
-              <div class="tg-name" data-en="AI &amp; Automation" data-es="IA y Automatización">AI &amp; Automation</div>
-              <div class="tg-items">
-                <span class="tg-item ai">Claude</span>
-                <span class="tg-item ai">Claude Code</span>
-                <span class="tg-item ai">ChatGPT</span>
-                <span class="tg-item ai">n8n</span>
-                <span class="tg-item ai">Lovable</span>
-                <span class="tg-item ai">Base44</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div><!-- /view-home -->
-
-    <!-- ══ PROJECTS ══════════════════════════════════════════ -->
-    <div class="view" id="view-projects">
-      <div class="view-header">
-        <button class="back-btn" onclick="showView('home')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-          Home
-        </button>
-        <div>
-          <div class="view-heading" id="view-heading">All Projects</div>
-          <div class="view-count" id="view-count"></div>
-        </div>
-      </div>
-      <div class="filter-pills">
-        <button class="pill" data-filter="selected" onclick="filterProjects('selected')">★ Selected Work</button>
-        <button class="pill active" data-filter="all" onclick="filterProjects('all')">All</button>
-        <button class="pill" data-filter="ux-consulting" onclick="filterProjects('ux-consulting')">UX Consulting</button>
-        <button class="pill" data-filter="apps" onclick="filterProjects('apps')">APPs</button>
-        <button class="pill" data-filter="workshops" onclick="filterProjects('workshops')">Workshops</button>
-        <button class="pill" data-filter="web" onclick="filterProjects('web')">Web</button>
-        <button class="pill" data-filter="branding" onclick="filterProjects('branding')">Branding</button>
-      </div>
-      <div class="proj-grid" id="proj-grid"></div>
-    </div>
-
-    <!-- ══ PROJECT DETAIL ════════════════════════════════════ -->
-    <div class="view" id="view-project">
-      <div class="view-header">
-        <button class="back-btn" id="proj-back-btn" onclick="goBackFromProject()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-          <span id="proj-back-label">Back</span>
-        </button>
-        <div class="view-heading" id="proj-heading">Project</div>
-      </div>
-      <div id="proj-content-loading"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Loading…</div>
-      <div id="proj-content"></div>
-    </div>
-
-    <!-- ══ ABOUT ME ══════════════════════════════════════════ -->
-    <div class="view" id="view-about">
-      <div class="view-header">
-        <button class="back-btn" onclick="showView('home')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-          Home
-        </button>
-        <div class="view-heading" data-en="About Me" data-es="Sobre mí">About Me</div>
-        <div class="view-actions">
-          <a id="dl-cv-btn" href="files/cv-mone-rodriguez.pdf" target="_blank" rel="noopener" class="dl-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6m-3 3 3 3 3-3"/></svg>
-            <span data-en="Download CV" data-es="Descargar CV">Download CV</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="bio-card">
-        <div class="bio-top">
-          <div class="bio-photo"><img src="images/mone-rodriguez.png" alt="Mone"></div>
-          <div>
-            <div class="bio-name"><em>Mone</em> Rodríguez García</div>
-            <div class="bio-role">Product Manager · Product Designer · UX Strategist</div>
-            <div class="bio-meta">Spain · Remote-first &nbsp;·&nbsp; monerodriguez@gmail.com &nbsp;·&nbsp; +34 691 472 439</div>
-          </div>
-        </div>
-        <p class="bio-text"
-          data-en="Product Manager with 12+ years delivering digital products end-to-end. I take ownership from discovery to launch: defining the problem, mapping user and business needs, setting priorities, aligning stakeholders, and making sure what ships actually solves the right thing. My background in product design means I can go deep on UX when needed, but the primary lens is always product decision-making, not execution."
-          data-es="Product Manager con 12+ años entregando productos digitales end-to-end. Me hago cargo desde el discovery hasta el lanzamiento: defino el problema, mapeo las necesidades del usuario y del negocio, establezco prioridades, alineo a los stakeholders y me aseguro de que lo que sale al mercado resuelva lo correcto. Mi formación en product design me permite profundizar en UX cuando se necesita, pero el enfoque principal siempre es la toma de decisiones de producto, no la ejecución."
-        >Product Manager with 12+ years delivering digital products end-to-end. I take ownership from discovery to launch: defining the problem, mapping user and business needs, setting priorities, aligning stakeholders, and making sure what ships actually solves the right thing. My background in product design means I can go deep on UX when needed, but the primary lens is always product decision-making, not execution.</p>
-        <p class="bio-text" style="margin-top:10px"
-          data-en="Certified Scrum Master. I use AI daily in my workflow , Claude, Claude Code, ChatGPT, n8n, Lovable and Base44 , for research, prototyping, documentation and automation. Open to 100% remote international roles."
-          data-es="Scrum Master certificada. Uso la IA a diario en mi flujo de trabajo , Claude, Claude Code, ChatGPT, n8n, Lovable y Base44 , para investigación, prototipado, documentación y automatización. Disponible para roles internacionales 100% remotos."
-        >Certified Scrum Master. I use AI daily in my workflow , Claude, Claude Code, ChatGPT, n8n, Lovable and Base44 , for research, prototyping, documentation and automation. Open to 100% remote international roles.</p>
-      </div>
-
-      <div class="metrics-row">
-        <div class="metric-chip"><div class="metric-val">−45%</div><div class="metric-label" data-en="Scope creep reduced across B2B &amp; B2C projects" data-es="Reducción de scope creep en proyectos B2B y B2C">Scope creep reduced across B2B &amp; B2C projects</div></div>
-        <div class="metric-chip"><div class="metric-val">−80%</div><div class="metric-label" data-en="Delivery cycles compressed via design systems" data-es="Ciclos de entrega comprimidos mediante sistemas de diseño">Delivery cycles compressed via design systems</div></div>
-        <div class="metric-chip"><div class="metric-val">+85%</div><div class="metric-label" data-en="Product engagement improved in mobile apps" data-es="Mejora de engagement en aplicaciones móviles">Product engagement improved in mobile apps</div></div>
-        <div class="metric-chip"><div class="metric-val">+40%</div><div class="metric-label" data-en="Operational efficiency in multidisciplinary teams" data-es="Eficiencia operacional en equipos multidisciplinarios">Operational efficiency in multidisciplinary teams</div></div>
-      </div>
-
-      <div class="about-grid">
-        <div class="about-col">
-
-          <div class="section-card">
-            <div class="section-card-title" data-en="Professional Experience" data-es="Experiencia Profesional">Professional Experience</div>
-            <div class="exp-list">
-              <div class="exp-item">
-                <div class="exp-period" data-en="2024 – Present" data-es="2024 – Hoy">2024 – Present</div>
-                <div class="exp-role">Product Manager</div>
-                <div class="exp-company">ZenderBox · USA / LATAM</div>
-                <ul class="exp-bullets"
-                  data-en="<li>Owned the full product lifecycle for a logistics SaaS serving 24,000+ monthly orders across the US and Latin America.</li><li>Audited the entire digital ecosystem (app, web, dashboards, WMS) and defined a phased redesign plan aligned to business impact.</li><li>Defined product vision and feature priorities for the ZenderBox mobile app (iOS &amp; Android), coordinating design, engineering and operations.</li><li>Led discovery for WMS and fulfillment dashboards , mapped operational workflows and built a semantic status system that reduced picking errors.</li><li>Built the ZenderHub brand and design system from scratch with full design-to-dev handoff via JSON design tokens.</li>"
-                  data-es="<li>Gestión del ciclo de vida completo del producto para un SaaS logístico con 24.000+ pedidos mensuales en EE.UU. y Latinoamérica.</li><li>Auditoría del ecosistema digital completo (app, web, dashboards, WMS) y definición de un plan de rediseño por fases alineado al impacto de negocio.</li><li>Definición de visión de producto y prioridades para la app móvil de ZenderBox (iOS &amp; Android), coordinando diseño, ingeniería y operaciones.</li><li>Liderazgo del discovery para WMS y dashboards , mapeo de flujos operacionales y construcción de un sistema semántico de estados que redujo errores de picking.</li><li>Construcción de la marca ZenderHub y el sistema de diseño desde cero con handoff diseño-dev completo vía design tokens JSON.</li>"
-                ><li>Owned the full product lifecycle for a logistics SaaS serving 24,000+ monthly orders across the US and Latin America.</li><li>Audited the entire digital ecosystem (app, web, dashboards, WMS) and defined a phased redesign plan aligned to business impact.</li><li>Defined product vision and feature priorities for the ZenderBox mobile app (iOS &amp; Android), coordinating design, engineering and operations.</li><li>Led discovery for WMS and fulfillment dashboards , mapped operational workflows and built a semantic status system that reduced picking errors.</li><li>Built the ZenderHub brand and design system from scratch with full design-to-dev handoff via JSON design tokens.</li></ul>
-              </div>
-              <div class="exp-item">
-                <div class="exp-period">2023 – 2026</div>
-                <div class="exp-role" data-en="Product Design Lead" data-es="Lead de Product Design">Product Design Lead</div>
-                <div class="exp-company">Thankium · Spain</div>
-                <ul class="exp-bullets"
-                  data-en="<li>Designed cross-functional design systems that reduced delivery time by 80% and unified design-to-development handoff.</li><li>Led discovery and definition phases applying JTBD, User Journey Mapping and Design Sprints , 45% less scope creep.</li><li>Facilitated tailored workshops with stakeholders, developers, engineers and PMs leaving each team with a system map, owners and deadlines.</li><li>Led multidisciplinary teams (design, dev, PM) with 90% on-time delivery and +40% operational efficiency.</li><li>Simultaneous ownership of 10+ web and mobile products across real estate, sports and services sectors.</li>"
-                  data-es="<li>Diseño de sistemas de diseño cross-funcionales que redujeron el tiempo de entrega un 80% y unificaron el handoff diseño-desarrollo.</li><li>Liderazgo de fases de discovery y definición aplicando JTBD, User Journey Mapping y Design Sprints , 45% menos de scope creep.</li><li>Facilitación de talleres con stakeholders, desarrolladores, ingenieros y PMs, dejando a cada equipo con un mapa del sistema, responsables y plazos.</li><li>Liderazgo de equipos multidisciplinares (diseño, dev, PM) con 90% de entregas a tiempo y +40% de eficiencia operativa.</li><li>Gestión simultánea de 10+ productos web y móviles en sectores de real estate, deporte y servicios.</li>"
-                ><li>Designed cross-functional design systems that reduced delivery time by 80% and unified design-to-development handoff.</li><li>Led discovery and definition phases applying JTBD, User Journey Mapping and Design Sprints , 45% less scope creep.</li><li>Facilitated tailored workshops with stakeholders, developers, engineers and PMs leaving each team with a system map, owners and deadlines.</li><li>Led multidisciplinary teams (design, dev, PM) with 90% on-time delivery and +40% operational efficiency.</li><li>Simultaneous ownership of 10+ web and mobile products across real estate, sports and services sectors.</li></ul>
-              </div>
-              <div class="exp-item">
-                <div class="exp-period">2020 – 2023</div>
-                <div class="exp-role" data-en="Senior Product Designer" data-es="Senior Product Designer">Senior Product Designer</div>
-                <div class="exp-company">Thankium · Spain</div>
-                <ul class="exp-bullets"
-                  data-en="<li>Designed end-to-end mobile apps that improved engagement and retention metrics by 85%.</li><li>Worked on complex CRMs and dashboards for real estate, sports and professional services clients.</li><li>Conducted WCAG accessibility audits resulting in 30% fewer review rounds.</li><li>Moderated usability testing sessions and produced motion graphics for microinteractions.</li>"
-                  data-es="<li>Diseño de apps móviles end-to-end que mejoraron métricas de engagement y retención un 85%.</li><li>Trabajo en CRMs complejos y dashboards para clientes de real estate, deporte y servicios profesionales.</li><li>Auditorías de accesibilidad WCAG con un 30% menos de rondas de revisión.</li><li>Moderación de sesiones de usability testing y producción de motion graphics para microinteracciones.</li>"
-                ><li>Designed end-to-end mobile apps that improved engagement and retention metrics by 85%.</li><li>Worked on complex CRMs and dashboards for real estate, sports and professional services clients.</li><li>Conducted WCAG accessibility audits resulting in 30% fewer review rounds.</li><li>Moderated usability testing sessions and produced motion graphics for microinteractions.</li></ul>
-              </div>
-              <div class="exp-item">
-                <div class="exp-period">2014 – 2019</div>
-                <div class="exp-role" data-en="Founder &amp; Product Developer" data-es="Fundadora &amp; Product Developer">Founder &amp; Product Developer</div>
-                <div class="exp-company">BONUS® games · Colombia</div>
-                <ul class="exp-bullets"
-                  data-en="<li>Founded and led a board game startup: brand, product, business model and operations end-to-end.</li><li>Scaled to 1M+ customers with presence in national retail and own e-commerce.</li><li>Redesigned e-commerce raising online conversion by 25%; new identity launch generated 30% more pre-orders.</li>"
-                  data-es="<li>Fundación y liderazgo de una startup de juegos de mesa: marca, producto, modelo de negocio y operaciones end-to-end.</li><li>Escalado a 1M+ de clientes con presencia en retail nacional y e-commerce propio.</li><li>Rediseño del e-commerce con un 25% más de conversión online; el lanzamiento de la nueva identidad generó un 30% más de pre-pedidos.</li>"
-                ><li>Founded and led a board game startup: brand, product, business model and operations end-to-end.</li><li>Scaled to 1M+ customers with presence in national retail and own e-commerce.</li><li>Redesigned e-commerce raising online conversion by 25%; new identity launch generated 30% more pre-orders.</li></ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="section-card">
-            <div class="section-card-title" data-en="Education" data-es="Educación">Education</div>
-            <div class="edu-list">
-              <div><div class="edu-degree" data-en="Master's in Design Thinking and User Experience" data-es="Máster en Design Thinking y Experiencia de Usuario">Master's in Design Thinking and User Experience</div><div class="edu-school">EAE Business School, Madrid</div><div class="edu-year">2019 – 2020</div></div>
-              <div><div class="edu-degree" data-en="Minor in Scrum Master" data-es="Minor en Scrum Master">Minor in Scrum Master</div><div class="edu-school">EAE Business School, Madrid</div><div class="edu-year">2019 – 2020</div></div>
-              <div><div class="edu-degree" data-en="Bachelor's in Industrial Design" data-es="Licenciatura en Diseño Industrial">Bachelor's in Industrial Design</div><div class="edu-school">Pontificia Universidad Javeriana, Colombia</div><div class="edu-year">2008 – 2013</div></div>
-              <div><div class="edu-degree" data-en="Diploma in Motion Graphics" data-es="Diploma en Motion Graphics">Diploma in Motion Graphics</div><div class="edu-school">NASKA DIGITAL, Colombia</div><div class="edu-year">2015</div></div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="about-col">
-
-          <div class="section-card">
-            <div class="section-card-title" data-en="Languages" data-es="Idiomas">Languages</div>
-            <div class="lang-list">
-              <div class="lang-item"><span class="lang-name" data-en="Spanish" data-es="Español">Spanish</span><span class="lang-level native" data-en="Native" data-es="Nativo">Native</span></div>
-              <div class="lang-item"><span class="lang-name" data-en="English" data-es="Inglés">English</span><span class="lang-level" data-en="C2 Professional" data-es="C2 Profesional">C2 Professional</span></div>
-              <div class="lang-item"><span class="lang-name" data-en="German" data-es="Alemán">German</span><span class="lang-level" data-en="B2 Upper Intermediate" data-es="B2 Intermedio Alto">B2 Upper Intermediate</span></div>
-            </div>
-          </div>
-
-          <div class="section-card">
-            <div class="section-card-title" data-en="Skills" data-es="Habilidades">Skills</div>
-            <div class="skills-groups">
-              <div>
-                <div class="skill-group-label" data-en="Product &amp; UX Strategy" data-es="Estrategia de Producto &amp; UX">Product &amp; UX Strategy</div>
-                <div class="skill-tags">
-                  <span class="skill-tag">Product Strategy</span><span class="skill-tag">Product Vision</span><span class="skill-tag">Product Discovery</span><span class="skill-tag">UX Strategy</span><span class="skill-tag">User Research</span><span class="skill-tag">Usability Testing</span><span class="skill-tag">Service Design</span><span class="skill-tag">JTBD</span><span class="skill-tag">Design Sprints</span><span class="skill-tag">0-to-1 Product Design</span>
-                </div>
-              </div>
-              <div>
-                <div class="skill-group-label" data-en="Design Systems &amp; Operations" data-es="Sistemas de Diseño &amp; Operaciones">Design Systems &amp; Operations</div>
-                <div class="skill-tags">
-                  <span class="skill-tag">Design Systems</span><span class="skill-tag">Design Tokens (JSON)</span><span class="skill-tag">Component Libraries</span><span class="skill-tag">DesignOps</span><span class="skill-tag">Cross-platform</span><span class="skill-tag">WCAG Accessibility</span>
-                </div>
-              </div>
-              <div>
-                <div class="skill-group-label" data-en="Leadership &amp; Strategy" data-es="Liderazgo &amp; Estrategia">Leadership &amp; Strategy</div>
-                <div class="skill-tags">
-                  <span class="skill-tag">Cross-functional leadership</span><span class="skill-tag">Workshop facilitation</span><span class="skill-tag">Stakeholder management</span><span class="skill-tag">Agile · Scrum (cert.)</span><span class="skill-tag">Roadmap</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="section-card">
-            <div class="section-card-title" data-en="Tools" data-es="Herramientas">Tools</div>
-            <div class="tool-groups">
-              <div>
-                <div class="tool-group-name" data-en="Design" data-es="Diseño">Design</div>
-                <div class="tool-tags">
-                  <span class="tool-tag">Figma (Variables, Dev Mode, Auto Layout)</span><span class="tool-tag">Sketch</span><span class="tool-tag">Illustrator</span><span class="tool-tag">Photoshop</span><span class="tool-tag">After Effects</span><span class="tool-tag">Miro</span>
-                </div>
-              </div>
-              <div>
-                <div class="tool-group-name">Research</div>
-                <div class="tool-tags">
-                  <span class="tool-tag">HotJar</span><span class="tool-tag">Maze</span><span class="tool-tag">UserTesting</span>
-                </div>
-              </div>
-              <div>
-                <div class="tool-group-name">DevOps</div>
-                <div class="tool-tags">
-                  <span class="tool-tag">Jira</span><span class="tool-tag">Confluence</span><span class="tool-tag">Notion</span><span class="tool-tag">GitHub</span>
-                </div>
-              </div>
-              <div>
-                <div class="tool-group-name" data-en="AI and Automation" data-es="IA y Automatización">AI and Automation</div>
-                <div class="tool-tags">
-                  <span class="tool-tag tool-ai">Claude</span><span class="tool-tag tool-ai">Claude Code</span><span class="tool-tag tool-ai">ChatGPT</span><span class="tool-tag tool-ai">n8n</span><span class="tool-tag tool-ai">Lovable</span><span class="tool-tag tool-ai">Base44</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div><!-- /view-about -->
-
-  </div><!-- /dash-content -->
-</div><!-- /dash-main -->
-
-<!-- ══ JS ═══════════════════════════════════════════════════ -->
-<script>
-const PROJECTS = [
-  { id:'zenderhub-brand', href:'#', img:'images/zh-hero.jpg', cats:['branding','ux-consulting','web'], selected:true,
-    title:'ZenderHub &amp; its BrandBible', ctx:'Brand System · Mone Rodriguez',
-    desc:'Complete B2B brand system for ZenderHub identity, design tokens, 27 live components, bilingual voice guidelines, and an interactive BrandBible.' },
-  { id:'zenderbox-ecosystem', href:'projects/zenderbox-ecosystem.html', img:'images/proj-zenderbox-ecosystem.png', cats:['ux-consulting','apps','web','branding'], selected:true,
-    title:'ZenderBox Ecosystem', ctx:'UX Strategy and Product Design · Mone Rodriguez',
-    desc:'Full ecosystem design for a logistics group serving Latin America: brand, app, design systems, dashboards, and WMS.' },
-  { id:'zenderbox-app', href:'projects/zenderbox-app.html', img:'images/proj-logistics.png', cats:['apps','ux-consulting'], selected:true,
-    title:'Logistics APP', ctx:'Product UX · Mone Rodriguez',
-    desc:'ZenderBox is an international locker service , users shop abroad and track, manage, and receive packages.' },
-  { id:'yuuju', href:'projects/yuuju.html', img:'images/proj-utility.png', cats:['web','ux-consulting','workshops'], selected:true,
-    title:'Utility Services', ctx:'Work done at Thankium Digital Agency',
-    desc:'Seamless digital experience for a complex multi-layered contracting system handling multiple user types simultaneously.' },
-  { id:'sports-club', href:'projects/sports-club.html', img:'images/proj-sports.png', cats:['apps','ux-consulting'], selected:true,
-    title:'Sports Clubs APP &amp; VO', ctx:'Work done at Thankium Digital Agency',
-    desc:'Unified platform for sports clubs, deployed across 6 private clubs after the pilot with +70% retention.' },
-  { id:'tracker', href:'projects/tracker.html', img:'images/proj-tracking.png', cats:['apps','ux-consulting'],
-    title:'The Tracking APP iOS/Android', ctx:'Work done at Thankium Digital Agency',
-    desc:'Structured UX for an app that lacked clear states and feedback mechanisms to guide users through their journey.' },
-  { id:'alphabet', href:'projects/alphabet.html', img:'images/proj-renting.png', cats:['web','ux-consulting'],
-    title:'Renting Solutions', ctx:'Work done at Thankium Digital Agency',
-    desc:'International CMS visual consistency with optimal UX for the Spanish market and its specific legal requirements.' },
-  { id:'trina-solar', href:'projects/trina-solar.html', img:'images/proj-solar.png', cats:['web','ux-consulting'],
-    title:'Interactive Solar Plant', ctx:'Work done at Thankium Digital Agency',
-    desc:'Interactive web platform for real-time solar plant configuration, enabling custom 3D installations.' },
-  { id:'ugt-public', href:'projects/ugt.html', img:'images/proj-public.png', cats:['ux-consulting','workshops'],
-    title:'Public Services', ctx:'Work done at Thankium Digital Agency',
-    desc:'Advanced enrollment system for the Public Services division, tailored to specific workflows and legal validations.' },
-  { id:'ugt-enrollment', href:'projects/ugt.html', img:'images/proj-enrollment.png', cats:['ux-consulting','workshops'],
-    title:'Enrollment', ctx:'Work done at Thankium Digital Agency',
-    desc:'Fully functional enrollment system from scratch, with multiple validations and complex integrations.' },
-  { id:'radianna', href:'projects/radianna.html', img:'images/proj-branding-ris.png', imgBg:'#f1eeff', cats:['branding'],
-    title:'Branding for a RIS', ctx:'Work done at Thankium Digital Agency',
-    desc:'Complete brand identity for Radianna, a radiology RIS system sold to hospitals.' },
-  { id:'global', href:'projects/global.html', img:'images/proj-gcs.png', cats:['branding','web'],
-    title:'Branding and website for GCS', ctx:'Work done at Thankium Digital Agency',
-    desc:'Complete brand and website refresh for Global Cover Solutions, a logistics and transportation company.' },
-  { id:'ipsum', href:'projects/ipsum.html', img:'images/proj-ipsum.png', imgBg:'#ffffff', imgContain:true, cats:['branding'],
-    title:'Branding for IPSUM', ctx:'Work done as a Freelance',
-    desc:'Strong brand presence for a newly founded digital marketing agency positioning itself as a premium market player.' },
-  { id:'vmg', href:'projects/vmg.html', img:'images/proj-vmg.png', imgBg:'#009cde', imgContain:true, cats:['branding'],
-    title:'Branding for VMG', ctx:'Work done at Thankium Digital Agency',
-    desc:'Modern brand identity for VMG, a hyperbaric chamber company.' },
-  { id:'kdpof', href:'projects/kdpof.html', img:'images/proj-kdpof.png', imgBg:'#290e76', imgContain:true, cats:['branding','workshops'],
-    title:'From KDPOF to KD', ctx:'Work done as a Freelance',
-    desc:'Strategic brand repositioning for KDPOF, a leader in high-speed optical communication for harsh environments.' }
-];
-
-const CAT_LABELS = { all:'All Projects', selected:'Selected Work', 'ux-consulting':'UX Consulting', apps:'APPs', workshops:'Workshops', web:'Web', branding:'Branding' };
-const TAG_LABELS = { 'ux-consulting':'UX', apps:'APP', web:'Web', branding:'Brand', workshops:'Workshop' };
-let currentFilter = 'all';
-let prevView = 'home';
-let prevFilter = 'all';
-
-function renderProjects(filter) {
-  const list = filter === 'selected'
-    ? PROJECTS.filter(p => p.selected)
-    : filter === 'all' ? PROJECTS : PROJECTS.filter(p => p.cats.includes(filter));
-  const countEl = document.getElementById('view-count');
-  if (countEl) countEl.textContent = list.length + ' projects';
-  const grid = document.getElementById('proj-grid');
-  if (!grid) return;
-  grid.innerHTML = list.map(p => {
-    const wrapStyle = p.imgBg ? `background:${p.imgBg};` : '';
-    const imgStyle = p.imgContain ? 'object-fit:contain;padding:20px;' : '';
-    const tags = p.cats.map(c => `<span class="proj-tag">${TAG_LABELS[c]||c}</span>`).join('');
-    const selBadge = p.selected ? '<span class="proj-tag" style="background:rgba(204,31,114,.1);border-color:rgba(204,31,114,.3);color:var(--brand)">★ Selected</span>' : '';
-    const safetitle = p.title.replace(/&amp;/g,'&').replace(/'/g,"\\'");
-    return `<div class="proj-card" onclick="showProject('${p.id}','${p.href}','${safetitle}')">
-      <div class="proj-thumb" style="${wrapStyle}"><img src="${p.img}" alt="${p.title}" loading="lazy" style="${imgStyle}"></div>
-      <div class="proj-body">
-        <div class="proj-title">${p.title}</div>
-        <div class="proj-ctx">${p.ctx}</div>
-        <p class="proj-desc">${p.desc}</p>
-        <div class="proj-tags">${selBadge}${tags}</div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function showView(view, filter) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('view-' + view).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  if (view === 'home') {
-    document.getElementById('nav-home').classList.add('active');
-    document.getElementById('topbar-title').textContent = currentLang === 'es' ? 'Panel de portafolio' : 'Portfolio Dashboard';
-  } else if (view === 'about') {
-    document.getElementById('nav-about').classList.add('active');
-    document.getElementById('topbar-title').textContent = currentLang === 'es' ? 'Sobre mí' : 'About Me';
-    document.getElementById('view-about').scrollTop = 0;
-  } else if (view === 'projects') {
-    currentFilter = filter || 'all';
-    document.querySelectorAll('.pill').forEach(b => b.classList.toggle('active', b.dataset.filter === currentFilter));
-    const el = document.getElementById('nav-' + currentFilter) || document.getElementById('nav-all');
-    if (el) el.classList.add('active');
-    const label = CAT_LABELS[currentFilter] || currentFilter;
-    document.getElementById('view-heading').textContent = label;
-    document.getElementById('topbar-title').textContent = label;
-    renderProjects(currentFilter);
-    document.getElementById('view-projects').scrollTop = 0;
-  }
-}
-window.showView = showView;
-
-window.filterProjects = function(filter) {
-  currentFilter = filter;
-  document.querySelectorAll('.pill').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const el = document.getElementById('nav-' + filter) || document.getElementById('nav-all');
-  if (el) el.classList.add('active');
-  const label = CAT_LABELS[filter] || filter;
-  document.getElementById('view-heading').textContent = label;
-  document.getElementById('topbar-title').textContent = label;
-  renderProjects(filter);
-};
-
 const PROJ_DATA = {
   'alphabet': {
     css: `
@@ -892,11 +23,11 @@ const PROJ_DATA = {
 <section class="proj-hero">
   <div class="proj-tags"><span class="tag t" data-en="🎯 UX Consulting" data-es="🎯 UX Consulting">🎯 UX Consulting</span><span class="tag t" data-en="🖥️ Web" data-es="🖥️ Web">🖥️ Web</span></div>
   <h1 class="proj-title">Renting Solutions</h1>
-  <p class="proj-subtitle t" data-en="Empowering Alphabet Renting Spain with a custom digital solution Drupal 9 migration with SSO, advanced filtering, and automated communications" data-es="Solución digital de renting a medida para Alphabet España, migración a Drupal 9 con SSO, filtrado avanzado y comunicaciones automatizadas">Empowering Alphabet Renting Spain with a custom digital solution Drupal 9 migration with SSO, advanced filtering, and automated communications</p>
+  <p class="proj-subtitle t" data-en="Empowering Alphabet Renting Spain with a custom digital solution — Drupal 9 migration with SSO, advanced filtering, and automated communications" data-es="Solución digital de renting a medida para Alphabet España, migración a Drupal 9 con SSO, filtrado avanzado y comunicaciones automatizadas">Empowering Alphabet Renting Spain with a custom digital solution — Drupal 9 migration with SSO, advanced filtering, and automated communications</p>
   <a href="https://www.ofertas-renting.alphabet.es/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a>
 </section>
 
-<div class="hero-img-wrap"><img src="images/al-hero.jpg" alt="Alphabet Renting Hero"></div>
+<div class="hero-img-wrap"><img src="../images/al-hero.jpg" alt="Alphabet Renting Hero"></div>
 
 <div class="proj-body">
   <aside class="sidebar">
@@ -921,18 +52,18 @@ const PROJ_DATA = {
 
   <main class="content">
     <section class="content-section" id="challenge">
-      <p class="section-label t" data-en="01 Challenge" data-es="01 Reto">01 Challenge</p>
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
       <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
       <p class="section-text t" data-en="Alphabet (a BMW Group company) needed to migrate its Spanish renting site to Drupal 9 while building a completely custom renting solution tailored to the Spanish market. The challenge: preserve the international brand's visual consistency while creating a highly localised, legally compliant experience." data-es="Alphabet (empresa del Grupo BMW) necesitaba migrar su web de renting española a Drupal 9 construyendo una solución de renting completamente a medida para el mercado español. El reto: preservar la coherencia visual de la marca internacional creando una experiencia muy localizada y con cumplimiento legal.">Alphabet (a BMW Group company) needed to migrate its Spanish renting site to Drupal 9 while building a completely custom renting solution tailored to the Spanish market. The challenge: preserve the international brand's visual consistency while creating a highly localised, legally compliant experience.</p>
-      <div class="section-img"><img src="images/al-img1.jpg" alt="Challenge" loading="lazy"></div>
-      <p class="section-text t" data-en="The platform required SSO user authentication, advanced traceable filtering, automated lead communications, and a CRM adaptation all within Drupal 9's architecture." data-es="La plataforma requería autenticación SSO, filtrado avanzado con trazabilidad, comunicaciones de leads automatizadas y adaptación del CRM todo dentro de la arquitectura de Drupal 9.">The platform required SSO user authentication, advanced traceable filtering, automated lead communications, and a CRM adaptation all within Drupal 9's architecture.</p>
-      <div class="section-img"><img src="images/al-img2.jpg" alt="Analysis" loading="lazy"></div>
+      <div class="section-img"><img src="../images/al-img1.jpg" alt="Challenge" loading="lazy"></div>
+      <p class="section-text t" data-en="The platform required SSO user authentication, advanced traceable filtering, automated lead communications, and a CRM adaptation — all within Drupal 9's architecture." data-es="La plataforma requería autenticación SSO, filtrado avanzado con trazabilidad, comunicaciones de leads automatizadas y adaptación del CRM — todo dentro de la arquitectura de Drupal 9.">The platform required SSO user authentication, advanced traceable filtering, automated lead communications, and a CRM adaptation — all within Drupal 9's architecture.</p>
+      <div class="section-img"><img src="../images/al-img2.jpg" alt="Analysis" loading="lazy"></div>
     </section>
 
     <section class="content-section" id="requirements">
-      <p class="section-label t" data-en="02 Requirements" data-es="02 Requisitos">02 Requirements</p>
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
       <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
-      <div class="section-img"><img src="images/al-img3.jpg" alt="Requirements" loading="lazy"></div>
+      <div class="section-img"><img src="../images/al-img3.jpg" alt="Requirements" loading="lazy"></div>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Maintain international brand visual consistency" data-es="Mantener la coherencia visual de la marca internacional">Maintain international brand visual consistency</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="SSO user area with personalised dashboard" data-es="Área de usuario SSO con dashboard personalizado">SSO user area with personalised dashboard</span></li>
@@ -945,7 +76,7 @@ const PROJ_DATA = {
     </section>
 
     <section class="content-section" id="process">
-      <p class="section-label t" data-en="03 Process" data-es="03 Proceso">03 Process</p>
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
       <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
       <div class="process-steps">
         <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="Stakeholder Interviews" data-es="Entrevistas con stakeholders">Stakeholder Interviews</p><p class="step-desc t" data-en="Interviews with Alphabet Spain's marketing, sales, and IT teams to align on requirements and constraints." data-es="Entrevistas con stakeholders (marketing, ventas y TI de Alphabet España)">Interviews with Alphabet Spain's marketing, sales, and IT teams to align on requirements and constraints.</p></div></div>
@@ -956,13 +87,13 @@ const PROJ_DATA = {
         <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="CRM Evolution &amp; Handoff" data-es="Evolución del CRM y handoff">CRM Evolution &amp; Handoff</p><p class="step-desc t" data-en="Redesigned CRM views for the Spanish sales team and delivered full Drupal-compatible specs." data-es="Vistas CRM rediseñadas para el equipo de ventas español con handoff para Drupal">Redesigned CRM views for the Spanish sales team and delivered full Drupal-compatible specs.</p></div></div>
       </div>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/al-img4.jpg" alt="Process" loading="lazy"></div>
-        <div class="section-img"><img src="images/al-img5.jpg" alt="Design" loading="lazy"></div>
+        <div class="section-img"><img src="../images/al-img4.jpg" alt="Process" loading="lazy"></div>
+        <div class="section-img"><img src="../images/al-img5.jpg" alt="Design" loading="lazy"></div>
       </div>
     </section>
 
     <section class="content-section" id="results">
-      <p class="section-label t" data-en="04 Results" data-es="04 Resultados">04 Results</p>
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
       <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Custom renting platform live on Drupal 9" data-es="Plataforma de renting a medida en producción con Drupal 9">Custom renting platform live on Drupal 9</span></li>
@@ -973,7 +104,7 @@ const PROJ_DATA = {
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="CRM adapted and adopted by the Spanish sales team" data-es="CRM adaptado y adoptado por el equipo de ventas español">CRM adapted and adopted by the Spanish sales team</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="International branding preserved across all touchpoints" data-es="Marca internacional preservada en todos los puntos de contacto">International branding preserved across all touchpoints</span></li>
       </ul>
-      <div class="section-img"><img src="images/al-img1.jpg" alt="Results" loading="lazy"></div>
+      <div class="section-img"><img src="../images/al-img1.jpg" alt="Results" loading="lazy"></div>
       <div style="margin-top:24px"><a href="https://www.ofertas-renting.alphabet.es/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a></div>
     </section>
   </main>
@@ -1009,11 +140,11 @@ const PROJ_DATA = {
 <section class="proj-hero">
   <div class="proj-tags"><span class="tag t" data-en="🖥️ Web" data-es="🖥️ Web">🖥️ Web</span><span class="tag t" data-en="🌟 Branding" data-es="🌟 Branding">🌟 Branding</span></div>
   <h1 class="proj-title">Global Cover Solutions</h1>
-  <p class="proj-subtitle t" data-en="Elevating Global Cover Solutions a bold brand &amp; digital transformation for a logistics and transportation company" data-es="Transformación de marca y digital para una empresa de logística y transporte identidad renovada y web completamente rediseñada">Elevating Global Cover Solutions a bold brand &amp; digital transformation for a logistics and transportation company</p>
+  <p class="proj-subtitle t" data-en="Elevating Global Cover Solutions — a bold brand &amp; digital transformation for a logistics and transportation company" data-es="Transformación de marca y digital para una empresa de logística y transporte — identidad renovada y web completamente rediseñada">Elevating Global Cover Solutions — a bold brand &amp; digital transformation for a logistics and transportation company</p>
   <a href="https://www.globalcoversolutions.com/es/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a>
 </section>
 
-<div class="hero-img-wrap"><img src="images/gc-hero.jpg" alt="Global Cover Solutions Hero"></div>
+<div class="hero-img-wrap"><img src="../images/gc-hero.jpg" alt="Global Cover Solutions Hero"></div>
 
 <div class="proj-body">
   <aside class="sidebar">
@@ -1036,10 +167,10 @@ const PROJ_DATA = {
 
   <main class="content">
     <section class="content-section" id="brand">
-      <p class="section-label t" data-en="01 Brand" data-es="01 Marca">01 Brand</p>
+      <p class="section-label t" data-en="01 — Brand" data-es="01 — Marca">01 — Brand</p>
       <h2 class="section-title t" data-en="Revitalising the Brand" data-es="Renovando la marca">Revitalising the Brand</h2>
       <p class="section-text t" data-en="Global Cover Solutions, a logistics and transportation company, came to us with a clear need: their existing brand no longer reflected the scale and ambition of their operation. The identity felt dated, inconsistent across touchpoints, and failed to communicate the trust and reliability that clients expected from a logistics partner." data-es="Global Cover Solutions, empresa de logística y transporte, nos llegó con una necesidad clara: su marca existente ya no reflejaba la escala y ambición de su operación. La identidad se sentía anticuada, inconsistente en los puntos de contacto y no transmitía la confianza y fiabilidad que los clientes esperaban de un socio logístico.">Global Cover Solutions, a logistics and transportation company, came to us with a clear need: their existing brand no longer reflected the scale and ambition of their operation. The identity felt dated, inconsistent across touchpoints, and failed to communicate the trust and reliability that clients expected from a logistics partner.</p>
-      <div class="section-img"><img src="images/gc-img1.jpg" alt="Brand before" loading="lazy"></div>
+      <div class="section-img"><img src="../images/gc-img1.jpg" alt="Brand before" loading="lazy"></div>
       <p class="section-label t" style="margin-top:32px" data-en="Key Branding Enhancements" data-es="Mejoras clave de marca">Key Branding Enhancements</p>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Refreshed logo with stronger typographic presence and icon clarity" data-es="Logo renovado con mayor presencia tipográfica y claridad del ícono">Refreshed logo with stronger typographic presence and icon clarity</span></li>
@@ -1047,23 +178,23 @@ const PROJ_DATA = {
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Cohesive visual language across all brand touchpoints" data-es="Lenguaje visual cohesivo en todos los puntos de contacto de la marca">Cohesive visual language across all brand touchpoints</span></li>
       </ul>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/gc-img2.jpg" alt="New identity" loading="lazy"></div>
-        <div class="section-img"><img src="images/gc-img3.jpg" alt="Brand system" loading="lazy"></div>
+        <div class="section-img"><img src="../images/gc-img2.jpg" alt="New identity" loading="lazy"></div>
+        <div class="section-img"><img src="../images/gc-img3.jpg" alt="Brand system" loading="lazy"></div>
       </div>
     </section>
 
     <section class="content-section" id="website">
-      <p class="section-label t" data-en="02 Website" data-es="02 Web">02 Website</p>
+      <p class="section-label t" data-en="02 — Website" data-es="02 — Web">02 — Website</p>
       <h2 class="section-title t" data-en="Transforming the Website" data-es="Transformando la web">Transforming the Website</h2>
       <p class="section-text t" data-en="With the new brand identity in place, the website needed a complete redesign. The previous site was static, hard to navigate, and didn't communicate the company's services or reach effectively. The new site needed to be dynamic, interactive, and drive enquiries." data-es="Con la nueva identidad de marca lista, la web necesitaba un rediseño completo. El sitio anterior era estático, difícil de navegar y no comunicaba los servicios ni el alcance de la empresa de forma efectiva. La nueva web debía ser dinámica, interactiva y generar consultas.">With the new brand identity in place, the website needed a complete redesign. The previous site was static, hard to navigate, and didn't communicate the company's services or reach effectively. The new site needed to be dynamic, interactive, and drive enquiries.</p>
-      <div class="section-img"><img src="images/gc-img4.jpg" alt="Website design" loading="lazy"></div>
+      <div class="section-img"><img src="../images/gc-img4.jpg" alt="Website design" loading="lazy"></div>
       <p class="section-label t" style="margin-top:32px" data-en="Website Redesign Highlights" data-es="Puntos destacados del rediseño web">Website Redesign Highlights</p>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Dynamic homepage communicating services and reach immediately" data-es="Homepage dinámica que comunica servicios y alcance de inmediato">Dynamic homepage communicating services and reach immediately</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Interactive elements improving engagement and time on site" data-es="Elementos interactivos mejorando el engagement y el tiempo en el sitio">Interactive elements improving engagement and time on site</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Enhanced navigation making services and contact immediately accessible" data-es="Navegación mejorada haciendo los servicios y el contacto inmediatamente accesibles">Enhanced navigation making services and contact immediately accessible</span></li>
       </ul>
-      <div class="section-img"><img src="images/gc-img5.jpg" alt="Website live" loading="lazy"></div>
+      <div class="section-img"><img src="../images/gc-img5.jpg" alt="Website live" loading="lazy"></div>
       <div style="margin-top:24px"><a href="https://www.globalcoversolutions.com/es/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a></div>
     </section>
   </main>
@@ -1098,12 +229,12 @@ const PROJ_DATA = {
 <section class="proj-hero">
   <div class="proj-tags"><span class="tag">🌟 Branding</span></div>
   <p class="agency-label t" data-en="Freelance work" data-es="Proyecto Freelance">Freelance work</p>
-  <h1 class="proj-title">IPSUM Agency</h1>
-  <p class="proj-subtitle t" data-en="Building a bold &amp; digital-first identity for a marketing startup a complete brand from scratch with no room for compromise" data-es="Construyendo una identidad audaz y digital-first para una startup de marketing una marca completa desde cero sin margen para el compromiso">Building a bold &amp; digital-first identity for a marketing startup a complete brand from scratch with no room for compromise</p>
+  <h1 class="proj-title">IPSUM — Agency</h1>
+  <p class="proj-subtitle t" data-en="Building a bold &amp; digital-first identity for a marketing startup — a complete brand from scratch with no room for compromise" data-es="Construyendo una identidad audaz y digital-first para una startup de marketing — una marca completa desde cero sin margen para el compromiso">Building a bold &amp; digital-first identity for a marketing startup — a complete brand from scratch with no room for compromise</p>
 </section>
 
 <div class="hero-img-wrap">
-  <img src="images/ipsum-hero.jpg" alt="IPSUM Agency Hero">
+  <img src="../images/ipsum-hero.jpg" alt="IPSUM Agency Hero">
 </div>
 
 <div class="proj-body">
@@ -1125,29 +256,29 @@ const PROJ_DATA = {
 
   <main class="content">
     <section class="content-section" id="brand">
-      <p class="section-label t" data-en="01 Brand" data-es="01 Marca">01 Brand</p>
+      <p class="section-label t" data-en="01 — Brand" data-es="01 — Marca">01 — Brand</p>
       <h2 class="section-title t" data-en="Crafting a Distinctive &amp; Scalable Brand" data-es="Creando una marca distintiva y escalable">Crafting a Distinctive &amp; Scalable Brand</h2>
-      <p class="section-text t" data-en="A newly founded digital marketing agency, Ipsum, approached me with a clear vision to establish a strong brand presence that would position them as a premium player in the market from day one. The agency needed an identity that felt confident, cutting-edge, and entirely ownable in a crowded digital landscape." data-es="Ipsum, una agencia de marketing digital recién fundada, me contactó con una visión clara establecer una fuerte presencia de marca que los posicionara como referente premium en el mercado desde el primer día. La agencia necesitaba una identidad que transmitiera confianza, vanguardia y total propiedad en un panorama digital muy competitivo.">A newly founded digital marketing agency, Ipsum, approached me with a clear vision to establish a strong brand presence that would position them as a premium player in the market from day one. The agency needed an identity that felt confident, cutting-edge, and entirely ownable in a crowded digital landscape.</p>
-      <p class="section-text t" data-en="The design direction drew from the digital landscape itself: grid structures, UI-inspired geometric accents, and a typography-first approach that turned the brand name into a visual asset. Every element was designed to scale from business cards to large-format campaigns." data-es="La dirección creativa bebió del propio paisaje digital: estructuras de cuadrícula, acentos geométricos inspirados en UI y un enfoque tipográfico que convirtió el nombre de la marca en un activo visual. Cada elemento fue diseñado para escalar desde tarjetas de visita hasta campañas de gran formato.">The design direction drew from the digital landscape itself: grid structures, UI-inspired geometric accents, and a typography-first approach that turned the brand name into a visual asset. Every element was designed to scale from business cards to large-format campaigns.</p>
+      <p class="section-text t" data-en="A newly founded digital marketing agency, Ipsum, approached me with a clear vision — to establish a strong brand presence that would position them as a premium player in the market from day one. The agency needed an identity that felt confident, cutting-edge, and entirely ownable in a crowded digital landscape." data-es="Ipsum, una agencia de marketing digital recién fundada, me contactó con una visión clara — establecer una fuerte presencia de marca que los posicionara como referente premium en el mercado desde el primer día. La agencia necesitaba una identidad que transmitiera confianza, vanguardia y total propiedad en un panorama digital muy competitivo.">A newly founded digital marketing agency, Ipsum, approached me with a clear vision — to establish a strong brand presence that would position them as a premium player in the market from day one. The agency needed an identity that felt confident, cutting-edge, and entirely ownable in a crowded digital landscape.</p>
+      <p class="section-text t" data-en="The design direction drew from the digital landscape itself: grid structures, UI-inspired geometric accents, and a typography-first approach that turned the brand name into a visual asset. Every element was designed to scale — from business cards to large-format campaigns." data-es="La dirección creativa bebió del propio paisaje digital: estructuras de cuadrícula, acentos geométricos inspirados en UI y un enfoque tipográfico que convirtió el nombre de la marca en un activo visual. Cada elemento fue diseñado para escalar — desde tarjetas de visita hasta campañas de gran formato.">The design direction drew from the digital landscape itself: grid structures, UI-inspired geometric accents, and a typography-first approach that turned the brand name into a visual asset. Every element was designed to scale — from business cards to large-format campaigns.</p>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/ipsum-img1.jpg" alt="Logo system" loading="lazy"></div>
-        <div class="section-img"><img src="images/ipsum-img2.jpg" alt="Color palette" loading="lazy"></div>
+        <div class="section-img"><img src="../images/ipsum-img1.jpg" alt="Logo system" loading="lazy"></div>
+        <div class="section-img"><img src="../images/ipsum-img2.jpg" alt="Color palette" loading="lazy"></div>
       </div>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/ipsum-img3.jpg" alt="Typography" loading="lazy"></div>
-        <div class="section-img"><img src="images/ipsum-img4.jpg" alt="Brand elements" loading="lazy"></div>
+        <div class="section-img"><img src="../images/ipsum-img3.jpg" alt="Typography" loading="lazy"></div>
+        <div class="section-img"><img src="../images/ipsum-img4.jpg" alt="Brand elements" loading="lazy"></div>
       </div>
     </section>
 
     <section class="content-section" id="results">
-      <p class="section-label t" data-en="02 Results &amp; Impact" data-es="02 Resultados e impacto">02 Results &amp; Impact</p>
+      <p class="section-label t" data-en="02 — Results &amp; Impact" data-es="02 — Resultados e impacto">02 — Results &amp; Impact</p>
       <h2 class="section-title t" data-en="Positioned to Win" data-es="Posicionada para ganar">Positioned to Win</h2>
-      <p class="section-text t" data-en="The resulting brand positioned IPSUM as a cutting-edge, premium agency not a startup trying to look established, but a confident new voice with a clear point of view. The identity provided a solid foundation for all future marketing, digital, and client-facing materials." data-es="La marca resultante posicionó a IPSUM como una agencia premium de vanguardia no una startup intentando parecer consolidada, sino una nueva voz segura con un punto de vista claro. La identidad proporcionó una base sólida para todos los materiales futuros de marketing, digitales y de cara al cliente.">The resulting brand positioned IPSUM as a cutting-edge, premium agency not a startup trying to look established, but a confident new voice with a clear point of view. The identity provided a solid foundation for all future marketing, digital, and client-facing materials.</p>
+      <p class="section-text t" data-en="The resulting brand positioned IPSUM as a cutting-edge, premium agency — not a startup trying to look established, but a confident new voice with a clear point of view. The identity provided a solid foundation for all future marketing, digital, and client-facing materials." data-es="La marca resultante posicionó a IPSUM como una agencia premium de vanguardia — no una startup intentando parecer consolidada, sino una nueva voz segura con un punto de vista claro. La identidad proporcionó una base sólida para todos los materiales futuros de marketing, digitales y de cara al cliente.">The resulting brand positioned IPSUM as a cutting-edge, premium agency — not a startup trying to look established, but a confident new voice with a clear point of view. The identity provided a solid foundation for all future marketing, digital, and client-facing materials.</p>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/ipsum-img5.jpg" alt="Brand in use" loading="lazy"></div>
-        <div class="section-img"><img src="images/ipsum-img6.jpg" alt="Applications" loading="lazy"></div>
+        <div class="section-img"><img src="../images/ipsum-img5.jpg" alt="Brand in use" loading="lazy"></div>
+        <div class="section-img"><img src="../images/ipsum-img6.jpg" alt="Applications" loading="lazy"></div>
       </div>
-      <div class="section-img"><img src="images/ipsum-img7.jpg" alt="Final brand system" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ipsum-img7.jpg" alt="Final brand system" loading="lazy"></div>
     </section>
   </main>
 </div>
@@ -1183,11 +314,11 @@ const PROJ_DATA = {
 <section class="proj-hero">
   <div class="proj-tags"><span class="tag">🧩 Workshops</span><span class="tag">🌟 Branding</span></div>
   <h1 class="proj-title t" data-en="From KDPOF to KD" data-es="De KDPOF a KD">From KDPOF to KD</h1>
-  <p class="proj-subtitle t" data-en="A new brand identity for a new era strategic workshop and complete rebranding for a high-speed optical communication company" data-es="Una nueva identidad de marca para una nueva era workshop estratégico y rebranding completo para una empresa de comunicaciones ópticas de alta velocidad">A new brand identity for a new era strategic workshop and complete rebranding for a high-speed optical communication company</p>
+  <p class="proj-subtitle t" data-en="A new brand identity for a new era — strategic workshop and complete rebranding for a high-speed optical communication company" data-es="Una nueva identidad de marca para una nueva era — workshop estratégico y rebranding completo para una empresa de comunicaciones ópticas de alta velocidad">A new brand identity for a new era — strategic workshop and complete rebranding for a high-speed optical communication company</p>
 </section>
 
 <div class="hero-banner">
-  <img src="images/kd-hero.jpg" alt="KD brand identity">
+  <img src="../images/kd-hero.jpg" alt="KD brand identity">
 </div>
 
 <div class="proj-body">
@@ -1211,11 +342,11 @@ const PROJ_DATA = {
 
   <main class="content">
     <section class="content-section" id="workshop">
-      <p class="section-label t" data-en="01 Workshop" data-es="01 Workshop">01 Workshop</p>
+      <p class="section-label t" data-en="01 — Workshop" data-es="01 — Workshop">01 — Workshop</p>
       <h2 class="section-title t" data-en="The Workshop" data-es="El workshop">The Workshop</h2>
-      <p class="section-text t" data-en="KDPOF, a leading company in high-speed optical communication solutions for harsh environments, decided to take a strategic leap to expand beyond its original acronym and evolve into a broader technology brand known simply as KD. This wasn't just a name change; it required a complete strategic repositioning." data-es="KDPOF, empresa líder en soluciones de comunicaciones ópticas de alta velocidad para entornos hostiles, decidió dar un salto estratégico expandirse más allá de su acrónimo original y evolucionar hacia una marca tecnológica más amplia conocida simplemente como KD. No era solo un cambio de nombre; requería un reposicionamiento estratégico completo.">KDPOF, a leading company in high-speed optical communication solutions for harsh environments, decided to take a strategic leap to expand beyond its original acronym and evolve into a broader technology brand known simply as KD. This wasn't just a name change; it required a complete strategic repositioning.</p>
+      <p class="section-text t" data-en="KDPOF, a leading company in high-speed optical communication solutions for harsh environments, decided to take a strategic leap — to expand beyond its original acronym and evolve into a broader technology brand known simply as KD. This wasn't just a name change; it required a complete strategic repositioning." data-es="KDPOF, empresa líder en soluciones de comunicaciones ópticas de alta velocidad para entornos hostiles, decidió dar un salto estratégico — expandirse más allá de su acrónimo original y evolucionar hacia una marca tecnológica más amplia conocida simplemente como KD. No era solo un cambio de nombre; requería un reposicionamiento estratégico completo.">KDPOF, a leading company in high-speed optical communication solutions for harsh environments, decided to take a strategic leap — to expand beyond its original acronym and evolve into a broader technology brand known simply as KD. This wasn't just a name change; it required a complete strategic repositioning.</p>
       <p class="section-text t" data-en="A tailor-made brand strategy workshop brought together KDPOF's leadership team to align on vision, values, and target positioning before a single design decision was made." data-es="Un workshop de estrategia de marca a medida reunió al equipo directivo de KDPOF para alinear visión, valores y posicionamiento antes de tomar ninguna decisión de diseño.">A tailor-made brand strategy workshop brought together KDPOF's leadership team to align on vision, values, and target positioning before a single design decision was made.</p>
-      <div class="section-img"><img src="images/kd-img1.jpg" alt="Workshop" loading="lazy"></div>
+      <div class="section-img"><img src="../images/kd-img1.jpg" alt="Workshop" loading="lazy"></div>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Brand vision and mission alignment workshop" data-es="Workshop de alineación de visión y misión de marca">Brand vision and mission alignment workshop</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Competitive landscape and positioning mapping" data-es="Mapeo del panorama competitivo y posicionamiento">Competitive landscape and positioning mapping</span></li>
@@ -1225,16 +356,16 @@ const PROJ_DATA = {
     </section>
 
     <section class="content-section" id="brand">
-      <p class="section-label t" data-en="02 Brand" data-es="02 Marca">02 Brand</p>
+      <p class="section-label t" data-en="02 — Brand" data-es="02 — Marca">02 — Brand</p>
       <h2 class="section-title t" data-en="Reimagining the Brand" data-es="Reimaginando la marca">Reimagining the Brand</h2>
-      <p class="section-text t" data-en="The new KD brand had to honour the company's deep technical heritage 15+ years of innovation in optical communications while opening the door to a wider technology market. The identity needed to feel both authoritative and forward-looking, grounded in engineering excellence but ready for a global stage." data-es="La nueva marca KD debía honrar el profundo legado técnico de la empresa más de 15 años de innovación en comunicaciones ópticas mientras abría la puerta a un mercado tecnológico más amplio. La identidad debía transmitir autoridad y visión de futuro, anclada en la excelencia ingenieril pero preparada para el escenario global.">The new KD brand had to honour the company's deep technical heritage 15+ years of innovation in optical communications while opening the door to a wider technology market. The identity needed to feel both authoritative and forward-looking, grounded in engineering excellence but ready for a global stage.</p>
-      <div class="section-img"><img src="images/kd-img2.jpg" alt="Brand concept" loading="lazy"></div>
+      <p class="section-text t" data-en="The new KD brand had to honour the company's deep technical heritage — 15+ years of innovation in optical communications — while opening the door to a wider technology market. The identity needed to feel both authoritative and forward-looking, grounded in engineering excellence but ready for a global stage." data-es="La nueva marca KD debía honrar el profundo legado técnico de la empresa — más de 15 años de innovación en comunicaciones ópticas — mientras abría la puerta a un mercado tecnológico más amplio. La identidad debía transmitir autoridad y visión de futuro, anclada en la excelencia ingenieril pero preparada para el escenario global.">The new KD brand had to honour the company's deep technical heritage — 15+ years of innovation in optical communications — while opening the door to a wider technology market. The identity needed to feel both authoritative and forward-looking, grounded in engineering excellence but ready for a global stage.</p>
+      <div class="section-img"><img src="../images/kd-img2.jpg" alt="Brand concept" loading="lazy"></div>
       <ul class="checklist">
-        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Refined name and monogram KD clean, ownable, scalable" data-es="Nombre y monograma refinados KD limpio, propio y escalable">Refined name and monogram KD clean, ownable, scalable</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Refined name and monogram — KD — clean, ownable, scalable" data-es="Nombre y monograma refinados — KD — limpio, propio y escalable">Refined name and monogram — KD — clean, ownable, scalable</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Strategic brand personality bridging legacy and innovation" data-es="Personalidad de marca estratégica que conecta legado e innovación">Strategic brand personality bridging legacy and innovation</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="New typography and design elements reflecting precision and technology" data-es="Nueva tipografía y elementos de diseño que reflejan precisión y tecnología">New typography and design elements reflecting precision and technology</span></li>
       </ul>
-      <div class="section-img"><img src="images/kd-img3.jpg" alt="Brand system" loading="lazy"></div>
+      <div class="section-img"><img src="../images/kd-img3.jpg" alt="Brand system" loading="lazy"></div>
     </section>
   </main>
 </div>
@@ -1269,11 +400,11 @@ const PROJ_DATA = {
 <section class="proj-hero">
   <div class="proj-tags"><span class="tag">🌟 Branding</span><span class="tag">🖥️ Web</span></div>
   <h1 class="proj-title">RADIANNA</h1>
-  <p class="proj-subtitle t" data-en="Building Trust Through Design complete brand identity and website for a radiology RIS system expanding into hospitals" data-es="Construyendo confianza a través del diseño identidad de marca completa y web para un sistema RIS de radiología en expansión hospitalaria">Building Trust Through Design complete brand identity and website for a radiology RIS system expanding into hospitals</p>
+  <p class="proj-subtitle t" data-en="Building Trust Through Design — complete brand identity and website for a radiology RIS system expanding into hospitals" data-es="Construyendo confianza a través del diseño — identidad de marca completa y web para un sistema RIS de radiología en expansión hospitalaria">Building Trust Through Design — complete brand identity and website for a radiology RIS system expanding into hospitals</p>
   <a href="https://radianna.es/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a>
 </section>
 
-<div class="hero-img-wrap"><img src="images/rad-hero.jpg" alt="RADIANNA Hero"></div>
+<div class="hero-img-wrap"><img src="../images/rad-hero.jpg" alt="RADIANNA Hero"></div>
 
 <div class="proj-body">
   <aside class="sidebar">
@@ -1296,25 +427,25 @@ const PROJ_DATA = {
 
   <main class="content">
     <section class="content-section" id="brand">
-      <p class="section-label t" data-en="01 Brand" data-es="01 Marca">01 Brand</p>
+      <p class="section-label t" data-en="01 — Brand" data-es="01 — Marca">01 — Brand</p>
       <h2 class="section-title t" data-en="Revitalising the Brand" data-es="Renovando la marca">Revitalising the Brand</h2>
-      <p class="section-text t" data-en="Radianna is a radiology RIS (Radiology Information System) already implemented and sold to hospitals, with a clear expansion plan in place. Despite having a functional and validated product, it lacked any cohesive brand identity no logo, no visual system, no brand manual. The challenge was to build everything from scratch, establishing a visual identity that would earn the trust of hospital directors and medical professionals." data-es="Radianna es un sistema RIS de radiología (Sistema de Información Radiológica) ya implementado y vendido a hospitales, con un plan de expansión claro. A pesar de contar con un producto funcional y validado, carecía de identidad de marca sin logo, sin sistema visual, sin manual. El reto era construirlo todo desde cero, estableciendo una identidad visual que ganara la confianza de directores hospitalarios y profesionales médicos.">Radianna is a radiology RIS (Radiology Information System) already implemented and sold to hospitals, with a clear expansion plan in place. Despite having a functional and validated product, it lacked any cohesive brand identity no logo, no visual system, no brand manual. The challenge was to build everything from scratch, establishing a visual identity that would earn the trust of hospital directors and medical professionals.</p>
-      <div class="section-img"><img src="images/rad-img1.jpg" alt="Brand foundation" loading="lazy"></div>
+      <p class="section-text t" data-en="Radianna is a radiology RIS (Radiology Information System) already implemented and sold to hospitals, with a clear expansion plan in place. Despite having a functional and validated product, it lacked any cohesive brand identity — no logo, no visual system, no brand manual. The challenge was to build everything from scratch, establishing a visual identity that would earn the trust of hospital directors and medical professionals." data-es="Radianna es un sistema RIS de radiología (Sistema de Información Radiológica) ya implementado y vendido a hospitales, con un plan de expansión claro. A pesar de contar con un producto funcional y validado, carecía de identidad de marca — sin logo, sin sistema visual, sin manual. El reto era construirlo todo desde cero, estableciendo una identidad visual que ganara la confianza de directores hospitalarios y profesionales médicos.">Radianna is a radiology RIS (Radiology Information System) already implemented and sold to hospitals, with a clear expansion plan in place. Despite having a functional and validated product, it lacked any cohesive brand identity — no logo, no visual system, no brand manual. The challenge was to build everything from scratch, establishing a visual identity that would earn the trust of hospital directors and medical professionals.</p>
+      <div class="section-img"><img src="../images/rad-img1.jpg" alt="Brand foundation" loading="lazy"></div>
       <p class="section-text t" data-en="The brand needed to communicate three core values: precision, reliability, and technological innovation. It had to feel at home in clinical environments while remaining modern and forward-looking." data-es="La marca debía comunicar tres valores fundamentales: precisión, fiabilidad e innovación tecnológica. Tenía que encajar en entornos clínicos sin perder modernidad ni visión de futuro.">The brand needed to communicate three core values: precision, reliability, and technological innovation. It had to feel at home in clinical environments while remaining modern and forward-looking.</p>
       <div class="section-img-3">
-        <div class="section-img" style="margin:0"><img src="images/rad-img2.jpg" alt="Logo" loading="lazy"></div>
-        <div class="section-img" style="margin:0"><img src="images/rad-img3.jpg" alt="Color system" loading="lazy"></div>
-        <div class="section-img" style="margin:0"><img src="images/rad-img4.jpg" alt="Brand manual" loading="lazy"></div>
+        <div class="section-img" style="margin:0"><img src="../images/rad-img2.jpg" alt="Logo" loading="lazy"></div>
+        <div class="section-img" style="margin:0"><img src="../images/rad-img3.jpg" alt="Color system" loading="lazy"></div>
+        <div class="section-img" style="margin:0"><img src="../images/rad-img4.jpg" alt="Brand manual" loading="lazy"></div>
       </div>
     </section>
 
     <section class="content-section" id="website">
-      <p class="section-label t" data-en="02 Website" data-es="02 Web">02 Website</p>
+      <p class="section-label t" data-en="02 — Website" data-es="02 — Web">02 — Website</p>
       <h2 class="section-title t" data-en="The Website" data-es="La web">The Website</h2>
       <p class="section-text t" data-en="With the brand identity established, the next step was a focused landing page designed for a very specific audience: hospital directors and procurement managers evaluating RIS software. The site needed to communicate the product's value proposition clearly, establish credibility, and convert interest into contact." data-es="Con la identidad de marca establecida, el siguiente paso fue una landing page enfocada diseñada para una audiencia muy específica: directores hospitalarios y responsables de compras que evaluaban software RIS. El sitio debía comunicar claramente la propuesta de valor, establecer credibilidad y convertir el interés en contacto.">With the brand identity established, the next step was a focused landing page designed for a very specific audience: hospital directors and procurement managers evaluating RIS software. The site needed to communicate the product's value proposition clearly, establish credibility, and convert interest into contact.</p>
-      <p class="section-text t" data-en="No distractions, no unnecessary pages just a clear, focused digital presence that reflected the precision of the product itself." data-es="Sin distracciones, sin páginas innecesarias solo una presencia digital clara y enfocada que reflejaba la precisión del propio producto.">No distractions, no unnecessary pages just a clear, focused digital presence that reflected the precision of the product itself.</p>
-      <div class="section-img"><img src="images/rad-img5.jpg" alt="Desktop website" loading="lazy"></div>
-      <div class="section-img"><img src="images/rad-img6.jpg" alt="Mobile website" loading="lazy"></div>
+      <p class="section-text t" data-en="No distractions, no unnecessary pages — just a clear, focused digital presence that reflected the precision of the product itself." data-es="Sin distracciones, sin páginas innecesarias — solo una presencia digital clara y enfocada que reflejaba la precisión del propio producto.">No distractions, no unnecessary pages — just a clear, focused digital presence that reflected the precision of the product itself.</p>
+      <div class="section-img"><img src="../images/rad-img5.jpg" alt="Desktop website" loading="lazy"></div>
+      <div class="section-img"><img src="../images/rad-img6.jpg" alt="Mobile website" loading="lazy"></div>
       <div style="margin-top:24px"><a href="https://radianna.es/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a></div>
     </section>
   </main>
@@ -1408,11 +539,11 @@ img{display:block;max-width:100%}
   </div>
   <p class="agency-label t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
   <h1 class="proj-title">Sports Club APP &amp; Virtual Office</h1>
-  <p class="proj-subtitle t" data-en="Digital transformation of 4 sports clubs hybrid app + integrated virtual office with +70% retention" data-es="Transformación digital de 4 clubes deportivos app híbrida + oficina virtual integrada con +70% de retención">Digital transformation of 4 sports clubs hybrid app + integrated virtual office with +70% retention</p>
+  <p class="proj-subtitle t" data-en="Digital transformation of 4 sports clubs — hybrid app + integrated virtual office with +70% retention" data-es="Transformación digital de 4 clubes deportivos — app híbrida + oficina virtual integrada con +70% de retención">Digital transformation of 4 sports clubs — hybrid app + integrated virtual office with +70% retention</p>
 </section>
 
 <div class="hero-img-wrap">
-  <img src="images/sc-hero.jpg" alt="Sports Club App Hero">
+  <img src="../images/sc-hero.jpg" alt="Sports Club App Hero">
 </div>
 
 <div class="proj-body">
@@ -1439,46 +570,46 @@ img{display:block;max-width:100%}
 
   <main class="content">
     <section class="content-section" id="challenge">
-      <p class="section-label t" data-en="01 Challenge" data-es="01 Reto">01 Challenge</p>
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
       <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
-      <p class="section-text t" data-en="Four sports clubs each had unique requirements, yet all relied on the same outdated software. A significant percentage of their members including older adults and non-digital users were not using the platform. The clubs needed a modern, unified digital experience without losing club-specific identity." data-es="Cuatro clubes deportivos tenían requisitos únicos pero dependían del mismo software obsoleto. Un porcentaje significativo de sus socios incluidos adultos mayores y usuarios no digitales no usaba la plataforma. Los clubes necesitaban una experiencia digital moderna y unificada sin perder la identidad de cada club.">Four sports clubs each had unique requirements, yet all relied on the same outdated software. A significant percentage of their members including older adults and non-digital users were not using the platform. The clubs needed a modern, unified digital experience without losing club-specific identity.</p>
-      <div class="section-img"><img src="images/sc-img1.jpg" alt="Challenge" loading="lazy"></div>
-      <p class="section-text t" data-en="The project required building a hybrid iOS/Android app plus an integrated web Virtual Office all designed for users who had never engaged with a digital platform before." data-es="El proyecto requería construir una app híbrida iOS/Android más una Oficina Virtual web integrada todo diseñado para usuarios que nunca habían interactuado con una plataforma digital.">The project required building a hybrid iOS/Android app plus an integrated web Virtual Office all designed for users who had never engaged with a digital platform before.</p>
+      <p class="section-text t" data-en="Four sports clubs each had unique requirements, yet all relied on the same outdated software. A significant percentage of their members — including older adults and non-digital users — were not using the platform. The clubs needed a modern, unified digital experience without losing club-specific identity." data-es="Cuatro clubes deportivos tenían requisitos únicos pero dependían del mismo software obsoleto. Un porcentaje significativo de sus socios — incluidos adultos mayores y usuarios no digitales — no usaba la plataforma. Los clubes necesitaban una experiencia digital moderna y unificada sin perder la identidad de cada club.">Four sports clubs each had unique requirements, yet all relied on the same outdated software. A significant percentage of their members — including older adults and non-digital users — were not using the platform. The clubs needed a modern, unified digital experience without losing club-specific identity.</p>
+      <div class="section-img"><img src="../images/sc-img1.jpg" alt="Challenge" loading="lazy"></div>
+      <p class="section-text t" data-en="The project required building a hybrid iOS/Android app plus an integrated web Virtual Office — all designed for users who had never engaged with a digital platform before." data-es="El proyecto requería construir una app híbrida iOS/Android más una Oficina Virtual web integrada — todo diseñado para usuarios que nunca habían interactuado con una plataforma digital.">The project required building a hybrid iOS/Android app plus an integrated web Virtual Office — all designed for users who had never engaged with a digital platform before.</p>
     </section>
 
     <section class="content-section" id="requirements">
-      <p class="section-label t" data-en="02 Requirements" data-es="02 Requisitos">02 Requirements</p>
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
       <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
-      <div class="section-img"><img src="images/sc-img2.jpg" alt="Requirements" loading="lazy"></div>
+      <div class="section-img"><img src="../images/sc-img2.jpg" alt="Requirements" loading="lazy"></div>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Hybrid app (iOS &amp; Android) + integrated Virtual Office web platform" data-es="App híbrida (iOS y Android) + plataforma web de Oficina Virtual integrada">Hybrid app (iOS &amp; Android) + integrated Virtual Office web platform</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Dynamic booking system for facilities, classes, and events" data-es="Sistema de reservas dinámico para instalaciones, clases y eventos">Dynamic booking system for facilities, classes, and events</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Digital wallet with QR code access control" data-es="Monedero digital con control de acceso por código QR">Digital wallet with QR code access control</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Tournament management and push notifications" data-es="Gestión de torneos y notificaciones push">Tournament management and push notifications</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Custom UI kit per club maintaining shared system" data-es="UI kit personalizado por club sobre un sistema compartido">Custom UI kit per club maintaining shared system</span></li>
-        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Designed for non-digital users accessibility first" data-es="Diseñado para usuarios no digitales accesibilidad primero">Designed for non-digital users accessibility first</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Designed for non-digital users — accessibility first" data-es="Diseñado para usuarios no digitales — accesibilidad primero">Designed for non-digital users — accessibility first</span></li>
       </ul>
     </section>
 
     <section class="content-section" id="process">
-      <p class="section-label t" data-en="03 Process" data-es="03 Proceso">03 Process</p>
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
       <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
       <div class="process-steps">
         <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="Discovery Workshops" data-es="Workshops de Discovery (3 días con stakeholders de cada club)">Discovery Workshops</p><p class="step-desc t" data-en="3-day workshops with each club's stakeholders, members, and staff to map needs, pain points, and workflows." data-es="Mapeo de necesidades, puntos de dolor y flujos de trabajo con stakeholders, socios y personal de cada club.">3-day workshops with each club's stakeholders, members, and staff to map needs, pain points, and workflows.</p></div></div>
         <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="User Journey Mapping" data-es="Mapeo de Journey de Usuario (4 tipos de usuario: socios, staff, entrenadores, gestores)">User Journey Mapping</p><p class="step-desc t" data-en="Mapped end-to-end journeys for 4 distinct user types: members, admin staff, coaches, and club managers." data-es="Mapeo de journeys completos para 4 tipos de usuario distintos: socios, staff, entrenadores y gestores.">Mapped end-to-end journeys for 4 distinct user types: members, admin staff, coaches, and club managers.</p></div></div>
         <div class="step"><div class="step-num">3</div><div class="step-content"><p class="step-title t" data-en="Information Architecture" data-es="Arquitectura de la Información (estructura compartida personalizable por club)">Information Architecture</p><p class="step-desc t" data-en="Designed a shared app structure that could be customised per club without duplicating dev effort." data-es="Estructura de app compartida personalizable por club sin duplicar el esfuerzo de desarrollo.">Designed a shared app structure that could be customised per club without duplicating dev effort.</p></div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Design System Creation" data-es="Creación del Design System (UI kit con tematización por club colores, logos, iconos)">Design System Creation</p><p class="step-desc t" data-en="Built a scalable UI kit with club-specific theming colors, logos, and icons while sharing components." data-es="UI kit escalable con tematización por club colores, logos e iconos compartiendo componentes base.">Built a scalable UI kit with club-specific theming colors, logos, and icons while sharing components.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Design System Creation" data-es="Creación del Design System (UI kit con tematización por club — colores, logos, iconos)">Design System Creation</p><p class="step-desc t" data-en="Built a scalable UI kit with club-specific theming — colors, logos, and icons — while sharing components." data-es="UI kit escalable con tematización por club — colores, logos e iconos — compartiendo componentes base.">Built a scalable UI kit with club-specific theming — colors, logos, and icons — while sharing components.</p></div></div>
         <div class="step"><div class="step-num">5</div><div class="step-content"><p class="step-title t" data-en="Prototyping &amp; Testing" data-es="Prototipado y Testing (con socios reales incluidas personas mayores)">Prototyping &amp; Testing</p><p class="step-desc t" data-en="Tested with actual club members including seniors, iterating on onboarding, booking flows, and wallet UX." data-es="Testing con socios reales incluidas personas mayores, iterando sobre onboarding, reservas y monedero.">Tested with actual club members including seniors, iterating on onboarding, booking flows, and wallet UX.</p></div></div>
         <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="Handoff &amp; Launch Support" data-es="Handoff y soporte al lanzamiento (specs Figma, librería de componentes)">Handoff &amp; Launch Support</p><p class="step-desc t" data-en="Full dev handoff with annotated Figma specs, component library, and ongoing launch consulting." data-es="Handoff completo con specs Figma anotadas, librería de componentes y consultoría durante el lanzamiento.">Full dev handoff with annotated Figma specs, component library, and ongoing launch consulting.</p></div></div>
       </div>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/sc-img3.jpg" alt="Process" loading="lazy"></div>
-        <div class="section-img"><img src="images/sc-img4.jpg" alt="Design" loading="lazy"></div>
+        <div class="section-img"><img src="../images/sc-img3.jpg" alt="Process" loading="lazy"></div>
+        <div class="section-img"><img src="../images/sc-img4.jpg" alt="Design" loading="lazy"></div>
       </div>
     </section>
 
     <section class="content-section" id="results">
-      <p class="section-label t" data-en="04 Results" data-es="04 Resultados">04 Results</p>
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
       <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="+70% increase in app retention and active daily usage" data-es="+70% de incremento en la retención y uso diario activo de la app">+70% increase in app retention and active daily usage</span></li>
@@ -1487,7 +618,7 @@ img{display:block;max-width:100%}
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Digital wallet + QR access adopted by majority of members" data-es="Monedero digital + acceso QR adoptados por la mayoría de socios">Digital wallet + QR access adopted by majority of members</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Non-digital users onboarded successfully via simplified flows" data-es="Usuarios no digitales incorporados con éxito mediante flujos simplificados">Non-digital users onboarded successfully via simplified flows</span></li>
       </ul>
-      <div class="section-img"><img src="images/sc-img5.jpg" alt="Results" loading="lazy"></div>
+      <div class="section-img"><img src="../images/sc-img5.jpg" alt="Results" loading="lazy"></div>
     </section>
   </main>
 </div>
@@ -1525,10 +656,10 @@ img{display:block;max-width:100%}
   <div class="proj-tags"><span class="tag t" data-en="🎯 UX Consulting" data-es="🎯 UX Consulting">🎯 UX Consulting</span><span class="tag t" data-en="📲 APPs" data-es="📲 APPs">📲 APPs</span><span class="tag t" data-en="🌟 Branding" data-es="🌟 Branding">🌟 Branding</span></div>
   <p class="agency-label t" data-en="Independent project · Freelance" data-es="Proyecto independiente · Freelance">Independent project · Freelance</p>
   <h1 class="proj-title">ZenderBox APP</h1>
-  <p class="proj-subtitle t" data-en="Redesigning Logistics Through Clarity a complete iOS &amp; Android redesign without touching the underlying codebase" data-es="Rediseño de la logística a través de la claridad rediseño completo iOS y Android sin tocar el código base existente">Redesigning Logistics Through Clarity a complete iOS &amp; Android redesign without touching the underlying codebase</p>
+  <p class="proj-subtitle t" data-en="Redesigning Logistics Through Clarity — a complete iOS &amp; Android redesign without touching the underlying codebase" data-es="Rediseño de la logística a través de la claridad — rediseño completo iOS y Android sin tocar el código base existente">Redesigning Logistics Through Clarity — a complete iOS &amp; Android redesign without touching the underlying codebase</p>
 </section>
 
-<div class="hero-img-wrap"><img src="images/tr-hero.jpg" alt="ZenderBox App Hero"></div>
+<div class="hero-img-wrap"><img src="../images/tr-hero.jpg" alt="ZenderBox App Hero"></div>
 
 <div class="proj-body">
   <aside class="sidebar">
@@ -1553,20 +684,20 @@ img{display:block;max-width:100%}
 
   <main class="content">
     <section class="content-section" id="challenge">
-      <p class="section-label t" data-en="01 Challenge" data-es="01 Reto">01 Challenge</p>
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
       <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
-      <p class="section-text t" data-en="ZenderBox is an international locker service operating across Latin America. The existing app had an outdated visual identity, unclear navigation, and poor information hierarchy yet a full rebuild wasn't an option. The redesign had to stay within the existing technical architecture without adding complexity to the codebase." data-es="ZenderBox es un servicio internacional de casilleros en Latinoamérica. La app existente tenía una identidad visual obsoleta, navegación poco clara y jerarquía de información deficiente pero una reconstrucción completa no era una opción. El rediseño debía mantenerse dentro de la arquitectura técnica existente sin añadir complejidad al código.">ZenderBox is an international locker service operating across Latin America. The existing app had an outdated visual identity, unclear navigation, and poor information hierarchy yet a full rebuild wasn't an option. The redesign had to stay within the existing technical architecture without adding complexity to the codebase.</p>
+      <p class="section-text t" data-en="ZenderBox is an international locker service operating across Latin America. The existing app had an outdated visual identity, unclear navigation, and poor information hierarchy — yet a full rebuild wasn't an option. The redesign had to stay within the existing technical architecture without adding complexity to the codebase." data-es="ZenderBox es un servicio internacional de casilleros en Latinoamérica. La app existente tenía una identidad visual obsoleta, navegación poco clara y jerarquía de información deficiente — pero una reconstrucción completa no era una opción. El rediseño debía mantenerse dentro de la arquitectura técnica existente sin añadir complejidad al código.">ZenderBox is an international locker service operating across Latin America. The existing app had an outdated visual identity, unclear navigation, and poor information hierarchy — yet a full rebuild wasn't an option. The redesign had to stay within the existing technical architecture without adding complexity to the codebase.</p>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/tr-img1.jpg" alt="Before" loading="lazy"></div>
-        <div class="section-img"><img src="images/tr-img2.jpg" alt="Problems" loading="lazy"></div>
+        <div class="section-img"><img src="../images/tr-img1.jpg" alt="Before" loading="lazy"></div>
+        <div class="section-img"><img src="../images/tr-img2.jpg" alt="Problems" loading="lazy"></div>
       </div>
-      <p class="section-text t" data-en="The core constraint: deliver a modern, intuitive app that feels completely new without modifying the underlying architecture. Every design decision had to be technically feasible within the existing system." data-es="La restricción principal: entregar una app moderna e intuitiva que se sienta completamente nueva sin modificar la arquitectura subyacente. Cada decisión de diseño tenía que ser técnicamente viable dentro del sistema existente.">The core constraint: deliver a modern, intuitive app that feels completely new without modifying the underlying architecture. Every design decision had to be technically feasible within the existing system.</p>
+      <p class="section-text t" data-en="The core constraint: deliver a modern, intuitive app that feels completely new — without modifying the underlying architecture. Every design decision had to be technically feasible within the existing system." data-es="La restricción principal: entregar una app moderna e intuitiva que se sienta completamente nueva — sin modificar la arquitectura subyacente. Cada decisión de diseño tenía que ser técnicamente viable dentro del sistema existente.">The core constraint: deliver a modern, intuitive app that feels completely new — without modifying the underlying architecture. Every design decision had to be technically feasible within the existing system.</p>
     </section>
 
     <section class="content-section" id="requirements">
-      <p class="section-label t" data-en="02 Requirements" data-es="02 Requisitos">02 Requirements</p>
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
       <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
-      <div class="section-img"><img src="images/tr-img3.jpg" alt="Requirements" loading="lazy"></div>
+      <div class="section-img"><img src="../images/tr-img3.jpg" alt="Requirements" loading="lazy"></div>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Modern visual identity aligned with ZenderBox brand evolution" data-es="Identidad visual moderna alineada con la evolución de la marca ZenderBox">Modern visual identity aligned with ZenderBox brand evolution</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Technically feasible redesign within existing code architecture" data-es="Rediseño técnicamente viable dentro de la arquitectura de código existente">Technically feasible redesign within existing code architecture</span></li>
@@ -1578,30 +709,30 @@ img{display:block;max-width:100%}
     </section>
 
     <section class="content-section" id="process">
-      <p class="section-label t" data-en="03 Process" data-es="03 Proceso">03 Process</p>
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
       <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
       <div class="process-steps">
-        <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="UX/UI Audit" data-es="Auditoría UX/UI">UX/UI Audit</p><p class="step-desc t" data-en="Comprehensive heuristic evaluation of the existing app identified navigation issues, hierarchy problems, and usability gaps." data-es="Auditoría UX/UI (evaluación heurística completa navegación, jerarquía, usabilidad)">Comprehensive heuristic evaluation of the existing app identified navigation issues, hierarchy problems, and usability gaps.</p></div></div>
+        <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="UX/UI Audit" data-es="Auditoría UX/UI">UX/UI Audit</p><p class="step-desc t" data-en="Comprehensive heuristic evaluation of the existing app — identified navigation issues, hierarchy problems, and usability gaps." data-es="Auditoría UX/UI (evaluación heurística completa — navegación, jerarquía, usabilidad)">Comprehensive heuristic evaluation of the existing app — identified navigation issues, hierarchy problems, and usability gaps.</p></div></div>
         <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="Structural Reorganisation" data-es="Reorganización estructural">Structural Reorganisation</p><p class="step-desc t" data-en="Redesigned the information architecture: renamed sections, regrouped features, and simplified the tab bar navigation." data-es="Reorganización estructural (IA rediseñada: secciones renombradas, funcionalidades reagrupadas, tab bar simplificado)">Redesigned the information architecture: renamed sections, regrouped features, and simplified the tab bar navigation.</p></div></div>
         <div class="step"><div class="step-num">3</div><div class="step-content"><p class="step-title t" data-en="Naming &amp; Content Strategy" data-es="Estrategia de nomenclatura y contenido">Naming &amp; Content Strategy</p><p class="step-desc t" data-en="Rewrote all microcopy, labels, and section names to be clear, consistent, and user-centric." data-es="Estrategia de nomenclatura y contenido (microcopy, etiquetas y nombres de sección reescritos)">Rewrote all microcopy, labels, and section names to be clear, consistent, and user-centric.</p></div></div>
         <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Design System Creation" data-es="Creación del Design System">Design System Creation</p><p class="step-desc t" data-en="Built a new mobile-only design system (Plus Jakarta Sans, semantic color tokens, 430px canvas) compatible with existing tech." data-es="Creación del Design System (nuevo sistema solo para mobile: Plus Jakarta Sans, tokens semánticos, canvas 430px)">Built a new mobile-only design system (Plus Jakarta Sans, semantic color tokens, 430px canvas) compatible with existing tech.</p></div></div>
         <div class="step"><div class="step-num">5</div><div class="step-content"><p class="step-title t" data-en="Visual Hierarchy &amp; Signalling" data-es="Jerarquía visual y señalización">Visual Hierarchy &amp; Signalling</p><p class="step-desc t" data-en="Designed a color-coded package state system: En tienda · En bodega · Despachado · En camino · Entregado." data-es="Jerarquía visual y señalización (sistema de estados de paquete codificado por color)">Designed a color-coded package state system: En tienda · En bodega · Despachado · En camino · Entregado.</p></div></div>
         <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="Branding &amp; Market Readiness" data-es="Identidad de marca y posicionamiento">Branding &amp; Market Readiness</p><p class="step-desc t" data-en="Updated the visual language to position ZenderBox competitively in its markets with a fresh, trustworthy identity." data-es="Identidad de marca y posicionamiento (lenguaje visual actualizado para competir en sus mercados)">Updated the visual language to position ZenderBox competitively in its markets with a fresh, trustworthy identity.</p></div></div>
       </div>
-      <div class="section-img"><img src="images/tr-img4.jpg" alt="Process" loading="lazy"></div>
+      <div class="section-img"><img src="../images/tr-img4.jpg" alt="Process" loading="lazy"></div>
     </section>
 
     <section class="content-section" id="results">
-      <p class="section-label t" data-en="04 Results" data-es="04 Resultados">04 Results</p>
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
       <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
       <ul class="checklist">
-        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Fully redesigned app modern, intuitive, and brand-aligned" data-es="App completamente rediseñada moderna, intuitiva y alineada con la marca">Fully redesigned app modern, intuitive, and brand-aligned</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Fully redesigned app — modern, intuitive, and brand-aligned" data-es="App completamente rediseñada — moderna, intuitiva y alineada con la marca">Fully redesigned app — modern, intuitive, and brand-aligned</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="New design system with semantic tokens ready for development" data-es="Nuevo sistema de diseño con tokens semánticos listo para desarrollo">New design system with semantic tokens ready for development</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Improved navigation reducing user confusion and drop-off" data-es="Navegación mejorada reduciendo confusión y abandono">Improved navigation reducing user confusion and drop-off</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Clear visual package state signalling understood at a glance" data-es="Señalización visual clara de estados de paquete comprensible de un vistazo">Clear visual package state signalling understood at a glance</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Stronger product experience without architectural changes" data-es="Mejor experiencia de producto sin cambios en la arquitectura">Stronger product experience without architectural changes</span></li>
       </ul>
-      <div class="section-img"><img src="images/tr-img5.jpg" alt="Results" loading="lazy"></div>
+      <div class="section-img"><img src="../images/tr-img5.jpg" alt="Results" loading="lazy"></div>
     </section>
   </main>
 </div>
@@ -1637,11 +768,11 @@ img{display:block;max-width:100%}
 <section class="proj-hero">
   <div class="proj-tags"><span class="tag t" data-en="🎯 UX Consulting" data-es="🎯 UX Consulting">🎯 UX Consulting</span><span class="tag t" data-en="🖥️ Web" data-es="🖥️ Web">🖥️ Web</span></div>
   <h1 class="proj-title">Interactive Solar Plant</h1>
-  <p class="proj-subtitle t" data-en="Revolutionising solar plant design with a real-time interactive web configurator built from scratch with 3D integration" data-es="Revolucionando el diseño de plantas solares con un configurador web interactivo en tiempo real construido desde cero con integración 3D">Revolutionising solar plant design with a real-time interactive web configurator built from scratch with 3D integration</p>
+  <p class="proj-subtitle t" data-en="Revolutionising solar plant design with a real-time interactive web configurator — built from scratch with 3D integration" data-es="Revolucionando el diseño de plantas solares con un configurador web interactivo en tiempo real — construido desde cero con integración 3D">Revolutionising solar plant design with a real-time interactive web configurator — built from scratch with 3D integration</p>
   <a href="https://interactivepvplant.trinasolar.com/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a>
 </section>
 
-<div class="hero-img-wrap"><img src="images/ts-hero.jpg" alt="Trina Solar Hero"></div>
+<div class="hero-img-wrap"><img src="../images/ts-hero.jpg" alt="Trina Solar Hero"></div>
 
 <div class="proj-body">
   <aside class="sidebar">
@@ -1666,17 +797,17 @@ img{display:block;max-width:100%}
 
   <main class="content">
     <section class="content-section" id="challenge">
-      <p class="section-label t" data-en="01 Challenge" data-es="01 Reto">01 Challenge</p>
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
       <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
-      <p class="section-text t" data-en="Trina Solar, a global leader in solar energy, needed an interactive web platform that would allow engineers and buyers to design custom solar plants in real time. Budget constraints meant the configurator had to be built from scratch no off-the-shelf solution could meet their requirements." data-es="Trina Solar, líder mundial en energía solar, necesitaba una plataforma web interactiva para que ingenieros y compradores pudieran diseñar plantas solares personalizadas en tiempo real. Las restricciones presupuestarias significaban que el configurador tenía que construirse desde cero.">Trina Solar, a global leader in solar energy, needed an interactive web platform that would allow engineers and buyers to design custom solar plants in real time. Budget constraints meant the configurator had to be built from scratch no off-the-shelf solution could meet their requirements.</p>
-      <div class="section-img"><img src="images/ts-img1.jpg" alt="Challenge" loading="lazy"></div>
-      <p class="section-text t" data-en="The platform required 3D model integration, terrain adaptation across multiple surface types, real-time inventory selection, configuration saving, and PDF report generation all within a web browser, accessible to both technical and non-technical users." data-es="La plataforma requería integración de modelos 3D, adaptación a distintos tipos de terreno, selección de inventario en tiempo real, guardado de configuraciones y generación de informes PDF todo en el navegador, accesible para usuarios técnicos y no técnicos.">The platform required 3D model integration, terrain adaptation across multiple surface types, real-time inventory selection, configuration saving, and PDF report generation all within a web browser, accessible to both technical and non-technical users.</p>
+      <p class="section-text t" data-en="Trina Solar, a global leader in solar energy, needed an interactive web platform that would allow engineers and buyers to design custom solar plants in real time. Budget constraints meant the configurator had to be built from scratch — no off-the-shelf solution could meet their requirements." data-es="Trina Solar, líder mundial en energía solar, necesitaba una plataforma web interactiva para que ingenieros y compradores pudieran diseñar plantas solares personalizadas en tiempo real. Las restricciones presupuestarias significaban que el configurador tenía que construirse desde cero.">Trina Solar, a global leader in solar energy, needed an interactive web platform that would allow engineers and buyers to design custom solar plants in real time. Budget constraints meant the configurator had to be built from scratch — no off-the-shelf solution could meet their requirements.</p>
+      <div class="section-img"><img src="../images/ts-img1.jpg" alt="Challenge" loading="lazy"></div>
+      <p class="section-text t" data-en="The platform required 3D model integration, terrain adaptation across multiple surface types, real-time inventory selection, configuration saving, and PDF report generation — all within a web browser, accessible to both technical and non-technical users." data-es="La plataforma requería integración de modelos 3D, adaptación a distintos tipos de terreno, selección de inventario en tiempo real, guardado de configuraciones y generación de informes PDF — todo en el navegador, accesible para usuarios técnicos y no técnicos.">The platform required 3D model integration, terrain adaptation across multiple surface types, real-time inventory selection, configuration saving, and PDF report generation — all within a web browser, accessible to both technical and non-technical users.</p>
     </section>
 
     <section class="content-section" id="requirements">
-      <p class="section-label t" data-en="02 Requirements" data-es="02 Requisitos">02 Requirements</p>
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
       <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
-      <div class="section-img"><img src="images/ts-img2.jpg" alt="Requirements" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ts-img2.jpg" alt="Requirements" loading="lazy"></div>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Fully interactive solar plant configurator in the browser" data-es="Configurador solar completamente interactivo en el navegador">Fully interactive solar plant configurator in the browser</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Terrain adaptation across flat, hillside, and rooftop surfaces" data-es="Adaptación a distintos tipos de terreno (plano, ladera, tejado)">Terrain adaptation across flat, hillside, and rooftop surfaces</span></li>
@@ -1688,21 +819,21 @@ img{display:block;max-width:100%}
     </section>
 
     <section class="content-section" id="process">
-      <p class="section-label t" data-en="03 Process" data-es="03 Proceso">03 Process</p>
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
       <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
       <div class="process-steps">
         <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="Research &amp; Analysis" data-es="Investigación y análisis">Research &amp; Analysis</p><p class="step-desc t" data-en="Studied solar plant engineering workflows, user profiles (engineers, procurement, sales), and competitive landscape." data-es="Investigación y análisis (workflows de ingeniería solar, perfiles de usuario, análisis competitivo)">Studied solar plant engineering workflows, user profiles (engineers, procurement, sales), and competitive landscape.</p></div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="Concept &amp; Wireframing" data-es="Concepto y wireframing">Concept &amp; Wireframing</p><p class="step-desc t" data-en="Defined the configurator interaction model panel placement, terrain selection, inventory sidebar through low-fi wireframes." data-es="Concepto y wireframing (modelo de interacción del configurador: colocación de paneles, selección de terreno, barra lateral de inventario)">Defined the configurator interaction model panel placement, terrain selection, inventory sidebar through low-fi wireframes.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="Concept &amp; Wireframing" data-es="Concepto y wireframing">Concept &amp; Wireframing</p><p class="step-desc t" data-en="Defined the configurator interaction model — panel placement, terrain selection, inventory sidebar — through low-fi wireframes." data-es="Concepto y wireframing (modelo de interacción del configurador: colocación de paneles, selección de terreno, barra lateral de inventario)">Defined the configurator interaction model — panel placement, terrain selection, inventory sidebar — through low-fi wireframes.</p></div></div>
         <div class="step"><div class="step-num">3</div><div class="step-content"><p class="step-title t" data-en="Prototyping &amp; UI Design" data-es="Prototipado y diseño UI">Prototyping &amp; UI Design</p><p class="step-desc t" data-en="High-fidelity interactive prototypes simulating the real-time configurator experience, tested with solar engineers." data-es="Prototipado y diseño UI (prototipos interactivos de alta fidelidad, testing con ingenieros solares)">High-fidelity interactive prototypes simulating the real-time configurator experience, tested with solar engineers.</p></div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Design System" data-es="Design System">Design System</p><p class="step-desc t" data-en="Built a modular design system aligned with Trina Solar's brand controls, panels, status indicators, and data tables." data-es="Design System (sistema modular alineado con la marca Trina Solar)">Built a modular design system aligned with Trina Solar's brand controls, panels, status indicators, and data tables.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Design System" data-es="Design System">Design System</p><p class="step-desc t" data-en="Built a modular design system aligned with Trina Solar's brand — controls, panels, status indicators, and data tables." data-es="Design System (sistema modular alineado con la marca Trina Solar)">Built a modular design system aligned with Trina Solar's brand — controls, panels, status indicators, and data tables.</p></div></div>
         <div class="step"><div class="step-num">5</div><div class="step-content"><p class="step-title t" data-en="Usability Testing" data-es="Tests de usabilidad">Usability Testing</p><p class="step-desc t" data-en="Tested with engineers and non-technical buyers, iterating on the configuration flow and PDF output format." data-es="Tests de usabilidad (con ingenieros y compradores no técnicos, iterando en flujos y PDFs)">Tested with engineers and non-technical buyers, iterating on the configuration flow and PDF output format.</p></div></div>
         <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="Final Implementation" data-es="Implementación final">Final Implementation</p><p class="step-desc t" data-en="Full handoff with detailed specs for 3D integration, interaction states, and responsive breakpoints." data-es="Implementación final (handoff con specs para integración 3D, estados de interacción y breakpoints)">Full handoff with detailed specs for 3D integration, interaction states, and responsive breakpoints.</p></div></div>
       </div>
-      <div class="section-img"><img src="images/ts-img3.jpg" alt="Process" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ts-img3.jpg" alt="Process" loading="lazy"></div>
     </section>
 
     <section class="content-section" id="results">
-      <p class="section-label t" data-en="04 Results" data-es="04 Resultados">04 Results</p>
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
       <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Fully interactive configurator live at trinasolar.com" data-es="Configurador completamente interactivo en producción en trinasolar.com">Fully interactive configurator live at trinasolar.com</span></li>
@@ -1711,8 +842,8 @@ img{display:block;max-width:100%}
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Dynamic configuration with real-time inventory updates" data-es="Configuración dinámica con actualizaciones de inventario en tiempo real">Dynamic configuration with real-time inventory updates</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Exportable PDF reports used by sales and engineering teams" data-es="Informes PDF exportables utilizados por equipos de ventas e ingeniería">Exportable PDF reports used by sales and engineering teams</span></li>
       </ul>
-      <div class="section-img"><img src="images/ts-img4.jpg" alt="Results" loading="lazy"></div>
-      <div class="section-img"><img src="images/ts-img5.jpg" alt="Live platform" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ts-img4.jpg" alt="Results" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ts-img5.jpg" alt="Live platform" loading="lazy"></div>
       <div style="margin-top:24px"><a href="https://interactivepvplant.trinasolar.com/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a></div>
     </section>
   </main>
@@ -1807,11 +938,11 @@ img{display:block;max-width:100%}
   </div>
   <p class="agency-label t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
   <h1 class="proj-title">Trabajamos en digital</h1>
-  <p class="proj-subtitle t" data-en="Revolutionizing the UGT Enrollment System delivered in 2 months vs 6+ months industry standard" data-es="Revolucionando el sistema de matriculación de UGT entregado en 2 meses frente a los 6+ meses del estándar">Revolutionizing the UGT Enrollment System delivered in 2 months vs 6+ months industry standard</p>
+  <p class="proj-subtitle t" data-en="Revolutionizing the UGT Enrollment System — delivered in 2 months vs 6+ months industry standard" data-es="Revolucionando el sistema de matriculación de UGT — entregado en 2 meses frente a los 6+ meses del estándar">Revolutionizing the UGT Enrollment System — delivered in 2 months vs 6+ months industry standard</p>
 </section>
 
 <div class="hero-img-wrap">
-  <img src="images/ugt-hero.jpg" alt="UGT Enrollment Hero">
+  <img src="../images/ugt-hero.jpg" alt="UGT Enrollment Hero">
 </div>
 
 <div class="proj-body">
@@ -1840,17 +971,17 @@ img{display:block;max-width:100%}
 
   <main class="content">
     <section class="content-section" id="challenge">
-      <p class="section-label t" data-en="01 Challenge" data-es="01 Reto">01 Challenge</p>
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
       <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
-      <p class="section-text t" data-en="UGT needed to completely digitize their union course enrollment process replacing a slow, paper-heavy manual workflow with an AI-powered, integrated digital system. The existing process took 6+ months to complete for each enrollment cycle and was full of manual verification bottlenecks." data-es="UGT necesitaba digitalizar completamente su proceso de matriculación de cursos sindicales reemplazando un flujo manual lento y lleno de papel por un sistema digital integrado e impulsado por IA. El proceso existente tardaba 6+ meses en completar cada ciclo de matriculación.">UGT needed to completely digitize their union course enrollment process replacing a slow, paper-heavy manual workflow with an AI-powered, integrated digital system. The existing process took 6+ months to complete for each enrollment cycle and was full of manual verification bottlenecks.</p>
-      <div class="section-img"><img src="images/ugt-img1.jpg" alt="Challenge" loading="lazy"></div>
+      <p class="section-text t" data-en="UGT needed to completely digitize their union course enrollment process — replacing a slow, paper-heavy manual workflow with an AI-powered, integrated digital system. The existing process took 6+ months to complete for each enrollment cycle and was full of manual verification bottlenecks." data-es="UGT necesitaba digitalizar completamente su proceso de matriculación de cursos sindicales — reemplazando un flujo manual lento y lleno de papel por un sistema digital integrado e impulsado por IA. El proceso existente tardaba 6+ meses en completar cada ciclo de matriculación.">UGT needed to completely digitize their union course enrollment process — replacing a slow, paper-heavy manual workflow with an AI-powered, integrated digital system. The existing process took 6+ months to complete for each enrollment cycle and was full of manual verification bottlenecks.</p>
+      <div class="section-img"><img src="../images/ugt-img1.jpg" alt="Challenge" loading="lazy"></div>
       <p class="section-text t" data-en="A 3-day discovery workshop helped map all existing processes, legal constraints, and integration requirements before a single screen was designed. The tight 2-month delivery timeline required perfect alignment from day one." data-es="Un workshop de discovery de 3 días ayudó a mapear todos los procesos existentes, restricciones legales y requisitos de integración antes de diseñar una sola pantalla. El plazo de entrega de 2 meses requería alineación perfecta desde el primer día.">A 3-day discovery workshop helped map all existing processes, legal constraints, and integration requirements before a single screen was designed. The tight 2-month delivery timeline required perfect alignment from day one.</p>
     </section>
 
     <section class="content-section" id="requirements">
-      <p class="section-label t" data-en="02 Requirements" data-es="02 Requisitos">02 Requirements</p>
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
       <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
-      <div class="section-img"><img src="images/ugt-img2.jpg" alt="Requirements" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ugt-img2.jpg" alt="Requirements" loading="lazy"></div>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Automated document verification with AI identity validation" data-es="Verificación automatizada de documentos con validación de identidad por IA">Automated document verification with AI identity validation</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full CEOE/CEPYME database integration" data-es="Integración completa con bases de datos CEOE/CEPYME">Full CEOE/CEPYME database integration</span></li>
@@ -1865,7 +996,7 @@ img{display:block;max-width:100%}
     </section>
 
     <section class="content-section" id="process">
-      <p class="section-label t" data-en="03 Process" data-es="03 Proceso">03 Process</p>
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
       <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
       <div class="process-steps">
         <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="Discovery Workshop (3 days)" data-es="Workshop de Discovery (3 días)">Discovery Workshop (3 days)</p><p class="step-desc t" data-en="Intensive workshop mapping all existing enrollment processes, stakeholder pain points, legal requirements, and integration dependencies." data-es="Workshop intensivo de 3 días mapeando todos los procesos de matriculación existentes, puntos de dolor y dependencias de integración.">Intensive workshop mapping all existing enrollment processes, stakeholder pain points, legal requirements, and integration dependencies.</p></div></div>
@@ -1877,13 +1008,13 @@ img{display:block;max-width:100%}
         <div class="step"><div class="step-num">7</div><div class="step-content"><p class="step-title t" data-en="Rapid Deployment" data-es="Despliegue rápido">Rapid Deployment</p><p class="step-desc t" data-en="Full handoff and launch support to deliver the complete system in 2 months from kickoff." data-es="Handoff completo y soporte al lanzamiento para entregar el sistema en 2 meses desde el kickoff.">Full handoff and launch support to deliver the complete system in 2 months from kickoff.</p></div></div>
       </div>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/ugt-img3.jpg" alt="Process" loading="lazy"></div>
-        <div class="section-img"><img src="images/ugt-img4.jpg" alt="Design" loading="lazy"></div>
+        <div class="section-img"><img src="../images/ugt-img3.jpg" alt="Process" loading="lazy"></div>
+        <div class="section-img"><img src="../images/ugt-img4.jpg" alt="Design" loading="lazy"></div>
       </div>
     </section>
 
     <section class="content-section" id="results">
-      <p class="section-label t" data-en="04 Results" data-es="04 Resultados">04 Results</p>
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
       <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Fully automated enrollment replacing a 6-month manual process" data-es="Matriculación completamente automatizada que reemplaza un proceso manual de 6 meses">Fully automated enrollment replacing a 6-month manual process</span></li>
@@ -1892,7 +1023,7 @@ img{display:block;max-width:100%}
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Smart chatbot reducing support tickets from day one" data-es="Chatbot inteligente reduciendo tickets de soporte desde el primer día">Smart chatbot reducing support tickets from day one</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Custom CRM delivering full visibility and control to management" data-es="CRM personalizado con visibilidad y control total para la dirección">Custom CRM delivering full visibility and control to management</span></li>
       </ul>
-      <div class="section-img"><img src="images/ugt-img5.jpg" alt="Results" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ugt-img5.jpg" alt="Results" loading="lazy"></div>
     </section>
   </main>
 </div>
@@ -1929,11 +1060,11 @@ img{display:block;max-width:100%}
 <section class="proj-hero">
   <div class="proj-tags"><span class="tag">🌟 Branding</span><span class="tag">🖥️ Web</span></div>
   <h1 class="proj-title t" data-en="Branding for VMG" data-es="Branding para VMG">Branding for VMG</h1>
-  <p class="proj-subtitle t" data-en="Branding &amp; digital presence for VMG a vision of progress rooted in clarity, confidence, and health technology" data-es="Branding y presencia digital para VMG una visión de progreso arraigada en claridad, confianza y tecnología médica">Branding &amp; digital presence for VMG a vision of progress rooted in clarity, confidence, and health technology</p>
+  <p class="proj-subtitle t" data-en="Branding &amp; digital presence for VMG — a vision of progress rooted in clarity, confidence, and health technology" data-es="Branding y presencia digital para VMG — una visión de progreso arraigada en claridad, confianza y tecnología médica">Branding &amp; digital presence for VMG — a vision of progress rooted in clarity, confidence, and health technology</p>
 </section>
 
 <div class="hero-banner">
-  <img src="images/vmg-hero.jpg" alt="VMG brand identity">
+  <img src="../images/vmg-hero.jpg" alt="VMG brand identity">
 </div>
 
 <div class="proj-body">
@@ -1957,26 +1088,26 @@ img{display:block;max-width:100%}
 
   <main class="content">
     <section class="content-section" id="brand">
-      <p class="section-label t" data-en="01 Brand" data-es="01 Marca">01 Brand</p>
+      <p class="section-label t" data-en="01 — Brand" data-es="01 — Marca">01 — Brand</p>
       <h2 class="section-title t" data-en="A Brand Rooted in Clarity &amp; Confidence" data-es="Una marca arraigada en claridad y confianza">A Brand Rooted in Clarity &amp; Confidence</h2>
-      <p class="section-text t" data-en="VMG specialises in hyperbaric chambers medical devices used in oxygen therapy and rehabilitation. The company's philosophy, &quot;Moving Forward&quot;, needed to be translated into a brand identity that communicated trust, innovation, and a deep connection to health and technology. Before this project, VMG operated without a consistent visual identity." data-es="VMG se especializa en cámaras hiperbáricas dispositivos médicos utilizados en oxigenoterapia y rehabilitación. La filosofía de la empresa, &quot;Moving Forward&quot;, debía traducirse en una identidad de marca que comunicara confianza, innovación y una profunda conexión con la salud y la tecnología. Antes de este proyecto, VMG operaba sin una identidad visual consistente.">VMG specialises in hyperbaric chambers medical devices used in oxygen therapy and rehabilitation. The company's philosophy, "Moving Forward", needed to be translated into a brand identity that communicated trust, innovation, and a deep connection to health and technology. Before this project, VMG operated without a consistent visual identity.</p>
-      <p class="section-text t" data-en="The brand palette Indigo and Bondi Blue was chosen to evoke calmness, professionalism, and the clinical precision associated with medical environments, while remaining approachable and human." data-es="La paleta de la marca Índigo y Bondi Blue fue elegida para evocar calma, profesionalidad y la precisión clínica asociada a entornos médicos, manteniendo un tono accesible y humano.">The brand palette Indigo and Bondi Blue was chosen to evoke calmness, professionalism, and the clinical precision associated with medical environments, while remaining approachable and human.</p>
+      <p class="section-text t" data-en="VMG specialises in hyperbaric chambers — medical devices used in oxygen therapy and rehabilitation. The company's philosophy, &quot;Moving Forward&quot;, needed to be translated into a brand identity that communicated trust, innovation, and a deep connection to health and technology. Before this project, VMG operated without a consistent visual identity." data-es="VMG se especializa en cámaras hiperbáricas — dispositivos médicos utilizados en oxigenoterapia y rehabilitación. La filosofía de la empresa, &quot;Moving Forward&quot;, debía traducirse en una identidad de marca que comunicara confianza, innovación y una profunda conexión con la salud y la tecnología. Antes de este proyecto, VMG operaba sin una identidad visual consistente.">VMG specialises in hyperbaric chambers — medical devices used in oxygen therapy and rehabilitation. The company's philosophy, "Moving Forward", needed to be translated into a brand identity that communicated trust, innovation, and a deep connection to health and technology. Before this project, VMG operated without a consistent visual identity.</p>
+      <p class="section-text t" data-en="The brand palette — Indigo and Bondi Blue — was chosen to evoke calmness, professionalism, and the clinical precision associated with medical environments, while remaining approachable and human." data-es="La paleta de la marca — Índigo y Bondi Blue — fue elegida para evocar calma, profesionalidad y la precisión clínica asociada a entornos médicos, manteniendo un tono accesible y humano.">The brand palette — Indigo and Bondi Blue — was chosen to evoke calmness, professionalism, and the clinical precision associated with medical environments, while remaining approachable and human.</p>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/vmg-img1.jpg" alt="VMG logo" loading="lazy"></div>
-        <div class="section-img"><img src="images/vmg-img2.jpg" alt="Brand book" loading="lazy"></div>
+        <div class="section-img"><img src="../images/vmg-img1.jpg" alt="VMG logo" loading="lazy"></div>
+        <div class="section-img"><img src="../images/vmg-img2.jpg" alt="Brand book" loading="lazy"></div>
       </div>
     </section>
 
     <section class="content-section" id="website">
-      <p class="section-label t" data-en="02 Website" data-es="02 Web">02 Website</p>
+      <p class="section-label t" data-en="02 — Website" data-es="02 — Web">02 — Website</p>
       <h2 class="section-title t" data-en="A Digital Gateway: VMG's Landing Page" data-es="Una puerta digital: la landing page de VMG">A Digital Gateway: VMG's Landing Page</h2>
-      <p class="section-text t" data-en="With the brand identity defined, VMG needed a digital presence to reach healthcare professionals, clinics, and distributors. The landing page was designed as a focused, credibility-building experience communicating the company's mission, product range, and values without overwhelming visitors." data-es="Con la identidad de marca definida, VMG necesitaba una presencia digital para llegar a profesionales sanitarios, clínicas y distribuidores. La landing page fue diseñada como una experiencia enfocada que construye credibilidad comunicando la misión, gama de productos y valores sin abrumar al visitante.">With the brand identity defined, VMG needed a digital presence to reach healthcare professionals, clinics, and distributors. The landing page was designed as a focused, credibility-building experience communicating the company's mission, product range, and values without overwhelming visitors.</p>
+      <p class="section-text t" data-en="With the brand identity defined, VMG needed a digital presence to reach healthcare professionals, clinics, and distributors. The landing page was designed as a focused, credibility-building experience — communicating the company's mission, product range, and values without overwhelming visitors." data-es="Con la identidad de marca definida, VMG necesitaba una presencia digital para llegar a profesionales sanitarios, clínicas y distribuidores. La landing page fue diseñada como una experiencia enfocada que construye credibilidad — comunicando la misión, gama de productos y valores sin abrumar al visitante.">With the brand identity defined, VMG needed a digital presence to reach healthcare professionals, clinics, and distributors. The landing page was designed as a focused, credibility-building experience — communicating the company's mission, product range, and values without overwhelming visitors.</p>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Clear communication of VMG's mission and values above the fold" data-es="Comunicación clara de la misión y valores de VMG en el primer scroll">Clear communication of VMG's mission and values above the fold</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Essential product information structured for medical buyers" data-es="Información esencial del producto estructurada para compradores del sector médico">Essential product information structured for medical buyers</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full brand consistency across every page element" data-es="Consistencia total de marca en cada elemento de la página">Full brand consistency across every page element</span></li>
       </ul>
-      <div class="section-img"><img src="images/vmg-img3.jpg" alt="VMG website" loading="lazy"></div>
+      <div class="section-img"><img src="../images/vmg-img3.jpg" alt="VMG website" loading="lazy"></div>
     </section>
   </main>
 </div>
@@ -2072,12 +1203,12 @@ img{display:block;max-width:100%}
   </div>
   <p class="agency-label t" data-en="Work done at Thankium Digital Agency" data-es="Proyecto en Thankium Digital Agency">Work done at Thankium Digital Agency</p>
   <h1 class="proj-title">Utility Services</h1>
-  <p class="proj-subtitle t" data-en="Revolutionising utility services for holiday homes a seamless multi-user contracting platform for internet and electricity" data-es="Revolucionando los servicios de suministros para viviendas vacacionales una plataforma de contratación multi-usuario para internet y electricidad">Revolutionising utility services for holiday homes a seamless multi-user contracting platform for internet and electricity</p>
+  <p class="proj-subtitle t" data-en="Revolutionising utility services for holiday homes — a seamless multi-user contracting platform for internet and electricity" data-es="Revolucionando los servicios de suministros para viviendas vacacionales — una plataforma de contratación multi-usuario para internet y electricidad">Revolutionising utility services for holiday homes — a seamless multi-user contracting platform for internet and electricity</p>
   <a href="https://yuuju.com/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a>
 </section>
 
 <div class="hero-img-wrap">
-  <img src="images/yuuju-hero.jpg" alt="YUUJU Hero">
+  <img src="../images/yuuju-hero.jpg" alt="YUUJU Hero">
 </div>
 
 <div class="proj-body">
@@ -2106,21 +1237,21 @@ img{display:block;max-width:100%}
 
   <main class="content">
     <section class="content-section" id="challenge">
-      <p class="section-label t" data-en="01 Challenge" data-es="01 Reto">01 Challenge</p>
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
       <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
-      <p class="section-text t" data-en="YUUJU offers internet and electricity subscriptions for holiday homes across Spain. The platform needed to handle three distinct user types individuals, businesses, and freelancers each with completely different contracting needs, all within a single coherent experience." data-es="YUUJU ofrece suscripciones de internet y electricidad para viviendas vacacionales en España. La plataforma debía gestionar tres tipos de usuario distintos particulares, empresas y autónomos cada uno con necesidades de contratación completamente diferentes, todo dentro de una experiencia coherente.">YUUJU offers internet and electricity subscriptions for holiday homes across Spain. The platform needed to handle three distinct user types individuals, businesses, and freelancers each with completely different contracting needs, all within a single coherent experience.</p>
-      <div class="section-img"><img src="images/yuuju-img1.jpg" alt="Intro" loading="lazy"></div>
-      <p class="section-text t" data-en="Users could manage up to 10 properties simultaneously, requiring a complex CRM with real-time consumption dashboards, multi-payment support, address verification, and DNI validation all while feeling simple and approachable." data-es="Los usuarios podían gestionar hasta 10 propiedades simultáneamente, lo que requería un CRM complejo con dashboards de consumo en tiempo real, soporte multi-pago, verificación de dirección y validación de DNI todo sin perder la sencillez.">Users could manage up to 10 properties simultaneously, requiring a complex CRM with real-time consumption dashboards, multi-payment support, address verification, and DNI validation all while feeling simple and approachable.</p>
+      <p class="section-text t" data-en="YUUJU offers internet and electricity subscriptions for holiday homes across Spain. The platform needed to handle three distinct user types — individuals, businesses, and freelancers — each with completely different contracting needs, all within a single coherent experience." data-es="YUUJU ofrece suscripciones de internet y electricidad para viviendas vacacionales en España. La plataforma debía gestionar tres tipos de usuario distintos — particulares, empresas y autónomos — cada uno con necesidades de contratación completamente diferentes, todo dentro de una experiencia coherente.">YUUJU offers internet and electricity subscriptions for holiday homes across Spain. The platform needed to handle three distinct user types — individuals, businesses, and freelancers — each with completely different contracting needs, all within a single coherent experience.</p>
+      <div class="section-img"><img src="../images/yuuju-img1.jpg" alt="Intro" loading="lazy"></div>
+      <p class="section-text t" data-en="Users could manage up to 10 properties simultaneously, requiring a complex CRM with real-time consumption dashboards, multi-payment support, address verification, and DNI validation — all while feeling simple and approachable." data-es="Los usuarios podían gestionar hasta 10 propiedades simultáneamente, lo que requería un CRM complejo con dashboards de consumo en tiempo real, soporte multi-pago, verificación de dirección y validación de DNI — todo sin perder la sencillez.">Users could manage up to 10 properties simultaneously, requiring a complex CRM with real-time consumption dashboards, multi-payment support, address verification, and DNI validation — all while feeling simple and approachable.</p>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/yuuju-img2.jpg" alt="Challenge detail" loading="lazy"></div>
-        <div class="section-img"><img src="images/yuuju-img3.jpg" alt="Complexity" loading="lazy"></div>
+        <div class="section-img"><img src="../images/yuuju-img2.jpg" alt="Challenge detail" loading="lazy"></div>
+        <div class="section-img"><img src="../images/yuuju-img3.jpg" alt="Complexity" loading="lazy"></div>
       </div>
     </section>
 
     <section class="content-section" id="requirements">
-      <p class="section-label t" data-en="02 Requirements" data-es="02 Requisitos">02 Requirements</p>
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
       <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
-      <div class="section-img"><img src="images/yuuju-img4.jpg" alt="Requirements" loading="lazy"></div>
+      <div class="section-img"><img src="../images/yuuju-img4.jpg" alt="Requirements" loading="lazy"></div>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Dynamic multi-service contracting system (internet + electricity)" data-es="Sistema de contratación multi-servicio dinámico (internet + electricidad)">Dynamic multi-service contracting system (internet + electricity)</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Address and DNI online verification with real-time validation" data-es="Verificación online de dirección y DNI con validación en tiempo real">Address and DNI online verification with real-time validation</span></li>
@@ -2132,7 +1263,7 @@ img{display:block;max-width:100%}
     </section>
 
     <section class="content-section" id="process">
-      <p class="section-label t" data-en="03 Process" data-es="03 Proceso">03 Process</p>
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
       <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
       <div class="process-steps">
         <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="Discovery Workshop" data-es="Workshop de Discovery (mapeo de tipos de usuario, escenarios de contratación y requisitos legales)">Discovery Workshop</p><p class="step-desc t" data-en="Mapped all user types, contracting scenarios, and legal requirements through structured stakeholder workshops." data-es="Mapeo de tipos de usuario, escenarios de contratación y requisitos legales a través de workshops estructurados.">Mapped all user types, contracting scenarios, and legal requirements through structured stakeholder workshops.</p></div></div>
@@ -2140,17 +1271,17 @@ img{display:block;max-width:100%}
         <div class="step"><div class="step-num">3</div><div class="step-content"><p class="step-title t" data-en="Custom UI/UX Design" data-es="Diseño UI/UX personalizado (todos los portales, dashboards y flujos de contratación)">Custom UI/UX Design</p><p class="step-desc t" data-en="Designed all portals, dashboards, and contracting flows. Established a design system with component variants for each user context." data-es="Diseño de todos los portales, dashboards y flujos de contratación. Sistema de diseño con variantes de componentes por contexto de usuario.">Designed all portals, dashboards, and contracting flows. Established a design system with component variants for each user context.</p></div></div>
         <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Automated Validation Design" data-es="Diseño de validaciones automatizadas (lookup de dirección, verificación DNI, firma electrónica)">Automated Validation Design</p><p class="step-desc t" data-en="Designed the address lookup, DNI verification, and electronic signature flows with clear feedback states." data-es="Diseño del lookup de dirección, verificación de DNI y flujos de firma electrónica con estados de feedback claros.">Designed the address lookup, DNI verification, and electronic signature flows with clear feedback states.</p></div></div>
         <div class="step"><div class="step-num">5</div><div class="step-content"><p class="step-title t" data-en="Complex Form UX" data-es="UX de formularios complejos (contratación multi-paso que parece sencilla)">Complex Form UX</p><p class="step-desc t" data-en="Structured the multi-step contracting form to feel simple despite handling highly variable data inputs." data-es="Estructuración del formulario de contratación multi-paso para que parezca sencillo a pesar de la variabilidad de datos.">Structured the multi-step contracting form to feel simple despite handling highly variable data inputs.</p></div></div>
-        <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="Scalable Infrastructure Design" data-es="Diseño de infraestructura escalable (preparado para añadir nuevos tipos de suministro)">Scalable Infrastructure Design</p><p class="step-desc t" data-en="Designed for future service expansion the system was built to add new utility types without restructuring." data-es="Diseño orientado a la expansión futura el sistema fue construido para añadir nuevos tipos de suministro sin reestructurar.">Designed for future service expansion the system was built to add new utility types without restructuring.</p></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="Scalable Infrastructure Design" data-es="Diseño de infraestructura escalable (preparado para añadir nuevos tipos de suministro)">Scalable Infrastructure Design</p><p class="step-desc t" data-en="Designed for future service expansion — the system was built to add new utility types without restructuring." data-es="Diseño orientado a la expansión futura — el sistema fue construido para añadir nuevos tipos de suministro sin reestructurar.">Designed for future service expansion — the system was built to add new utility types without restructuring.</p></div></div>
       </div>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/yuuju-img5.jpg" alt="Process" loading="lazy"></div>
-        <div class="section-img"><img src="images/yuuju-img6.jpg" alt="Design" loading="lazy"></div>
+        <div class="section-img"><img src="../images/yuuju-img5.jpg" alt="Process" loading="lazy"></div>
+        <div class="section-img"><img src="../images/yuuju-img6.jpg" alt="Design" loading="lazy"></div>
       </div>
-      <div class="section-img"><img src="images/yuuju-img7.jpg" alt="Prototype" loading="lazy"></div>
+      <div class="section-img"><img src="../images/yuuju-img7.jpg" alt="Prototype" loading="lazy"></div>
     </section>
 
     <section class="content-section" id="results">
-      <p class="section-label t" data-en="04 Results" data-es="04 Resultados">04 Results</p>
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
       <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Complete multi-service contracting system live and operational" data-es="Sistema completo de contratación multi-servicio en producción">Complete multi-service contracting system live and operational</span></li>
@@ -2158,9 +1289,9 @@ img{display:block;max-width:100%}
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Automated address, DNI, and coverage verifications" data-es="Verificaciones automatizadas de dirección, DNI y cobertura">Automated address, DNI, and coverage verifications</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Multi-payment gateway and electronic signature integrated" data-es="Pasarela de pago múltiple y firma electrónica integradas">Multi-payment gateway and electronic signature integrated</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Future-proof platform ready for new utility types" data-es="Plataforma preparada para el futuro con nuevos tipos de suministros">Future-proof platform ready for new utility types</span></li>
-        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full digital ecosystem delivered portals, CRM, automations" data-es="Ecosistema digital completo entregado portales, CRM y automatizaciones">Full digital ecosystem delivered portals, CRM, automations</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full digital ecosystem delivered — portals, CRM, automations" data-es="Ecosistema digital completo entregado — portales, CRM y automatizaciones">Full digital ecosystem delivered — portals, CRM, automations</span></li>
       </ul>
-      <div class="section-img"><img src="images/yuuju-img8.jpg" alt="Results" loading="lazy"></div>
+      <div class="section-img"><img src="../images/yuuju-img8.jpg" alt="Results" loading="lazy"></div>
       <div style="margin-top:24px"><a href="https://yuuju.com/" target="_blank" class="btn-site t" data-en="Go to website ↗" data-es="Ver web ↗">Go to website ↗</a></div>
     </section>
   </main>
@@ -2172,354 +1303,6 @@ img{display:block;max-width:100%}
 
 
 
-`
-  },
-  'zenderhub-brand': {
-    css: `
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;background:#fff;color:#151515;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{text-decoration:none;color:inherit}
-img{display:block;max-width:100%}
-:root{--brand:#A3086A;--accent:#009CC9;--dark:#151515;--gray:#6b7280;--border:#edf2f6;--radius:12px}
-.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;max-width:1440px;margin:0 auto}
-.nav-home{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--dark);transition:color .2s}
-.nav-home:hover{color:var(--brand)}
-.nav-home svg{width:18px;height:18px}
-.nav-logo{font-size:20px;font-weight:800;letter-spacing:-0.02em;color:var(--dark)}
-.nav-logo span{color:var(--brand)}
-.proj-hero{padding:64px 48px 48px;max-width:900px;margin:0 auto;text-align:center}
-.proj-tags{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:24px}
-.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600;background:#f5f5f5;color:#444}
-.agency-label{font-size:14px;color:var(--gray);margin-bottom:8px;text-align:center}
-.proj-title{font-size:clamp(32px,4vw,56px);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:12px;color:var(--dark)}
-.proj-subtitle{font-size:clamp(17px,1.8vw,22px);color:var(--gray);line-height:1.5;max-width:680px;margin:0 auto 28px}
-.hero-img-wrap{width:100%;max-height:640px;overflow:hidden;margin-bottom:0}
-.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top}
-.proj-body{display:grid;grid-template-columns:240px 1fr;gap:0;max-width:1200px;margin:0 auto;padding:0 48px}
-.sidebar{position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto;padding:48px 32px 48px 0;display:flex;flex-direction:column;gap:32px;border-right:1px solid var(--border)}
-.toc-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
-.toc-list{list-style:none;display:flex;flex-direction:column;gap:8px}
-.toc-list a{font-size:14px;color:var(--gray);transition:color .2s;line-height:1.4}
-.toc-list a:hover,.toc-list a.active{color:var(--brand);font-weight:600}
-.tools-grid{display:flex;flex-direction:column;gap:8px}
-.tool-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray)}
-.tool-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
-.content{padding:48px 0 80px 56px}
-.content-section{margin-bottom:64px;scroll-margin-top:100px}
-.section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:10px}
-.section-title{font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.01em;margin-bottom:16px;color:var(--dark)}
-.section-text{font-size:16px;line-height:1.7;color:#444;margin-bottom:24px}
-.section-img{border-radius:16px;overflow:hidden;margin:24px 0;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
-.section-img img{width:100%;height:auto;display:block}
-.section-img-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
-.checklist{list-style:none;display:flex;flex-direction:column;gap:12px;margin:20px 0}
-.checklist li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#333;line-height:1.5}
-.check-icon{width:22px;height:22px;border-radius:50%;background:#A3086A;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.check-icon svg{width:13px;height:13px;stroke:#fff;stroke-width:2.5;fill:none}
-.process-steps{display:flex;flex-direction:column;gap:16px;margin:20px 0}
-.step{display:flex;align-items:flex-start;gap:16px}
-.step-num{width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:1px}
-.step-content{}
-.step-title{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:2px}
-.step-desc{font-size:14px;color:var(--gray);line-height:1.5}
-.deliverables-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
-.deliverable-card{padding:20px;border-radius:12px;border:1px solid var(--border);background:#fafafa}
-.deliverable-card h4{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px}
-.deliverable-card p{font-size:13px;color:var(--gray);line-height:1.5}
-.fab{position:fixed;bottom:32px;right:32px;width:52px;height:52px;background:rgba(163,8,106,0.12);border-radius:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;z-index:50}
-.fab:hover{background:rgba(163,8,106,0.22)}
-.fab svg{width:20px;height:20px;stroke:var(--brand);stroke-width:2;fill:none}
-.proj-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 48px;border-top:1px solid var(--border);max-width:1200px;margin:0 auto}
-.proj-nav-link{display:flex;flex-direction:column;gap:4px}
-.proj-nav-label{font-size:12px;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
-.proj-nav-title{font-size:16px;font-weight:700;color:var(--dark);transition:color .2s}
-.proj-nav-link:hover .proj-nav-title{color:var(--brand)}
-.nav-lang{display:flex;gap:4px}
-.lang-btn{padding:6px 10px;border:none;background:transparent;font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;border-radius:6px;transition:all .2s;font-family:inherit}
-.lang-btn.active{color:var(--brand);background:rgba(163,8,106,0.1)}
-.btn-site{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--brand);color:#fff;border-radius:100px;font-size:15px;font-weight:700;transition:opacity .2s}.btn-site:hover{opacity:.85}
-.live-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#A3086A;background:rgba(163,8,106,0.1);border:1px solid rgba(163,8,106,0.25);padding:4px 12px;border-radius:100px;margin-bottom:20px}
-.live-dot{width:7px;height:7px;border-radius:50%;background:#A3086A;animation:pulse-brand 1.8s ease-in-out infinite}
-@keyframes pulse-brand{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
-.gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
-.gallery-grid img{width:100%;border-radius:12px;height:auto;display:block;box-shadow:0 2px 12px rgba(0,0,0,0.07)}
-@media(max-width:768px){
-  .nav-inner{padding:0 20px}
-  .proj-hero{padding:40px 20px 32px}
-  .proj-body{grid-template-columns:1fr;padding:0}
-  .sidebar{position:static;height:auto;padding:24px 20px;border-right:none;border-bottom:1px solid var(--border)}
-  .toc-list{flex-direction:row;flex-wrap:wrap;gap:8px}
-  .content{padding:32px 20px 60px}
-  .proj-nav{padding:24px 20px}
-  .section-img-row{grid-template-columns:1fr}
-  .deliverables-grid{grid-template-columns:1fr}
-  .gallery-grid{grid-template-columns:1fr}
-}
-`,
-    html: `
-<section class="proj-hero">
-  <div class="proj-tags">
-    <span class="tag">🎨 Branding</span>
-    <span class="tag">🗂️ Design System</span>
-    <span class="tag">🖥️ Web</span>
-    <span class="tag">🎯 UX Consulting</span>
-  </div>
-  <p class="agency-label t" data-en="Freelance · ZenderGroup" data-es="Freelance · ZenderGroup">Freelance · ZenderGroup</p>
-  <h1 class="proj-title t" data-en="ZenderHub &amp; its BrandBible" data-es="ZenderHub y su BrandBible">ZenderHub &amp; its BrandBible</h1>
-  <p class="proj-subtitle t"
-    data-en="A complete B2B brand system built from scratch: identity, design tokens, 27 live components, bilingual voice guidelines, and an interactive BrandBible."
-    data-es="Un sistema de marca B2B construido desde cero: identidad, tokens de diseño, 27 componentes en vivo, guías de voz bilingüe y un BrandBible interactivo.">
-    A complete B2B brand system built from scratch: identity, design tokens, 27 live components, bilingual voice guidelines, and an interactive BrandBible.
-  </p>
-</section>
-
-<div class="hero-img-wrap">
-  <img src="images/zh-hero.jpg" alt="ZenderHub BrandBible hero" loading="lazy">
-</div>
-
-<div class="proj-body">
-  <aside class="sidebar">
-    <div>
-      <p class="toc-label t" data-en="Sections" data-es="Secciones">Sections</p>
-      <ul class="toc-list">
-        <li><a href="#zh-context" class="t" data-en="Context" data-es="Contexto">Context</a></li>
-        <li><a href="#zh-foundations" class="t" data-en="Foundations" data-es="Fundamentos">Foundations</a></li>
-        <li><a href="#zh-logo" class="t" data-en="Logo System" data-es="Sistema de logo">Logo System</a></li>
-        <li><a href="#zh-color" class="t" data-en="Color &amp; Tokens" data-es="Color y tokens">Color &amp; Tokens</a></li>
-        <li><a href="#zh-brandbible" class="t" data-en="BrandBible" data-es="BrandBible">BrandBible</a></li>
-        <li><a href="#zh-results" class="t" data-en="Results" data-es="Resultados">Results</a></li>
-      </ul>
-    </div>
-    <div>
-      <p class="toc-label t" data-en="Tools" data-es="Herramientas">Tools</p>
-      <div class="tools-grid">
-        <div class="tool-item"><div class="tool-icon" style="background:#f5f5f5;font-size:16px">🎨</div><span>Figma</span></div>
-        <div class="tool-item"><div class="tool-icon" style="background:#f5f5f5;font-size:16px">⚡</div><span>HTML / CSS</span></div>
-        <div class="tool-item"><div class="tool-icon" style="background:#f5f5f5;font-size:16px">📐</div><span>Design Tokens</span></div>
-        <div class="tool-item"><div class="tool-icon" style="background:#f5f5f5;font-size:16px">📝</div><span>Brand Strategy</span></div>
-      </div>
-    </div>
-  </aside>
-
-  <main class="content">
-
-    <section class="content-section" id="zh-context">
-      <p class="section-label t" data-en="01 Context" data-es="01 Contexto">01 Context</p>
-      <h2 class="section-title t"
-        data-en="A logistics operator that needed its own language"
-        data-es="Un operador logístico que necesitaba su propio lenguaje">
-        A logistics operator that needed its own language
-      </h2>
-      <p class="section-text t"
-        data-en="ZenderHub operates as a fulfillment-as-a-service platform for ecommerce brands in Colombia. With RFID traceability, multi-carrier integration (UPS, FedEx, TCC, Servientrega), and a real-time operations panel, it needed a brand that communicated precision and trust distinct from ZenderBox's consumer identity, yet unmistakably part of the same ecosystem."
-        data-es="ZenderHub opera como plataforma de fulfillment-as-a-service para marcas de ecommerce en Colombia. Con trazabilidad RFID, integración multicarrier (UPS, FedEx, TCC, Servientrega) y un panel de operaciones en tiempo real, necesitaba una marca que comunicara precisión y confianza diferente a la identidad de consumo de ZenderBox, pero reconociblemente parte del mismo ecosistema.">
-        ZenderHub operates as a fulfillment-as-a-service platform for ecommerce brands in Colombia. With RFID traceability, multi-carrier integration (UPS, FedEx, TCC, Servientrega), and a real-time operations panel, it needed a brand that communicated precision and trust distinct from ZenderBox's consumer identity, yet unmistakably part of the same ecosystem.
-      </p>
-      <div class="live-badge">
-        <span class="live-dot"></span>
-        <span class="t" data-en="Live · v1.0.0" data-es="En vivo · v1.0.0">Live · v1.0.0</span>
-      </div>
-      <div class="deliverables-grid">
-        <div class="deliverable-card">
-          <h4 class="t" data-en="Challenge" data-es="Desafío">Challenge</h4>
-          <p class="t"
-            data-en="Build a B2B brand system from zero that scales across web, components, and motion all coherent with the Zender ecosystem palette."
-            data-es="Construir un sistema de marca B2B desde cero que escale en web, componentes y movimiento coherente con la paleta del ecosistema Zender.">
-            Build a B2B brand system from zero that scales across web, components, and motion all coherent with the Zender ecosystem palette.
-          </p>
-        </div>
-        <div class="deliverable-card">
-          <h4 class="t" data-en="My role" data-es="Mi rol">My role</h4>
-          <p class="t"
-            data-en="Brand strategy, visual identity, design system, BrandBible architecture and dev solo end-to-end."
-            data-es="Estrategia de marca, identidad visual, sistema de diseño, arquitectura del BrandBible y desarrollo solo de principio a fin.">
-            Brand strategy, visual identity, design system, BrandBible architecture and dev solo end-to-end.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section" id="zh-foundations">
-      <p class="section-label t" data-en="02 Foundations" data-es="02 Fundamentos">02 Foundations</p>
-      <h2 class="section-title t"
-        data-en="Three principles that hold everything together"
-        data-es="Tres principios que sostienen todo lo demás">
-        Three principles that hold everything together
-      </h2>
-      <p class="section-text t"
-        data-en="Inferred from production code. When a design decision is uncertain, return to these three: dark luxury (not dark mode), the 23px radius as brand signature, and motion with hierarchy."
-        data-es="Inferidos del código de producción. Cuando una decisión de diseño esté en duda, vuelve a estos tres: dark luxury (no dark mode), el radio de 23px como firma de marca, y el movimiento con jerarquía.">
-        Inferred from production code. When a design decision is uncertain, return to these three: dark luxury (not dark mode), the 23px radius as brand signature, and motion with hierarchy.
-      </p>
-      <div class="section-img">
-        <img src="images/zh-img1.jpg" alt="ZenderHub Brand Foundations" loading="lazy">
-      </div>
-      <div class="process-steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-content">
-            <p class="step-title t" data-en="Dark Luxury, not Dark Mode" data-es="Dark Luxury, no Dark Mode">Dark Luxury, not Dark Mode</p>
-            <p class="step-desc t"
-              data-en="The black background (#0A0A0F) is not a user preference it's the identity. The light surface (body.svc-light) is an editorial exception for Services, not a parallel mode."
-              data-es="El fondo negro (#0A0A0F) no es una preferencia de usuario es la identidad. La superficie clara (body.svc-light) es una excepción editorial para Servicios, no un modo paralelo.">
-              The black background (#0A0A0F) is not a user preference it's the identity. The light surface (body.svc-light) is an editorial exception for Services, not a parallel mode.
-            </p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <p class="step-title t" data-en="The 23px radius is the signature" data-es="El radio 23px es la firma">The 23px radius is the signature</p>
-            <p class="step-desc t"
-              data-en="The ZenderHub curve lives in cards, panels, modals, and forms. When something uses 8px or 999px, it's communicating a different function input vs. button. Radius is not decoration; it's semantics."
-              data-es="La curva ZenderHub vive en tarjetas, paneles, modales y formularios. Cuando algo usa 8px o 999px, está comunicando una función diferente input vs. botón. El radio no es decoración: es semántica.">
-              The ZenderHub curve lives in cards, panels, modals, and forms. When something uses 8px or 999px, it's communicating a different function input vs. button. Radius is not decoration; it's semantics.
-            </p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-content">
-            <p class="step-title t" data-en="Motion has hierarchy" data-es="El movimiento tiene jerarquía">Motion has hierarchy</p>
-            <p class="step-desc t"
-              data-en="120ms micro · 220ms standard · 360ms context · 600ms reveal. Never mix them. The easing cubic-bezier(.2,.7,.2,1) is always present: clean start, smooth stop."
-              data-es="120ms micro · 220ms estándar · 360ms contexto · 600ms revelación. Nunca mezclarlas. El easing cubic-bezier(.2,.7,.2,1) siempre presente: arranque limpio, frenada suave.">
-              120ms micro · 220ms standard · 360ms context · 600ms reveal. Never mix them. The easing cubic-bezier(.2,.7,.2,1) is always present: clean start, smooth stop.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section" id="zh-logo">
-      <p class="section-label t" data-en="03 Logo System" data-es="03 Sistema de logo">03 Logo System</p>
-      <h2 class="section-title t"
-        data-en="One logo, three versions. The background decides."
-        data-es="Un logo, tres versiones. El fondo manda.">
-        One logo, three versions. The background decides.
-      </h2>
-      <p class="section-text t"
-        data-en="The gradient symbol accompanies the wordmark, with 'Hub' always highlighted. Choose the version based on the background and never use the color version on dark surfaces or recolor 'Hub' outside brand magenta."
-        data-es="El símbolo de gradiente acompaña al wordmark, con 'Hub' siempre destacado. Elige la versión según el fondo y nunca uses la versión a color sobre fondos oscuros ni recalores 'Hub' fuera del magenta de marca.">
-        The gradient symbol accompanies the wordmark, with 'Hub' always highlighted. Choose the version based on the background and never use the color version on dark surfaces or recolor 'Hub' outside brand magenta.
-      </p>
-      <div class="gallery-grid">
-        <img src="images/zh-img2.jpg" alt="ZenderHub logo variants" loading="lazy">
-        <img src="images/zh-img3.jpg" alt="ZenderHub logo usage rules" loading="lazy">
-      </div>
-    </section>
-
-    <section class="content-section" id="zh-color">
-      <p class="section-label t" data-en="04 Color &amp; Tokens" data-es="04 Color y tokens">04 Color &amp; Tokens</p>
-      <h2 class="section-title t"
-        data-en="Magenta is action. Cyan is data. Black is home."
-        data-es="Magenta es acción. Cyan es dato. El negro es la casa.">
-        Magenta is action. Cyan is data. Black is home.
-      </h2>
-      <p class="section-text t"
-        data-en="Every semantic token references a primitive never a raw hex value in components. The color system covers brand, surfaces (dark), text, status, and five gradients. Five strict rules govern application: magenta is never a section background, the signature gradient has limited use, cyan is accent not primary, form error is always #CC1111, and the light surface (#F6F5F1) belongs exclusively to body.svc-light."
-        data-es="Cada token semántico referencia un primitivo nunca un hex crudo en componentes. El sistema de color cubre marca, superficies (dark), texto, estados y cinco gradientes. Cinco reglas estrictas rigen la aplicación: el magenta nunca es fondo de sección, el gradiente firma tiene uso limitado, cyan es acento no primario, el error de formulario siempre es #CC1111, y la superficie clara (#F6F5F1) pertenece exclusivamente a body.svc-light.">
-        Every semantic token references a primitive never a raw hex value in components. The color system covers brand, surfaces (dark), text, status, and five gradients. Five strict rules govern application: magenta is never a section background, the signature gradient has limited use, cyan is accent not primary, form error is always #CC1111, and the light surface (#F6F5F1) belongs exclusively to body.svc-light.
-      </p>
-      <div class="section-img">
-        <img src="images/zh-img4.jpg" alt="ZenderHub color palette brand tokens" loading="lazy">
-      </div>
-      <div class="gallery-grid">
-        <img src="images/zh-img5.jpg" alt="ZenderHub color palette surfaces and status" loading="lazy">
-        <img src="images/zh-img6.jpg" alt="ZenderHub color rules and gradients" loading="lazy">
-      </div>
-    </section>
-
-    <section class="content-section" id="zh-brandbible">
-      <p class="section-label t" data-en="05 BrandBible" data-es="05 BrandBible">05 BrandBible</p>
-      <h2 class="section-title t"
-        data-en="A living document built on the same tokens it documents"
-        data-es="Un documento vivo construido sobre los mismos tokens que documenta">
-        A living document built on the same tokens it documents
-      </h2>
-      <p class="section-text t"
-        data-en="The BrandBible is not a static PDF it's a fully coded, bilingual (ES/EN) interactive site with 13 documented sections: Foundations, Logo, Color, Typography, Spacing, Radii, Motion, Components (27 live), Voice &amp; Tone, Image &amp; Video, Social Media, Accessibility, and Tokens. It includes a Visual Checker tool for uploading brand pieces and validating them against tokens in real time."
-        data-es="El BrandBible no es un PDF estático es un sitio interactivo completamente programado, bilingüe (ES/EN) con 13 secciones documentadas: Fundamentos, Logo, Color, Tipografía, Espaciado, Radios, Movimiento, Componentes (27 en vivo), Voz y tono, Imagen y video, Redes sociales, Accesibilidad y Tokens. Incluye una herramienta Visual Checker para subir piezas de marca y validarlas contra los tokens en tiempo real.">
-        The BrandBible is not a static PDF it's a fully coded, bilingual (ES/EN) interactive site with 13 documented sections: Foundations, Logo, Color, Typography, Spacing, Radii, Motion, Components (27 live), Voice &amp; Tone, Image &amp; Video, Social Media, Accessibility, and Tokens. It includes a Visual Checker tool for uploading brand pieces and validating them against tokens in real time.
-      </p>
-      <div class="deliverables-grid">
-        <div class="deliverable-card">
-          <h4 class="t" data-en="13 documented sections" data-es="13 secciones documentadas">13 documented sections</h4>
-          <p class="t"
-            data-en="Foundations, Logo, Color, Typography, Spacing, Radii, Motion, Components, Voice, Image, Social, Accessibility, Tokens."
-            data-es="Fundamentos, Logo, Color, Tipografía, Espaciado, Radios, Movimiento, Componentes, Voz, Imagen, Social, Accesibilidad, Tokens.">
-            Foundations, Logo, Color, Typography, Spacing, Radii, Motion, Components, Voice, Image, Social, Accessibility, Tokens.
-          </p>
-        </div>
-        <div class="deliverable-card">
-          <h4 class="t" data-en="27 live components" data-es="27 componentes en vivo">27 live components</h4>
-          <p class="t"
-            data-en="Fully interactive buttons, cards, inputs, badges, steppers, modals all rendered directly in the browser with real CSS tokens."
-            data-es="Totalmente interactivos botones, tarjetas, inputs, badges, steppers, modales todos renderizados directamente en el navegador con tokens CSS reales.">
-            Fully interactive buttons, cards, inputs, badges, steppers, modals all rendered directly in the browser with real CSS tokens.
-          </p>
-        </div>
-        <div class="deliverable-card">
-          <h4 class="t" data-en="Visual Checker tool" data-es="Herramienta Visual Checker">Visual Checker tool</h4>
-          <p class="t"
-            data-en="Upload any brand piece and validate it against tokens in real time colors, radii, spacing, typography."
-            data-es="Sube cualquier pieza de marca y valídala contra los tokens en tiempo real colores, radios, espaciado, tipografía.">
-            Upload any brand piece and validate it against tokens in real time colors, radii, spacing, typography.
-          </p>
-        </div>
-        <div class="deliverable-card">
-          <h4 class="t" data-en="Bilingual ES / EN" data-es="Bilingüe ES / EN">Bilingual ES / EN</h4>
-          <p class="t"
-            data-en="Full bilingual support throughout all copy, labels, descriptions, and lexicon SI/NO available in Spanish and English."
-            data-es="Soporte bilingüe completo todo el copy, labels, descripciones y léxico SI/NO disponibles en español e inglés.">
-            Full bilingual support throughout all copy, labels, descriptions, and lexicon SI/NO available in Spanish and English.
-          </p>
-        </div>
-      </div>
-      <div style="margin-top:24px">
-        <a href="https://zenderhub.github.io/ZenderHub-BrandBible/" target="_blank" rel="noopener" class="btn-site t" data-en="View BrandBible live ↗" data-es="Ver BrandBible en vivo ↗">View BrandBible live ↗</a>
-      </div>
-    </section>
-
-    <section class="content-section" id="zh-results">
-      <p class="section-label t" data-en="06 Results" data-es="06 Resultados">06 Resultados</p>
-      <h2 class="section-title t"
-        data-en="A scalable system, consistent from day one"
-        data-es="Un sistema escalable, consistente desde el primer día">
-        A scalable system, consistent from day one
-      </h2>
-      <ul class="checklist">
-        <li>
-          <span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-          <span class="t" data-en="Complete brand identity built from zero positioning, logo, color, type, and motion as one coherent system." data-es="Identidad de marca completa construida desde cero posicionamiento, logo, color, tipografía y movimiento como un sistema coherente.">Complete brand identity built from zero positioning, logo, color, type, and motion as one coherent system.</span>
-        </li>
-        <li>
-          <span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-          <span class="t" data-en="27 live components available directly in the browser no Figma required to inspect or implement." data-es="27 componentes en vivo disponibles directamente en el navegador sin necesidad de Figma para inspeccionar o implementar.">27 live components available directly in the browser no Figma required to inspect or implement.</span>
-        </li>
-        <li>
-          <span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-          <span class="t" data-en="Token-based architecture: semantic tokens reference primitives zero raw hex values in components." data-es="Arquitectura basada en tokens: los tokens semánticos referencian primitivos cero valores hex crudos en componentes.">Token-based architecture: semantic tokens reference primitives zero raw hex values in components.</span>
-        </li>
-        <li>
-          <span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-          <span class="t" data-en="Bilingual BrandBible site live at v1.0.0 the same CSS tokens that power the components document themselves." data-es="Sitio BrandBible bilingüe en vivo en v1.0.0 los mismos tokens CSS que impulsan los componentes se documentan a sí mismos.">Bilingual BrandBible site live at v1.0.0 the same CSS tokens that power the components document themselves.</span>
-        </li>
-        <li>
-          <span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-          <span class="t" data-en="Visual Checker tool enables real-time brand validation teams can verify any piece against tokens without designer intervention." data-es="La herramienta Visual Checker habilita validación de marca en tiempo real los equipos pueden verificar cualquier pieza contra tokens sin intervención del diseñador.">Visual Checker tool enables real-time brand validation teams can verify any piece against tokens without designer intervention.</span>
-        </li>
-      </ul>
-    </section>
-
-  </main>
-</div>
-
-<button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-</button>
 `
   },
   'zenderbox-app': {
@@ -2634,7 +1417,7 @@ img{display:block;max-width:100%}
 </section>
 
 <div class="hero-img-wrap">
-  <img src="images/za-hero.jpg" alt="Logistics App Hero">
+  <img src="../images/za-hero.jpg" alt="Logistics App Hero">
 </div>
 
 <div class="proj-body">
@@ -2661,17 +1444,17 @@ img{display:block;max-width:100%}
 
   <main class="content">
     <section class="content-section" id="challenge">
-      <p class="section-label t" data-en="01 Challenge" data-es="01 Reto">01 Challenge</p>
+      <p class="section-label t" data-en="01 — Challenge" data-es="01 — Reto">01 — Challenge</p>
       <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
       <p class="section-text t" data-en="ZenderBox is an international locker service operating across the Americas, allowing users to shop abroad and track, manage, and receive their packages seamlessly. The app lacked a structured user experience, making interactions unclear, with no intuitive states or feedback mechanisms to guide users through their journey." data-es="ZenderBox es un servicio internacional de casilleros en las Américas que permite a los usuarios comprar en el extranjero y gestionar sus paquetes de forma sencilla. La app carecía de una experiencia de usuario estructurada, con interacciones poco claras y sin mecanismos de feedback que guiaran al usuario.">ZenderBox is an international locker service operating across the Americas, allowing users to shop abroad and track, manage, and receive their packages seamlessly. The app lacked a structured user experience, making interactions unclear, with no intuitive states or feedback mechanisms to guide users through their journey.</p>
-      <div class="section-img"><img src="images/za-img1.jpg" alt="Challenge overview" loading="lazy"></div>
-      <p class="section-text t" data-en="Users across multiple countries with varying levels of digital literacy needed an app that felt effortless clear package states, intuitive navigation, and a trustworthy interface that could scale across markets." data-es="Usuarios de múltiples países con distintos niveles de digitalización necesitaban una app intuitiva con estados de paquete claros, navegación sencilla y una interfaz de confianza que pudiera escalar entre mercados.">Users across multiple countries with varying levels of digital literacy needed an app that felt effortless clear package states, intuitive navigation, and a trustworthy interface that could scale across markets.</p>
+      <div class="section-img"><img src="../images/za-img1.jpg" alt="Challenge overview" loading="lazy"></div>
+      <p class="section-text t" data-en="Users across multiple countries with varying levels of digital literacy needed an app that felt effortless — clear package states, intuitive navigation, and a trustworthy interface that could scale across markets." data-es="Usuarios de múltiples países con distintos niveles de digitalización necesitaban una app intuitiva con estados de paquete claros, navegación sencilla y una interfaz de confianza que pudiera escalar entre mercados.">Users across multiple countries with varying levels of digital literacy needed an app that felt effortless — clear package states, intuitive navigation, and a trustworthy interface that could scale across markets.</p>
     </section>
 
     <section class="content-section" id="requirements">
-      <p class="section-label t" data-en="02 Requirements" data-es="02 Requisitos">02 Requirements</p>
+      <p class="section-label t" data-en="02 — Requirements" data-es="02 — Requisitos">02 — Requirements</p>
       <h2 class="section-title t" data-en="Key Project Requirements" data-es="Requisitos clave del proyecto">Key Project Requirements</h2>
-      <div class="section-img"><img src="images/za-img2.jpg" alt="Requirements" loading="lazy"></div>
+      <div class="section-img"><img src="../images/za-img2.jpg" alt="Requirements" loading="lazy"></div>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="End-to-end UX design for iOS and Android native apps" data-es="Diseño UX end-to-end para apps nativas iOS y Android">End-to-end UX design for iOS and Android native apps</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Clear visual package status system with color-coded states" data-es="Sistema visual de estados de paquete con codificación por color">Clear visual package status system with color-coded states</span></li>
@@ -2683,24 +1466,24 @@ img{display:block;max-width:100%}
     </section>
 
     <section class="content-section" id="process">
-      <p class="section-label t" data-en="03 Process" data-es="03 Proceso">03 Process</p>
+      <p class="section-label t" data-en="03 — Process" data-es="03 — Proceso">03 — Process</p>
       <h2 class="section-title t" data-en="My UX Process" data-es="Mi proceso UX">My UX Process</h2>
       <div class="process-steps">
         <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="Discovery &amp; User Research" data-es="Investigación y descubrimiento">Discovery &amp; User Research</p><p class="step-desc t" data-en="Stakeholder interviews, competitive analysis, and user journey mapping across different country profiles." data-es="Entrevistas con stakeholders, análisis competitivo y mapeo de journeys para distintos perfiles de país.">Stakeholder interviews, competitive analysis, and user journey mapping across different country profiles.</p></div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="Information Architecture" data-es="Arquitectura de la información">Information Architecture</p><p class="step-desc t" data-en="Restructured navigation and content hierarchy to make the most critical tasks tracking, managing, and receiving packages immediately accessible." data-es="Reestructuración de la navegación y la jerarquía de contenido para hacer accesibles las tareas clave.">Restructured navigation and content hierarchy to make the most critical tasks tracking, managing, and receiving packages immediately accessible.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="Information Architecture" data-es="Arquitectura de la información">Information Architecture</p><p class="step-desc t" data-en="Restructured navigation and content hierarchy to make the most critical tasks — tracking, managing, and receiving packages — immediately accessible." data-es="Reestructuración de la navegación y la jerarquía de contenido para hacer accesibles las tareas clave.">Restructured navigation and content hierarchy to make the most critical tasks — tracking, managing, and receiving packages — immediately accessible.</p></div></div>
         <div class="step"><div class="step-num">3</div><div class="step-content"><p class="step-title t" data-en="Wireframing &amp; Prototyping" data-es="Wireframing y prototipado">Wireframing &amp; Prototyping</p><p class="step-desc t" data-en="Low to high fidelity wireframes, interactive prototypes for testing across both iOS and Android platforms." data-es="Wireframes de baja a alta fidelidad, prototipos interactivos para iOS y Android.">Low to high fidelity wireframes, interactive prototypes for testing across both iOS and Android platforms.</p></div></div>
         <div class="step"><div class="step-num">4</div><div class="step-content"><p class="step-title t" data-en="Visual Design &amp; Design System" data-es="Diseño visual y sistema de diseño">Visual Design &amp; Design System</p><p class="step-desc t" data-en="Created a scalable UI kit with semantic color tokens for package states, typography, and component variants." data-es="UI kit escalable con tokens de color semánticos para estados de paquete, tipografía y variantes de componentes.">Created a scalable UI kit with semantic color tokens for package states, typography, and component variants.</p></div></div>
         <div class="step"><div class="step-num">5</div><div class="step-content"><p class="step-title t" data-en="Usability Testing" data-es="Tests de usabilidad">Usability Testing</p><p class="step-desc t" data-en="Moderated testing sessions with real users across different markets to validate flows and iterate on friction points." data-es="Sesiones de testing moderadas con usuarios reales de distintos mercados para validar flujos.">Moderated testing sessions with real users across different markets to validate flows and iterate on friction points.</p></div></div>
         <div class="step"><div class="step-num">6</div><div class="step-content"><p class="step-title t" data-en="Dev Handoff &amp; Consulting" data-es="Handoff y consultoría">Dev Handoff &amp; Consulting</p><p class="step-desc t" data-en="Detailed Figma handoff with annotations, interaction specs, and ongoing product consulting through launch." data-es="Handoff detallado en Figma con anotaciones, especificaciones de interacción y consultoría durante el lanzamiento.">Detailed Figma handoff with annotations, interaction specs, and ongoing product consulting through launch.</p></div></div>
       </div>
       <div class="section-img-row">
-        <div class="section-img"><img src="images/za-img3.jpg" alt="Process detail" loading="lazy"></div>
-        <div class="section-img"><img src="images/za-img4.jpg" alt="Wireframes" loading="lazy"></div>
+        <div class="section-img"><img src="../images/za-img3.jpg" alt="Process detail" loading="lazy"></div>
+        <div class="section-img"><img src="../images/za-img4.jpg" alt="Wireframes" loading="lazy"></div>
       </div>
     </section>
 
     <section class="content-section" id="results">
-      <p class="section-label t" data-en="04 Results" data-es="04 Resultados">04 Results</p>
+      <p class="section-label t" data-en="04 — Results" data-es="04 — Resultados">04 — Results</p>
       <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
       <ul class="checklist">
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="+85% increase in app usage across all markets" data-es="+85% de incremento en el uso de la app en todos los mercados">+85% increase in app usage across all markets</span></li>
@@ -2709,7 +1492,7 @@ img{display:block;max-width:100%}
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Reduced user drop-off during onboarding by improving clarity" data-es="Reducción del abandono durante el onboarding al mejorar la claridad">Reduced user drop-off during onboarding by improving clarity</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full dev handoff documentation delivered on time" data-es="Documentación completa de handoff entregada a tiempo">Full dev handoff documentation delivered on time</span></li>
       </ul>
-      <div class="section-img"><img src="images/za-hero.jpg" alt="Results" loading="lazy"></div>
+      <div class="section-img"><img src="../images/za-hero.jpg" alt="Results" loading="lazy"></div>
     </section>
   </main>
 </div>
@@ -2845,7 +1628,7 @@ img{display:block;max-width:100%}
 </section>
 
 <div class="hero-img-wrap">
-  <img src="images/proj-zenderbox-ecosystem.png" alt="ZenderBox Ecosystem Overview">
+  <img src="../images/proj-zenderbox-ecosystem.png" alt="ZenderBox Ecosystem Overview">
 </div>
 
 <div class="proj-body">
@@ -2875,7 +1658,7 @@ img{display:block;max-width:100%}
   <main class="content">
 
     <section class="content-section" id="overview">
-      <p class="section-label t" data-en="01 Overview" data-es="01 Visión general">01 Overview</p>
+      <p class="section-label t" data-en="01 — Overview" data-es="01 — Visión general">01 — Overview</p>
       <h2 class="section-title t" data-en="A complete design ecosystem" data-es="Un ecosistema de diseño completo">A complete design ecosystem</h2>
       <p class="section-text t"
         data-en="ZenderGroup is a Latin American logistics group operating an international package-forwarding service that connects customers in Colombia, Costa Rica, and other countries with products from the United States. The group operates two interconnected products: ZenderBox (the customer-facing app and web) and ZenderHub (the B2B fulfillment platform)."
@@ -2883,24 +1666,24 @@ img{display:block;max-width:100%}
         ZenderGroup is a Latin American logistics group operating an international package-forwarding service that connects customers in Colombia, Costa Rica, and other countries with products from the United States. The group operates two interconnected products: ZenderBox (the customer-facing app and web) and ZenderHub (the B2B fulfillment platform).
       </p>
       <p class="section-text t"
-        data-en="I was brought in as the sole designer responsible for the entire product ecosystem from founding a new brand from scratch, to redesigning an existing mobile app, to architecting multi-platform design systems and building the operational tools used by the warehouse team."
+        data-en="I was brought in as the sole designer responsible for the entire product ecosystem — from founding a new brand from scratch, to redesigning an existing mobile app, to architecting multi-platform design systems and building the operational tools used by the warehouse team."
         data-es="Fui contratada como diseñadora única responsable de todo el ecosistema de producto: desde crear una nueva marca desde cero, hasta rediseñar una app móvil existente, arquitectar sistemas de diseño multiplataforma y construir las herramientas operacionales del equipo de bodega.">
-        I was brought in as the sole designer responsible for the entire product ecosystem from founding a new brand from scratch, to redesigning an existing mobile app, to architecting multi-platform design systems and building the operational tools used by the warehouse team.
+        I was brought in as the sole designer responsible for the entire product ecosystem — from founding a new brand from scratch, to redesigning an existing mobile app, to architecting multi-platform design systems and building the operational tools used by the warehouse team.
       </p>
-      <div class="section-img"><img src="images/proj-zenderbox-ecosystem.png" alt="ZenderBox Ecosystem Map" loading="lazy"></div>
+      <div class="section-img"><img src="../images/proj-zenderbox-ecosystem.png" alt="ZenderBox Ecosystem Map" loading="lazy"></div>
     </section>
 
     <section class="content-section" id="challenge">
-      <p class="section-label t" data-en="02 Challenge" data-es="02 Reto">02 Challenge</p>
+      <p class="section-label t" data-en="02 — Challenge" data-es="02 — Reto">02 — Challenge</p>
       <h2 class="section-title t" data-en="The Challenge" data-es="El reto">The Challenge</h2>
       <p class="section-text t"
-        data-en="The group had a working logistics operation but lacked design coherence across its products. ZenderBox had an existing app with poor UX and no design system. ZenderHub a new B2B platform had no brand, no design language, and no digital identity whatsoever. The operational side (dashboard and WMS) ran on improvised tools with zero UX structure."
-        data-es="El grupo tenía una operación logística funcional pero carecía de coherencia de diseño en sus productos. ZenderBox tenía una app existente con mala UX y sin sistema de diseño. ZenderHubuna nueva plataforma B2Bno tenía marca, ni lenguaje de diseño, ni identidad digital. El lado operacional (dashboard y WMS) funcionaba con herramientas improvisadas sin ninguna estructura UX.">
-        The group had a working logistics operation but lacked design coherence across its products. ZenderBox had an existing app with poor UX and no design system. ZenderHub a new B2B platform had no brand, no design language, and no digital identity whatsoever. The operational side (dashboard and WMS) ran on improvised tools with zero UX structure.
+        data-en="The group had a working logistics operation but lacked design coherence across its products. ZenderBox had an existing app with poor UX and no design system. ZenderHub — a new B2B platform — had no brand, no design language, and no digital identity whatsoever. The operational side (dashboard and WMS) ran on improvised tools with zero UX structure."
+        data-es="El grupo tenía una operación logística funcional pero carecía de coherencia de diseño en sus productos. ZenderBox tenía una app existente con mala UX y sin sistema de diseño. ZenderHub —una nueva plataforma B2B— no tenía marca, ni lenguaje de diseño, ni identidad digital. El lado operacional (dashboard y WMS) funcionaba con herramientas improvisadas sin ninguna estructura UX.">
+        The group had a working logistics operation but lacked design coherence across its products. ZenderBox had an existing app with poor UX and no design system. ZenderHub — a new B2B platform — had no brand, no design language, and no digital identity whatsoever. The operational side (dashboard and WMS) ran on improvised tools with zero UX structure.
       </p>
-      <div class="section-img"><img src="images/ze-challenge.png" alt="The Challenge" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ze-challenge.png" alt="The Challenge" loading="lazy"></div>
       <ul class="checklist">
-        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Create ZenderHub brand identity from zero name, mark, palette, type, voice" data-es="Crear la identidad de marca ZenderHub desde cero nombre, marca, paleta, tipografía, voz">Create ZenderHub brand identity from zero name, mark, palette, type, voice</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Create ZenderHub brand identity from zero — name, mark, palette, type, voice" data-es="Crear la identidad de marca ZenderHub desde cero — nombre, marca, paleta, tipografía, voz">Create ZenderHub brand identity from zero — name, mark, palette, type, voice</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Redesign the ZenderBox iOS/Android app end-to-end" data-es="Rediseñar la app iOS/Android de ZenderBox de principio a fin">Redesign the ZenderBox iOS/Android app end-to-end</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Build multi-platform design systems (app + web + dashboard)" data-es="Construir sistemas de diseño multiplataforma (app + web + dashboard)">Build multi-platform design systems (app + web + dashboard)</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Design operational dashboards and a WMS for warehouse staff" data-es="Diseñar dashboards operacionales y un WMS para el equipo de bodega">Design operational dashboards and a WMS for warehouse staff</span></li>
@@ -2909,71 +1692,71 @@ img{display:block;max-width:100%}
     </section>
 
     <section class="content-section" id="zenderhub">
-      <p class="section-label t" data-en="03 ZenderHub Brand" data-es="03 Marca ZenderHub">03 ZenderHub Brand</p>
+      <p class="section-label t" data-en="03 — ZenderHub Brand" data-es="03 — Marca ZenderHub">03 — ZenderHub Brand</p>
       <h2 class="section-title t" data-en="Building a B2B brand from scratch" data-es="Construyendo una marca B2B desde cero">Building a B2B brand from scratch</h2>
       <p class="section-text t"
-        data-en="ZenderHub needed to speak to a completely different audience than ZenderBox logistics managers, fulfillment operators, and enterprise clients. I designed the brand from the ground up: defining the naming rationale, creating the visual identity, establishing the typographic system (Exo for display + Plus Jakarta Sans for body), and crafting the motion and interaction language."
+        data-en="ZenderHub needed to speak to a completely different audience than ZenderBox — logistics managers, fulfillment operators, and enterprise clients. I designed the brand from the ground up: defining the naming rationale, creating the visual identity, establishing the typographic system (Exo for display + Plus Jakarta Sans for body), and crafting the motion and interaction language."
         data-es="ZenderHub necesitaba hablar a una audiencia completamente diferente a ZenderBox: gerentes de logística, operadores de fulfillment y clientes empresariales. Diseñé la marca desde cero: definiendo la justificación del nombre, creando la identidad visual, estableciendo el sistema tipográfico (Exo para display + Plus Jakarta Sans para cuerpo) y elaborando el lenguaje de movimiento e interacción.">
-        ZenderHub needed to speak to a completely different audience than ZenderBox logistics managers, fulfillment operators, and enterprise clients. I designed the brand from the ground up: defining the naming rationale, creating the visual identity, establishing the typographic system (Exo for display + Plus Jakarta Sans for body), and crafting the motion and interaction language.
+        ZenderHub needed to speak to a completely different audience than ZenderBox — logistics managers, fulfillment operators, and enterprise clients. I designed the brand from the ground up: defining the naming rationale, creating the visual identity, establishing the typographic system (Exo for display + Plus Jakarta Sans for body), and crafting the motion and interaction language.
       </p>
-      <div class="section-img"><img src="images/ze-hub-web.png" alt="ZenderHub Web" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ze-hub-web.png" alt="ZenderHub Web" loading="lazy"></div>
       <div class="process-steps">
         <div class="step"><div class="step-num">1</div><div class="step-content"><p class="step-title t" data-en="Brand Strategy &amp; Naming" data-es="Estrategia de marca y naming">Brand Strategy &amp; Naming</p><p class="step-desc t" data-en="Defined positioning, tone of voice, and personality. Justified the 'Hub' suffix to signal the platform role within the ecosystem." data-es="Definí el posicionamiento, el tono de voz y la personalidad. Justifiqué el sufijo 'Hub' para señalar el rol de plataforma central dentro del ecosistema.">Defined positioning, tone of voice, and personality. Justified the 'Hub' suffix to signal the platform role within the ecosystem.</p></div></div>
         <div class="step"><div class="step-num">2</div><div class="step-content"><p class="step-title t" data-en="Visual Identity" data-es="Identidad visual">Visual Identity</p><p class="step-desc t" data-en="Primary magenta (#A3086A) paired with ZenderBox cyan as accent. Signature gradient 245deg. Logo mark, color system, and dark/light modes." data-es="Magenta primario (#A3086A) combinado con el cyan de ZenderBox como acento. Gradiente firma 245deg. Marca de logo, sistema de color y modos claro/oscuro.">Primary magenta (#A3086A) paired with ZenderBox cyan as accent. Signature gradient 245deg. Logo mark, color system, and dark/light modes.</p></div></div>
         <div class="step"><div class="step-num">3</div><div class="step-content"><p class="step-title t" data-en="Design System &amp; Web" data-es="Sistema de diseño y web">Design System &amp; Web</p><p class="step-desc t" data-en="Full Figma design system and public website design. Card-based layout, 23px signature radius, Exo ALL CAPS display voice." data-es="Sistema de diseño completo en Figma y diseño del sitio web público. Layout basado en tarjetas, radio firma 23px, voz de display Exo en MAYÚSCULAS.">Full Figma design system and public website design. Card-based layout, 23px signature radius, Exo ALL CAPS display voice.</p></div></div>
       </div>
-      <div class="section-img"><img src="images/ze-hub-zero.png" alt="ZenderHub Zero" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ze-hub-zero.png" alt="ZenderHub Zero" loading="lazy"></div>
     </section>
 
     <section class="content-section" id="app">
-      <p class="section-label t" data-en="04 App Redesign" data-es="04 Rediseño App">04 App Redesign</p>
-      <h2 class="section-title t" data-en="ZenderBox App End-to-end redesign" data-es="App ZenderBox Rediseño completo">ZenderBox App End-to-end redesign</h2>
+      <p class="section-label t" data-en="04 — App Redesign" data-es="04 — Rediseño App">04 — App Redesign</p>
+      <h2 class="section-title t" data-en="ZenderBox App — End-to-end redesign" data-es="App ZenderBox — Rediseño completo">ZenderBox App — End-to-end redesign</h2>
       <p class="section-text t"
-        data-en="The existing ZenderBox app had no coherent UX: unclear package states, no design system, and navigation that confused users across all literacy levels. I redesigned it entirely 65 screens across iOS and Android built around a White First principle where brand colors serve as meaningful signals, not decoration."
-        data-es="La app ZenderBox existente no tenía una UX coherente: estados de paquete poco claros, sin sistema de diseño y una navegación que confundía a usuarios de todos los niveles. La rediseñé por completo 65 pantallas para iOS y Android construida alrededor del principio White First donde los colores de marca son señales con significado, no decoración.">
-        The existing ZenderBox app had no coherent UX: unclear package states, no design system, and navigation that confused users across all literacy levels. I redesigned it entirely 65 screens across iOS and Android built around a White First principle where brand colors serve as meaningful signals, not decoration.
+        data-en="The existing ZenderBox app had no coherent UX: unclear package states, no design system, and navigation that confused users across all literacy levels. I redesigned it entirely — 65 screens across iOS and Android — built around a White First principle where brand colors serve as meaningful signals, not decoration."
+        data-es="La app ZenderBox existente no tenía una UX coherente: estados de paquete poco claros, sin sistema de diseño y una navegación que confundía a usuarios de todos los niveles. La rediseñé por completo — 65 pantallas para iOS y Android — construida alrededor del principio White First donde los colores de marca son señales con significado, no decoración.">
+        The existing ZenderBox app had no coherent UX: unclear package states, no design system, and navigation that confused users across all literacy levels. I redesigned it entirely — 65 screens across iOS and Android — built around a White First principle where brand colors serve as meaningful signals, not decoration.
       </p>
-      <div class="section-img"><img src="images/ze-built.png" alt="What I built" loading="lazy"></div>
-      <div class="section-img"><img src="images/ze-app.png" alt="App redesign detail" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ze-built.png" alt="What I built" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ze-app.png" alt="App redesign detail" loading="lazy"></div>
       <ul class="checklist">
-        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="65 screens full user flows from onboarding to package consolidation" data-es="65 pantallas flujos completos desde onboarding hasta consolidación de paquetes">65 screens full user flows from onboarding to package consolidation</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="65 screens — full user flows from onboarding to package consolidation" data-es="65 pantallas — flujos completos desde onboarding hasta consolidación de paquetes">65 screens — full user flows from onboarding to package consolidation</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Semantic color-coded package status system (In warehouse, In transit, Dispatched…)" data-es="Sistema semántico de estados de paquete con código de color (En bodega, En camino, Despachado…)">Semantic color-coded package status system (In warehouse, In transit, Dispatched…)</span></li>
-        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Gamification layer points, levels, and referral rewards" data-es="Capa de gamificación puntos, niveles y recompensas por referidos">Gamification layer points, levels, and referral rewards</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Gamification layer — points, levels, and referral rewards" data-es="Capa de gamificación — puntos, niveles y recompensas por referidos">Gamification layer — points, levels, and referral rewards</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full native design system with tokens, components, and variants" data-es="Sistema de diseño nativo completo con tokens, componentes y variantes">Full native design system with tokens, components, and variants</span></li>
-        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Multi-country support Colombia, Costa Rica, and expansion-ready" data-es="Soporte multi-país Colombia, Costa Rica y listo para expansión">Multi-country support Colombia, Costa Rica, and expansion-ready</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Multi-country support — Colombia, Costa Rica, and expansion-ready" data-es="Soporte multi-país — Colombia, Costa Rica y listo para expansión">Multi-country support — Colombia, Costa Rica, and expansion-ready</span></li>
       </ul>
     </section>
 
     <section class="content-section" id="dashboard">
-      <p class="section-label t" data-en="05 Dashboard &amp; WMS" data-es="05 Dashboard y WMS">05 Dashboard &amp; WMS</p>
+      <p class="section-label t" data-en="05 — Dashboard &amp; WMS" data-es="05 — Dashboard y WMS">05 — Dashboard &amp; WMS</p>
       <h2 class="section-title t" data-en="Operational tools for the logistics team" data-es="Herramientas operacionales para el equipo logístico">Operational tools for the logistics team</h2>
       <p class="section-text t"
-        data-en="Beyond the customer-facing products, the warehouse team needed tools to manage packages, clients, and shipments. I designed the customer dashboard (mirroring the app's key modules) and a full Warehouse Management System (WMS) for the operational team both built on the same design system tokens to ensure coherence."
-        data-es="Más allá de los productos para clientes, el equipo de bodega necesitaba herramientas para gestionar paquetes, clientes y envíos. Diseñé el dashboard de clientes (reflejando los módulos clave de la app) y un Sistema de Gestión de Almacén (WMS) completo para el equipo operacional ambos construidos sobre los mismos tokens del sistema de diseño para garantizar coherencia.">
-        Beyond the customer-facing products, the warehouse team needed tools to manage packages, clients, and shipments. I designed the customer dashboard (mirroring the app's key modules) and a full Warehouse Management System (WMS) for the operational team both built on the same design system tokens to ensure coherence.
+        data-en="Beyond the customer-facing products, the warehouse team needed tools to manage packages, clients, and shipments. I designed the customer dashboard (mirroring the app's key modules) and a full Warehouse Management System (WMS) for the operational team — both built on the same design system tokens to ensure coherence."
+        data-es="Más allá de los productos para clientes, el equipo de bodega necesitaba herramientas para gestionar paquetes, clientes y envíos. Diseñé el dashboard de clientes (reflejando los módulos clave de la app) y un Sistema de Gestión de Almacén (WMS) completo para el equipo operacional — ambos construidos sobre los mismos tokens del sistema de diseño para garantizar coherencia.">
+        Beyond the customer-facing products, the warehouse team needed tools to manage packages, clients, and shipments. I designed the customer dashboard (mirroring the app's key modules) and a full Warehouse Management System (WMS) for the operational team — both built on the same design system tokens to ensure coherence.
       </p>
-      <div class="section-img"><img src="images/ze-dashboard.png" alt="Dashboard ZenderBox" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ze-dashboard.png" alt="Dashboard ZenderBox" loading="lazy"></div>
       <div class="deliverables-grid">
         <div class="deliverable-card">
           <h4 class="t" data-en="Customer Dashboard" data-es="Dashboard de clientes">Customer Dashboard</h4>
-          <p class="t" data-en="Web panel replicating the app's key data package card, level/points, stats tiles with a 305px left rail navigation." data-es="Panel web que replica los datos clave de la app tarjeta de paquete, nivel/puntos, tiles de estadísticas con navegación en riel izquierdo de 305px.">Web panel replicating the app's key data package card, level/points, stats tiles with a 305px left rail navigation.</p>
+          <p class="t" data-en="Web panel replicating the app's key data — package card, level/points, stats tiles — with a 305px left rail navigation." data-es="Panel web que replica los datos clave de la app — tarjeta de paquete, nivel/puntos, tiles de estadísticas — con navegación en riel izquierdo de 305px.">Web panel replicating the app's key data — package card, level/points, stats tiles — with a 305px left rail navigation.</p>
         </div>
         <div class="deliverable-card">
-          <h4 class="t" data-en="WMS Warehouse Management" data-es="WMS Gestión de almacén">WMS Warehouse Management</h4>
+          <h4 class="t" data-en="WMS — Warehouse Management" data-es="WMS — Gestión de almacén">WMS — Warehouse Management</h4>
           <p class="t" data-en="Backoffice tool for warehouse operators: package intake, client lookup, status updates, dispatch queue, and consolidation management." data-es="Herramienta de backoffice para operadores de bodega: recepción de paquetes, búsqueda de clientes, actualizaciones de estado, cola de despacho y gestión de consolidaciones.">Backoffice tool for warehouse operators: package intake, client lookup, status updates, dispatch queue, and consolidation management.</p>
         </div>
       </div>
     </section>
 
     <section class="content-section" id="results">
-      <p class="section-label t" data-en="06 Results" data-es="06 Resultados">06 Results</p>
+      <p class="section-label t" data-en="06 — Results" data-es="06 — Resultados">06 — Results</p>
       <h2 class="section-title t" data-en="Results and Deliverables" data-es="Resultados y entregables">Results and Deliverables</h2>
-      <div class="section-img"><img src="images/ze-result.jpg" alt="Results" loading="lazy"></div>
+      <div class="section-img"><img src="../images/ze-result.jpg" alt="Results" loading="lazy"></div>
       <ul class="checklist">
-        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="ZenderHub brand logo, identity system, website, and B2B design system" data-es="Marca ZenderHub logo, sistema de identidad, sitio web y sistema de diseño B2B">ZenderHub brand logo, identity system, website, and B2B design system</span></li>
-        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="ZenderBox app 65-screen redesign with full native iOS/Android design system" data-es="App ZenderBox rediseño de 65 pantallas con sistema de diseño nativo completo para iOS/Android">ZenderBox app 65-screen redesign with full native iOS/Android design system</span></li>
-        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="ZenderBox public web DS + landing in Spanish and Portuguese" data-es="Web pública ZenderBox DS + landing en español y portugués">ZenderBox public web DS + landing in Spanish and Portuguese</span></li>
-        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Customer dashboard and operational WMS fully handoff-ready" data-es="Dashboard de clientes y WMS operacional listos para handoff al desarrollo">Customer dashboard and operational WMS fully handoff-ready</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="ZenderHub brand — logo, identity system, website, and B2B design system" data-es="Marca ZenderHub — logo, sistema de identidad, sitio web y sistema de diseño B2B">ZenderHub brand — logo, identity system, website, and B2B design system</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="ZenderBox app — 65-screen redesign with full native iOS/Android design system" data-es="App ZenderBox — rediseño de 65 pantallas con sistema de diseño nativo completo para iOS/Android">ZenderBox app — 65-screen redesign with full native iOS/Android design system</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="ZenderBox public web — DS + landing in Spanish and Portuguese" data-es="Web pública ZenderBox — DS + landing en español y portugués">ZenderBox public web — DS + landing in Spanish and Portuguese</span></li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Customer dashboard and operational WMS — fully handoff-ready" data-es="Dashboard de clientes y WMS operacional — listos para handoff al desarrollo">Customer dashboard and operational WMS — fully handoff-ready</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Unified ecosystem with consistent design language across all platforms" data-es="Ecosistema unificado con lenguaje de diseño consistente en todas las plataformas">Unified ecosystem with consistent design language across all platforms</span></li>
         <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span class="t" data-en="Full documentation and dev handoff delivered across all products" data-es="Documentación completa y handoff de desarrollo entregados en todos los productos">Full documentation and dev handoff delivered across all products</span></li>
       </ul>
@@ -2991,262 +1774,3 @@ img{display:block;max-width:100%}
 `
   },
 };
-function scopeCSS(css) {
-  const ID = 'proj-content';
-  let out = '', buf = '', depth = 0, inAt = false;
-  for (let i = 0; i < css.length; i++) {
-    const c = css[i];
-    if (c === '{') {
-      const sel = buf.trim(); buf = '';
-      if (depth === 0) {
-        if (sel.startsWith('@')) {
-          out += sel + '{'; inAt = true;
-        } else {
-          out += sel.split(',').map(s => {
-            s = s.trim(); if (!s) return '';
-            if (/^(body|html)$/.test(s)) return `#${ID}`;
-            if (s === '*,*::before,*::after' || s === '*') return `#${ID} *,#${ID} *::before,#${ID} *::after`;
-            return `#${ID} ${s}`;
-          }).filter(Boolean).join(',') + '{'; inAt = false;
-        }
-      } else if (inAt && depth === 1) {
-        out += sel.split(',').map(s => {
-          s = s.trim(); if (!s) return '';
-          if (/^(body|html)$/.test(s)) return `#${ID}`;
-          return `#${ID} ${s}`;
-        }).filter(Boolean).join(',') + '{';
-      } else {
-        out += sel + '{';
-      }
-      depth++;
-    } else if (c === '}') {
-      out += buf + '}'; buf = '';
-      depth--; if (depth === 0) inAt = false;
-    } else { buf += c; }
-  }
-  return out + buf;
-}
-
-window.showProject = function(id, href, title) {
-  const activeView = document.querySelector('.view.active');
-  prevView = activeView ? activeView.id.replace('view-','') : 'home';
-  prevFilter = currentFilter;
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('view-project').classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('topbar-title').textContent = title;
-  document.getElementById('proj-heading').textContent = title;
-  const isEsNow = currentLang === 'es';
-  document.getElementById('proj-back-label').textContent =
-    prevView === 'projects' ? (CAT_LABELS[prevFilter] || (isEsNow ? 'Proyectos' : 'Projects'))
-    : prevView === 'about' ? (isEsNow ? 'Sobre mí' : 'About Me')
-    : (isEsNow ? 'Inicio' : 'Home');
-
-  const container = document.getElementById('proj-content');
-  const ID_ALIAS = {'ugt-public':'ugt','ugt-enrollment':'ugt'};
-  const data = PROJ_DATA[ID_ALIAS[id] || id];
-  if (!data) { container.innerHTML = '<p style="padding:32px;color:var(--text-2)">Project not found.</p>'; return; }
-
-  let styleEl = document.getElementById('proj-injected-styles');
-  if (!styleEl) { styleEl = document.createElement('style'); styleEl.id = 'proj-injected-styles'; document.head.appendChild(styleEl); }
-  let scoped = scopeCSS(data.css);
-  scoped = scoped.replace(/#proj-content\s*\{([^}]*)\}/g, (m, props) => {
-    const filtered = props.split(';').filter(p => !/^\s*(background|color|overflow)\s*:/.test(p)).join(';');
-    return `#proj-content{${filtered}}`;
-  });
-  styleEl.textContent = scoped;
-  container.innerHTML = data.html;
-  document.getElementById('view-project').scrollTop = 0;
-};
-
-window.goBackFromProject = function() {
-  if (prevView === 'projects') showView('projects', prevFilter);
-  else if (prevView === 'about') showView('about');
-  else showView('home');
-};
-
-function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-  const isDark = theme === 'dark';
-  document.getElementById('ico-sun').style.display = isDark ? 'none' : 'block';
-  document.getElementById('ico-moon').style.display = isDark ? 'block' : 'none';
-}
-window.toggleTheme = function() { applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'); };
-
-const LANG_STRINGS = {
-  en: {
-    'nav-home':'Home', 'nav-about':'About Me', 'nav-selected':'Selected Work',
-    'nav-all':'All Projects', 'nav-ux-consulting':'UX Consulting',
-    'nav-apps':'APPs', 'nav-workshops':'Workshops', 'nav-web':'Web',
-    'nav-branding':'Branding',
-    'browse-title':'Browse by Category', 'browse-sub':'13 case studies · 6 disciplines',
-    'impact-title':'Key Impact', 'impact-sub':'Measured outcomes',
-    'tools-title':'Tools',
-    'imp1-desc':'Reduced scope creep', 'imp1-proj':'Across B2B & B2C projects',
-    'imp2-desc':'Compressed delivery cycles', 'imp2-proj':'Design systems & DesignOps',
-    'imp3-desc':'Improved product engagement', 'imp3-proj':'Mobile apps · iOS & Android',
-    'profile-role':'Product Manager, Senior Product Designer & UX Strategist · 12+ years of experience',
-    'profile-headline':"I turn challenges into digital solutions that simplify and enhance people's lives.",
-    'about-me-btn':'About Me & CV',
-    'topbar-home':'Portfolio Dashboard', 'topbar-about':'About Me',
-  },
-  es: {
-    'nav-home':'Inicio', 'nav-about':'Sobre mí', 'nav-selected':'Trabajo Destacado',
-    'nav-all':'Todos los proyectos', 'nav-ux-consulting':'UX Consultoría',
-    'nav-apps':'APPs', 'nav-workshops':'Talleres', 'nav-web':'Web',
-    'nav-branding':'Branding',
-    'browse-title':'Explorar por categoría', 'browse-sub':'13 casos de estudio · 6 disciplinas',
-    'impact-title':'Impacto clave', 'impact-sub':'Resultados medidos',
-    'tools-title':'Herramientas',
-    'imp1-desc':'Reducción de scope creep', 'imp1-proj':'En proyectos B2B y B2C',
-    'imp2-desc':'Ciclos de entrega reducidos', 'imp2-proj':'Sistemas de diseño y DesignOps',
-    'imp3-desc':'Mejora en engagement', 'imp3-proj':'Apps móviles · iOS y Android',
-    'profile-role':'Product Manager, Product Designer Senior & Estratega UX · 12+ años de experiencia',
-    'profile-headline':'Convierto retos en soluciones digitales que simplifican y mejoran la vida de las personas.',
-    'about-me-btn':'Sobre mí & CV',
-    'topbar-home':'Panel de portafolio', 'topbar-about':'Sobre mí',
-  }
-};
-let currentLang = 'en';
-
-// Helper: set the plain text node of an element (skips SVG/badge children)
-function setNavItemText(id, text) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  for (const node of el.childNodes) {
-    if (node.nodeType === 3 && node.textContent.trim()) {
-      node.textContent = ' ' + text + ' ';
-      return;
-    }
-  }
-}
-
-window.setLang = function(lang) {
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
-  const s = LANG_STRINGS[lang];
-  const isEs = lang === 'es';
-
-  // ── Nav items (text node, skip SVG/badge) ──────────────────
-  ['nav-home','nav-about','nav-selected','nav-all','nav-ux-consulting',
-   'nav-apps','nav-workshops','nav-web','nav-branding'].forEach(id => {
-    if (s[id]) setNavItemText(id, s[id]);
-  });
-
-  // ── Nav section labels ──────────────────────────────────────
-  const navLabels = document.querySelectorAll('.nav-label');
-  const nlText = isEs
-    ? ['PROYECTOS','PROYECTOS','DOCUMENTOS','CONECTAR']
-    : ['PROYECTOS','PROJECTS','DOCUMENTS','CONNECT'];
-  // First label is the one before Selected Work; map by index
-  const labelStrings = isEs
-    ? ['PROYECTOS','DOCUMENTOS','CONECTAR']
-    : ['PROJECTS','DOCUMENTS','CONNECT'];
-  navLabels.forEach((el, i) => { if (labelStrings[i]) el.textContent = labelStrings[i]; });
-
-
-  // ── Impact cards ────────────────────────────────────────────
-  const descs = document.querySelectorAll('.impact-desc');
-  const projs = document.querySelectorAll('.impact-proj');
-  ['imp1','imp2','imp3'].forEach((k, i) => {
-    if (descs[i]) descs[i].textContent = s[k+'-desc'];
-    if (projs[i]) projs[i].textContent = s[k+'-proj'];
-  });
-
-  // ── Profile card ────────────────────────────────────────────
-  const roleEl = document.querySelector('.profile-role');
-  if (roleEl) roleEl.textContent = s['profile-role'];
-  const hlEl = document.querySelector('.profile-headline');
-  if (hlEl) hlEl.textContent = s['profile-headline'];
-  const aboutBtn = document.querySelector('.plink-about');
-  if (aboutBtn) {
-    for (const node of aboutBtn.childNodes) {
-      if (node.nodeType === 3 && node.textContent.trim()) {
-        node.textContent = ' ' + s['about-me-btn'];
-        break;
-      }
-    }
-  }
-
-  // ── Filter pills ────────────────────────────────────────────
-  const pillLabels = isEs
-    ? { selected:'★ Destacado', all:'Todos', 'ux-consulting':'UX Consultoría',
-        apps:'APPs', workshops:'Talleres', web:'Web', branding:'Branding' }
-    : { selected:'★ Selected Work', all:'All', 'ux-consulting':'UX Consulting',
-        apps:'APPs', workshops:'Workshops', web:'Web', branding:'Branding' };
-  document.querySelectorAll('.pill[data-filter]').forEach(pill => {
-    const k = pill.dataset.filter;
-    if (pillLabels[k]) pill.textContent = pillLabels[k];
-  });
-
-  // ── Update CAT_LABELS so view headings stay in sync ─────────
-  const catEs = { all:'Todos los proyectos', selected:'Trabajo Destacado',
-    'ux-consulting':'UX Consultoría', apps:'APPs', workshops:'Talleres', web:'Web', branding:'Branding' };
-  const catEn = { all:'All Projects', selected:'Selected Work',
-    'ux-consulting':'UX Consulting', apps:'APPs', workshops:'Workshops', web:'Web', branding:'Branding' };
-  Object.assign(CAT_LABELS, isEs ? catEs : catEn);
-
-  // ── Back buttons ────────────────────────────────────────────
-  document.querySelectorAll('.back-btn').forEach(btn => {
-    for (const node of btn.childNodes) {
-      if (node.nodeType === 3 && node.textContent.trim()) {
-        const t = node.textContent.trim();
-        if (t === 'Home' || t === 'Inicio') {
-          node.textContent = ' ' + (isEs ? 'Inicio' : 'Home') + ' '; break;
-        }
-        if (t === 'About Me' || t === 'Sobre mí') {
-          node.textContent = ' ' + (isEs ? 'Sobre mí' : 'About Me') + ' '; break;
-        }
-      }
-    }
-  });
-  // proj-back-label shows "Back / Home / Category" , re-translate if visible
-  const projBackEl = document.getElementById('proj-back-label');
-  if (projBackEl) {
-    const t = projBackEl.textContent.trim();
-    if (t === 'Home' || t === 'Inicio') projBackEl.textContent = isEs ? 'Inicio' : 'Home';
-    else if (t === 'About Me' || t === 'Sobre mí') projBackEl.textContent = isEs ? 'Sobre mí' : 'About Me';
-    else if (t === 'Back' || t === 'Volver') projBackEl.textContent = isEs ? 'Volver' : 'Back';
-    else projBackEl.textContent = CAT_LABELS[prevFilter] || t;
-  }
-
-  // ── Download CV button ──────────────────────────────────────
-  const cvBtn = document.getElementById('dl-cv-btn');
-  if (cvBtn) {
-    cvBtn.href = isEs ? 'files/cv-mone-rodriguez-es.pdf' : 'files/cv-mone-rodriguez.pdf';
-    cvBtn.download = isEs ? 'cv-mone-rodriguez-es.pdf' : 'cv-mone-rodriguez.pdf';
-  }
-
-  // ── Topbar title for active view ────────────────────────────
-  const activeView = document.querySelector('.view.active');
-  if (activeView) {
-    const vid = activeView.id;
-    if (vid === 'view-home') document.getElementById('topbar-title').textContent = s['topbar-home'];
-    else if (vid === 'view-about') document.getElementById('topbar-title').textContent = s['topbar-about'];
-    else if (vid === 'view-projects') {
-      const lbl = CAT_LABELS[currentFilter] || currentFilter;
-      document.getElementById('topbar-title').textContent = lbl;
-      document.getElementById('view-heading').textContent = lbl;
-    }
-  }
-
-  // ── About Me view: sweep all data-en / data-es elements ────
-  document.querySelectorAll('[data-en]').forEach(el => {
-    el.innerHTML = (isEs && el.dataset.es) ? el.dataset.es : el.dataset.en;
-  });
-
-};
-
-window.openSidebar = function() { document.getElementById('sidebar').classList.add('open'); document.getElementById('overlay').classList.add('show'); };
-window.closeSidebar = function() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('show'); };
-
-document.addEventListener('DOMContentLoaded', () => {
-  applyTheme('dark'); // always dark by default
-  document.body.style.opacity = '0';
-  requestAnimationFrame(() => { document.body.style.transition = 'opacity 250ms ease'; document.body.style.opacity = '1'; });
-});
-</script>
-</body>
-</html>

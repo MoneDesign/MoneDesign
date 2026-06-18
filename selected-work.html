@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-09KYHTFP6Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-09KYHTFP6Q');
+  </script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=794px">
+<title>Selected Work — Mone Rodríguez</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --brand:    #cc1f72;
+  --brand-bg: #fdf0f6;
+  --dark:     #151515;
+  --mid:      #3d3d44;
+  --gray:     #8c8c91;
+  --border:   #edf2f6;
+  --pad:      52px;
+  --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+html, body {
+  width: 794px;
+  height: 1123px;
+  overflow: hidden;
+  background: #fff;
+  color: var(--dark);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.page {
+  width: 794px;
+  height: 1123px;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+/* ── ACCENT BAR ── */
+.accent-bar {
+  height: 4px;
+  background: linear-gradient(90deg, #cc1f72 0%, #e8508a 50%, #f28ab8 100%);
+  flex-shrink: 0;
+}
+
+/* ── HEADER ── */
+.header {
+  padding: 30px var(--pad) 22px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.header-left {}
+
+.name {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--dark);
+  line-height: 1;
+}
+
+.title {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--gray);
+  margin-top: 5px;
+  letter-spacing: 0.005em;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.contact {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--brand);
+  letter-spacing: -0.01em;
+}
+
+/* ── SECTION HEADER ── */
+.section-header {
+  padding: 18px var(--pad) 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.section-kicker {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand);
+  white-space: nowrap;
+}
+
+.section-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── PROJECTS ── */
+.projects {
+  flex: 1;
+  padding: 4px var(--pad) 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.project {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 218px 1fr;
+  gap: 26px;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.project:last-child {
+  border-bottom: none;
+}
+
+/* Thumbnails */
+.thumb {
+  width: 218px;
+  height: 158px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #f5f5f5;
+  align-self: center;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* WMS Placeholder — designed, not a broken image */
+.thumb-wms {
+  background: #0d1b2a;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 14px 14px;
+  gap: 0;
+  position: relative;
+}
+
+.thumb-wms::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(204,31,114,0.22) 1px, transparent 1px);
+  background-size: 14px 14px;
+  border-radius: 10px;
+}
+
+.wms-topbar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.wms-chip {
+  font-size: 6.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.wms-chip-main  { background: rgba(204,31,114,0.9); }
+.wms-chip-ghost { background: rgba(255,255,255,0.1); }
+.wms-chip-dot   {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #2dce89; align-self: center; flex-shrink: 0;
+}
+
+.wms-rows {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.wms-row {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.wms-label {
+  font-size: 5.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.wms-track {
+  flex: 1;
+  height: 5px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.wms-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #cc1f72, #e8508a);
+}
+
+.wms-fill-dim {
+  background: rgba(204,31,114,0.35);
+}
+
+.wms-val {
+  font-size: 6px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  width: 20px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Project content */
+.project-content {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.project-tag {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+.project-name {
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--dark);
+  line-height: 1.2;
+}
+
+.project-desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--mid);
+  line-height: 1.65;
+}
+
+.project-impact {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--brand-bg);
+  border: 1px solid rgba(204,31,114,0.18);
+  border-radius: 100px;
+  padding: 4px 11px 4px 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--brand);
+  width: fit-content;
+  letter-spacing: -0.01em;
+}
+
+.impact-arrow {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 18px var(--pad) 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.footer-cta {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--gray);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.footer-cta a {
+  color: var(--brand);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media print {
+  html, body { overflow: hidden; }
+  .accent-bar,
+  .wms-fill,
+  .wms-chip-main { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ACCENT BAR -->
+  <div class="accent-bar"></div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <div class="name">Mone Rodríguez</div>
+      <div class="title">Staff Product Designer &amp; UX Strategist</div>
+    </div>
+    <div class="header-right">
+      <span class="contact">monerodriguez@gmail.com</span>
+      <span class="contact">monedesign.github.io/MoneDesign</span>
+    </div>
+  </header>
+
+  <!-- SECTION KICKER -->
+  <div class="section-header">
+    <span class="section-kicker">Selected Work</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="projects">
+
+    <!-- 01 · Zender WMS -->
+    <div class="project">
+      <div class="thumb thumb-wms">
+        <div class="wms-topbar">
+          <span class="wms-chip wms-chip-main">Operator</span>
+          <span class="wms-chip wms-chip-ghost">WMS Dashboard</span>
+          <div class="wms-chip-dot"></div>
+        </div>
+        <div class="wms-rows">
+          <div class="wms-row">
+            <span class="wms-label">Recv.</span>
+            <div class="wms-track"><div class="wms-fill" style="width:78%"></div></div>
+            <span class="wms-val">78%</span>
+          </div>
+          <div class="wms-row">
+            <span class="wms-label">Consol.</span>
+            <div class="wms-track"><div class="wms-fill wms-fill-dim" style="width:62%"></div></div>
+            <span class="wms-val">62%</span>
+          </div>
+          <div class="wms-row">
+            <span class="wms-label">Ship.</span>
+            <div class="wms-track"><div class="wms-fill" style="width:91%"></div></div>
+            <span class="wms-val">91%</span>
+          </div>
+          <div class="wms-row">
+            <span class="wms-label">Transit</span>
+            <div class="wms-track"><div class="wms-fill wms-fill-dim" style="width:44%"></div></div>
+            <span class="wms-val">44%</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-content">
+        <div class="project-tag">B2B SaaS · Logistics · Design System</div>
+        <div class="project-name">Zender WMS + Operator Dashboard</div>
+        <div class="project-desc">
+          Designed end-to-end the warehouse management system and operator dashboard for a package-forwarding startup: inbound, consolidation and dispatch flows, plus a proprietary design system built in direct collaboration with engineering.
+        </div>
+        <div class="project-impact">
+          <span class="impact-arrow">↗</span>
+          40% fewer dispatch errors · Design system adopted across 3 products
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 · UGT -->
+    <div class="project">
+      <div class="thumb">
+        <img
+          src="images/ugt-hero.jpg"
+          alt="UGT Enrollment System"
+        />
+      </div>
+      <div class="project-content">
+        <div class="project-tag">Enterprise · AI-Assisted · Complex Workflow</div>
+        <div class="project-name">UGT Enrollment System</div>
+        <div class="project-desc">
+          Redesigned the enrollment system for a higher education institution: multi-step workflow with complex validation rules, AI-assisted case pre-classification, and a discovery process compressed from 6 months to 2 weeks.
+        </div>
+        <div class="project-impact">
+          <span class="impact-arrow">↗</span>
+          Discovery 6 months → 2 weeks · Zero enrollment errors at launch
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 · YUUJU -->
+    <div class="project">
+      <div class="thumb">
+        <img
+          src="images/yuuju-hero.jpg"
+          alt="YUUJU Multi-Service Platform"
+        />
+      </div>
+      <div class="project-content">
+        <div class="project-tag">B2B/B2C · Multi-Profile Onboarding</div>
+        <div class="project-name">YUUJU Multi-Service Platform</div>
+        <div class="project-desc">
+          Designed the onboarding and contracting flow for a multi-service platform with three user profiles (business, provider, freelancer): information architecture, branched flows per profile type, and a unified end-to-end contracting system.
+        </div>
+        <div class="project-impact">
+          <span class="impact-arrow">↗</span>
+          −45% contracting time · 3 user profiles unified in one system
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER CTA -->
+  <footer class="footer">
+    <p class="footer-cta">
+      Full case studies and more projects at&nbsp;
+      <a href="https://monedesign.github.io/MoneDesign/">monedesign.github.io/MoneDesign</a>
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

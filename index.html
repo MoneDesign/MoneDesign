@@ -108,7 +108,7 @@ body{
 /* ─── VIEWS ──────────────────────────────────────────────── */
 .view{ display:none; }
 #view-home.active{ display:flex; flex-direction:column; gap:14px; height:100%; overflow:hidden; }
-#view-projects.active,#view-about.active{ display:flex; flex-direction:column; gap:18px; height:100%; overflow-y:auto; padding-right:2px; scrollbar-width:thin; scrollbar-color:var(--border) transparent; }
+#view-projects.active,#view-about.active,#view-how-i-work.active{ display:flex; flex-direction:column; gap:18px; height:100%; overflow-y:auto; padding-right:2px; scrollbar-width:thin; scrollbar-color:var(--border) transparent; }
 #view-project.active{ display:flex; flex-direction:column; gap:14px; height:100%; overflow:hidden; }
 
 /* ─── PROFILE CARD ───────────────────────────────────────── */
@@ -127,6 +127,9 @@ body{
 .plink svg{ width:12px; height:12px; flex-shrink:0; }
 .plink.plink-about{ background:var(--brand); border-color:var(--brand); color:#fff; }
 .plink.plink-about:hover{ background:#a8195e; border-color:#a8195e; }
+.plink.plink-hiw{ background:transparent; border-color:var(--brand); color:var(--brand); }
+.plink.plink-hiw:hover{ background:rgba(204,31,114,.08); }
+[data-theme="dark"] .plink.plink-hiw:hover{ background:rgba(204,31,114,.14); }
 
 /* ─── OPEN TO WORK BADGE ─────────────────────────────────── */
 .otw-badge{ position:absolute; top:20px; right:20px; display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; letter-spacing:.03em; color:#16a34a; background:rgba(22,163,74,.12); border:1px solid rgba(22,163,74,.35); padding:4px 12px; border-radius:100px; white-space:nowrap; }
@@ -280,6 +283,19 @@ body{
 .lang-level{ font-size:11px; padding:2px 8px; border-radius:100px; background:var(--surface-2); color:var(--text-3); }
 .lang-level.native{ background:rgba(204,31,114,.1); color:var(--brand); }
 
+/* ─── HOW I WORK ─────────────────────────────────────────── */
+.hiw-grid{ display:grid; grid-template-columns:1fr; gap:16px; }
+.hiw-section{ background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:22px 24px; box-shadow:var(--sh-sm); }
+.hiw-section-header{ display:flex; align-items:flex-start; gap:14px; margin-bottom:14px; }
+.hiw-section-icon{ width:36px; height:36px; border-radius:var(--r-sm); background:rgba(204,31,114,.1); color:var(--brand); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+[data-theme="dark"] .hiw-section-icon{ background:rgba(204,31,114,.15); }
+.hiw-section-icon svg{ width:17px; height:17px; }
+.hiw-section-title{ font-size:15px; font-weight:800; letter-spacing:-.02em; color:var(--text-1); line-height:1.2; margin-bottom:2px; }
+.hiw-section-label{ font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--brand); }
+.hiw-body{ font-size:13px; line-height:1.75; color:var(--text-2); display:flex; flex-direction:column; gap:10px; }
+.hiw-methods{ display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; padding-top:12px; border-top:1px solid var(--border); }
+.hiw-method{ font-size:11px; padding:3px 9px; border-radius:100px; background:var(--surface-2); border:1px solid var(--border); color:var(--text-3); font-weight:500; }
+
 /* ─── RESPONSIVE ─────────────────────────────────────────── */
 @media(max-width:1100px){
   .proj-grid{ grid-template-columns:repeat(2,1fr); }
@@ -292,7 +308,7 @@ body{
   #sidebar.open{ transform:translateX(0); }
   .dash-main{ margin-left:0; height:auto; overflow:visible; }
   .dash-content{ height:auto; overflow:visible; }
-  #view-home.active,#view-projects.active,#view-about.active,#view-project.active{ height:auto; overflow:visible; }
+  #view-home.active,#view-projects.active,#view-about.active,#view-project.active,#view-how-i-work.active{ height:auto; overflow:visible; }
   #proj-iframe{ height:80vh; }
   .home-grid{ grid-template-columns:1fr; grid-template-rows:180px auto 180px auto; }
   .cat-card{ height:180px; }
@@ -332,7 +348,11 @@ body{
     </a>
     <a class="nav-item" id="nav-about" onclick="showView('about');return false;" href="#">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      About Me
+      About Me / CV
+    </a>
+    <a class="nav-item" id="nav-how-i-work" onclick="showView('how-i-work');return false;" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      How I Work
     </a>
     <div class="nav-label">PROJECTS</div>
     <a class="nav-item" id="nav-selected" onclick="showView('projects','selected');return false;" href="#">
@@ -422,6 +442,10 @@ body{
             <button class="plink plink-about" onclick="showView('about')">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               <span class="plink-about" data-en="About Me &amp; CV" data-es="Sobre mí &amp; CV">About Me &amp; CV</span>
+            </button>
+            <button class="plink plink-hiw" onclick="showView('how-i-work')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <span data-en="How I Work" data-es="Cómo trabajo">How I Work</span>
             </button>
             <a href="mailto:monerodriguez@gmail.com" class="plink">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -745,6 +769,176 @@ body{
       </div>
     </div><!-- /view-about -->
 
+    <!-- ══ HOW I WORK ══════════════════════════════════════════ -->
+    <div class="view" id="view-how-i-work">
+      <div class="view-header">
+        <button class="back-btn" onclick="showView('home')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Home
+        </button>
+        <div class="view-heading" data-en="How I Work" data-es="Cómo trabajo">How I Work</div>
+      </div>
+
+      <div class="hiw-grid">
+
+        <!-- 01 Discovery -->
+        <div class="hiw-section">
+          <div class="hiw-section-header">
+            <div class="hiw-section-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div>
+              <div class="hiw-section-label" data-en="01 — Discovery" data-es="01 — Discovery">01 — Discovery</div>
+              <div class="hiw-section-title" data-en="Discovery before assumptions" data-es="Discovery antes que suposiciones">Discovery before assumptions</div>
+            </div>
+          </div>
+          <div class="hiw-body">
+            <p data-en="Before anything gets designed or built, I run a structured discovery phase. That means user and operational interviews, competitive mapping, and tailored workshops designed specifically for each project and each goal. Not generic exercises. Every activity is chosen to extract something concrete: constraints, mental models, workflow gaps, decision owners."
+               data-es="Antes de que se diseñe o construya nada, hago una fase de discovery estructurado. Eso implica entrevistas con usuarios y equipos operativos, mapeo competitivo y workshops hechos a medida para cada proyecto y cada objetivo. No ejercicios genéricos. Cada actividad está elegida para extraer algo concreto: restricciones, modelos mentales, brechas en los flujos de trabajo, quién toma qué decisiones.">Before anything gets designed or built, I run a structured discovery phase. That means user and operational interviews, competitive mapping, and tailored workshops designed specifically for each project and each goal. Not generic exercises. Every activity is chosen to extract something concrete: constraints, mental models, workflow gaps, decision owners.</p>
+            <p data-en="The output is always a detailed requirements list paired with a roadmap the whole team has contributed to. That shared ownership matters. When everyone has been part of building the picture, you eliminate the back-and-forth, the bottlenecks, and the &ldquo;I thought we agreed on...&rdquo; conversations. From that baseline, design and engineering can work in parallel without waiting on each other. In practice, this approach reduced scope creep by 45% across projects and compressed delivery cycles by 60%. The UGT enrollment system went from a 6-month industry standard to a 2-month delivery."
+               data-es="El resultado siempre es un listado de requisitos detallado acompañado de un roadmap al que ha contribuido todo el equipo. Esa propiedad compartida es el punto clave. Cuando todos han formado parte de construir el mapa, se eliminan los vaivenes, los cuellos de botella y las conversaciones de &ldquo;pensé que habíamos acordado...&rdquo;. Desde esa base, diseño e ingeniería pueden trabajar en paralelo sin esperarse. En la práctica, este enfoque redujo el scope creep un 45% y comprimió los ciclos de entrega un 60%. El sistema de matriculación de UGT pasó de 6 meses de estándar del sector a 2 meses de entrega.">The output is always a detailed requirements list paired with a roadmap the whole team has contributed to. That shared ownership matters. When everyone has been part of building the picture, you eliminate the back-and-forth, the bottlenecks, and the &ldquo;I thought we agreed on...&rdquo; conversations. From that baseline, design and engineering can work in parallel without waiting on each other. In practice, this approach reduced scope creep by 45% across projects and compressed delivery cycles by 60%. The UGT enrollment system went from a 6-month industry standard to a 2-month delivery.</p>
+            <div class="hiw-methods">
+              <span class="hiw-method" data-en="User interviews" data-es="Entrevistas con usuarios">User interviews</span>
+              <span class="hiw-method">JTBD</span>
+              <span class="hiw-method" data-en="Journey mapping" data-es="Journey mapping">Journey mapping</span>
+              <span class="hiw-method" data-en="Design sprints" data-es="Design sprints">Design sprints</span>
+              <span class="hiw-method" data-en="Service blueprints" data-es="Service blueprints">Service blueprints</span>
+              <span class="hiw-method" data-en="Stakeholder workshops" data-es="Workshops con stakeholders">Stakeholder workshops</span>
+              <span class="hiw-method" data-en="Opportunity mapping" data-es="Mapeo de oportunidades">Opportunity mapping</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02 Prioritization -->
+        <div class="hiw-section">
+          <div class="hiw-section-header">
+            <div class="hiw-section-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </div>
+            <div>
+              <div class="hiw-section-label" data-en="02 — Prioritization" data-es="02 — Priorización">02 — Prioritization</div>
+              <div class="hiw-section-title" data-en="A prioritization framework I actually use" data-es="Un framework de priorización que uso de verdad">A prioritization framework I actually use</div>
+            </div>
+          </div>
+          <div class="hiw-body">
+            <p data-en="I prioritize with RICE (Reach, Impact, Confidence, Effort) cross-referenced against the current quarter&rsquo;s OKRs. When two initiatives tie, the tiebreaker is: which one unblocks the most? Every decision gets logged in the backlog with a one-line rationale so six weeks later nobody has to reconstruct why something got bumped."
+               data-es="Priorizo con RICE (Reach, Impact, Confidence, Effort) cruzado con los OKRs del trimestre. Cuando dos iniciativas empatan, el desempate es: ¿cuál desbloquea más? Cada decisión queda registrada en el backlog con una justificación de una línea para que seis semanas después nadie tenga que reconstruir por qué algo se movió.">I prioritize with RICE (Reach, Impact, Confidence, Effort) cross-referenced against the current quarter&rsquo;s OKRs. When two initiatives tie, the tiebreaker is: which one unblocks the most? Every decision gets logged in the backlog with a one-line rationale so six weeks later nobody has to reconstruct why something got bumped.</p>
+            <p data-en="Because I come from product design, I can pressure-test priorities against what&rsquo;s actually feasible to ship well, not just feasible to build. A feature that&rsquo;s technically possible but creates a UX dead end isn&rsquo;t a win. That lens keeps roadmaps from drifting toward complexity for complexity&rsquo;s sake."
+               data-es="Venir del product design me permite contrastar prioridades con lo que es viable entregar bien, no solo viable de construir. Una feature técnicamente posible que genera un callejón sin salida en la experiencia no es una victoria. Esa perspectiva evita que los roadmaps deriven hacia complejidad por el gusto de la complejidad.">Because I come from product design, I can pressure-test priorities against what&rsquo;s actually feasible to ship well, not just feasible to build. A feature that&rsquo;s technically possible but creates a UX dead end isn&rsquo;t a win. That lens keeps roadmaps from drifting toward complexity for complexity&rsquo;s sake.</p>
+            <div class="hiw-methods">
+              <span class="hiw-method" data-en="RICE scoring" data-es="RICE scoring">RICE scoring</span>
+              <span class="hiw-method" data-en="OKR alignment" data-es="Alineación con OKRs">OKR alignment</span>
+              <span class="hiw-method" data-en="Backlog hygiene" data-es="Higiene de backlog">Backlog hygiene</span>
+              <span class="hiw-method">Now / Next / Later</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03 Stakeholder vs Engineering -->
+        <div class="hiw-section">
+          <div class="hiw-section-header">
+            <div class="hiw-section-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <div class="hiw-section-label" data-en="03 — Negotiation" data-es="03 — Negociación">03 — Negotiation</div>
+              <div class="hiw-section-title" data-en="Stakeholder vs. Engineering tension" data-es="Tensión stakeholders vs. ingeniería">Stakeholder vs. Engineering tension</div>
+            </div>
+          </div>
+          <div class="hiw-body">
+            <p data-en="When a stakeholder pushes for a feature that engineering says is expensive, I separate the conversation about what from when. It usually becomes a scoping problem: can we validate the core assumption with 20% of the effort? I&rsquo;ve shipped constrained versions of features that proved or disproved the hypothesis fast enough to make the full investment decision easier for everyone involved."
+               data-es="Cuando un stakeholder impulsa una feature que ingeniería dice que es cara, separo la conversación del qué y el cuándo. Generalmente se convierte en un problema de alcance: ¿podemos validar la hipótesis central con el 20% del esfuerzo? He lanzado versiones acotadas de features que probaron o refutaron la hipótesis con suficiente velocidad como para que la decisión de inversión completa fuera más fácil para todos.">When a stakeholder pushes for a feature that engineering says is expensive, I separate the conversation about what from when. It usually becomes a scoping problem: can we validate the core assumption with 20% of the effort? I&rsquo;ve shipped constrained versions of features that proved or disproved the hypothesis fast enough to make the full investment decision easier for everyone involved.</p>
+            <p data-en="My design background helps here in a specific way: I can sketch the constrained version quickly enough that the conversation stops being abstract. When people can see what the MVP actually looks like, the negotiation gets unstuck."
+               data-es="Mi background en diseño ayuda de una forma concreta: puedo bocetar la versión acotada con suficiente rapidez como para que la conversación deje de ser abstracta. Cuando la gente puede ver cómo quedaría el MVP, la negociación se desbloquea.">My design background helps here in a specific way: I can sketch the constrained version quickly enough that the conversation stops being abstract. When people can see what the MVP actually looks like, the negotiation gets unstuck.</p>
+            <div class="hiw-methods">
+              <span class="hiw-method" data-en="Scope negotiation" data-es="Negociación de alcance">Scope negotiation</span>
+              <span class="hiw-method" data-en="MVP scoping" data-es="Scoping de MVP">MVP scoping</span>
+              <span class="hiw-method" data-en="Rapid prototyping" data-es="Prototipado rápido">Rapid prototyping</span>
+              <span class="hiw-method" data-en="Data-driven decisions" data-es="Decisiones basadas en datos">Data-driven decisions</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 Specs -->
+        <div class="hiw-section">
+          <div class="hiw-section-header">
+            <div class="hiw-section-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <div>
+              <div class="hiw-section-label" data-en="04 — Specs" data-es="04 — Specs">04 — Specs</div>
+              <div class="hiw-section-title" data-en="Specs that hold scope" data-es="Specs que sostienen el scope">Specs that hold scope</div>
+            </div>
+          </div>
+          <div class="hiw-body">
+            <p data-en="My specs include the problem statement, the user segment affected, the success metric being moved, edge cases the team hasn&rsquo;t considered yet, and explicit non-goals. If it&rsquo;s not written down, it&rsquo;s in scope by default. User stories alone aren&rsquo;t enough; I add acceptance criteria and flag dependencies before a ticket enters the sprint."
+               data-es="Mis specs incluyen el enunciado del problema, el segmento de usuario afectado, la métrica de éxito que se mueve, los casos extremos que el equipo aún no ha considerado, y los no-objetivos explícitos. Si no está escrito, está en scope por defecto. Las user stories solas no bastan; añado criterios de aceptación y señalo dependencias antes de que el ticket entre al sprint.">My specs include the problem statement, the user segment affected, the success metric being moved, edge cases the team hasn&rsquo;t considered yet, and explicit non-goals. If it&rsquo;s not written down, it&rsquo;s in scope by default. User stories alone aren&rsquo;t enough; I add acceptance criteria and flag dependencies before a ticket enters the sprint.</p>
+            <p data-en="Writing tight specs is where the Design Thinking side shows up in the documentation layer. Framing the problem correctly before writing a single requirement saves more time than any tool or process downstream."
+               data-es="Escribir specs precisas es donde el enfoque de Design Thinking aparece en la capa de documentación. Enmarcar bien el problema antes de escribir un solo requisito ahorra más tiempo que cualquier herramienta o proceso posterior.">Writing tight specs is where the Design Thinking side shows up in the documentation layer. Framing the problem correctly before writing a single requirement saves more time than any tool or process downstream.</p>
+            <div class="hiw-methods">
+              <span class="hiw-method" data-en="User stories" data-es="User stories">User stories</span>
+              <span class="hiw-method" data-en="Acceptance criteria" data-es="Criterios de aceptación">Acceptance criteria</span>
+              <span class="hiw-method" data-en="Non-goals" data-es="No-objetivos">Non-goals</span>
+              <span class="hiw-method" data-en="Dependency mapping" data-es="Mapeo de dependencias">Dependency mapping</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 Backlog & Release -->
+        <div class="hiw-section">
+          <div class="hiw-section-header">
+            <div class="hiw-section-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="hiw-section-label" data-en="05 — Delivery" data-es="05 — Entrega">05 — Delivery</div>
+              <div class="hiw-section-title" data-en="Backlog and release management" data-es="Gestión de backlog y releases">Backlog and release management</div>
+            </div>
+          </div>
+          <div class="hiw-body">
+            <p data-en="A backlog with 200 unsorted tickets doesn&rsquo;t work. I keep a living backlog with clear status tiers: Now, Next, Later, Parked. Parked is where good ideas go when there&rsquo;s no bandwidth, not the trash. Every sprint planning starts with: what changed since last time that should move something?"
+               data-es="Un backlog con 200 tickets desordenados no funciona. Mantengo un backlog vivo con categorías claras: Now, Next, Later, Parked. Parked es donde van las buenas ideas cuando no hay capacidad, no a la basura. Cada sprint planning empieza con: ¿qué cambió desde la última vez que debería mover algo?">A backlog with 200 unsorted tickets doesn&rsquo;t work. I keep a living backlog with clear status tiers: Now, Next, Later, Parked. Parked is where good ideas go when there&rsquo;s no bandwidth, not the trash. Every sprint planning starts with: what changed since last time that should move something?</p>
+            <p data-en="Release management means communicating status to stakeholders before they ask, not after they notice something is late. And because I can read a design in progress and catch UX problems before they reach QA, release cycles tend to have fewer last-minute surprises."
+               data-es="Gestionar releases significa comunicar el estado a los stakeholders antes de que pregunten, no después de que noten que algo lleva retraso. Y porque puedo leer un diseño en progreso y detectar problemas de UX antes de que lleguen a QA, los ciclos de release tienden a tener menos sorpresas de última hora.">Release management means communicating status to stakeholders before they ask, not after they notice something is late. And because I can read a design in progress and catch UX problems before they reach QA, release cycles tend to have fewer last-minute surprises.</p>
+            <div class="hiw-methods">
+              <span class="hiw-method" data-en="Sprint planning" data-es="Sprint planning">Sprint planning</span>
+              <span class="hiw-method" data-en="Release management" data-es="Gestión de releases">Release management</span>
+              <span class="hiw-method" data-en="Stakeholder comms" data-es="Comunicación con stakeholders">Stakeholder comms</span>
+              <span class="hiw-method" data-en="Retrospectives" data-es="Retrospectivas">Retrospectives</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 PM + Design -->
+        <div class="hiw-section">
+          <div class="hiw-section-header">
+            <div class="hiw-section-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="hiw-section-label" data-en="06 — Intersection" data-es="06 — Intersección">06 — Intersection</div>
+              <div class="hiw-section-title" data-en="Where product management and design meet" data-es="Donde la gestión de producto y el diseño se encuentran">Where product management and design meet</div>
+            </div>
+          </div>
+          <div class="hiw-body">
+            <p data-en="I work at the intersection of both disciplines and I don&rsquo;t think of one as primary. Product management gives me the framework: discovery, prioritization, roadmap, stakeholder alignment, delivery. Product design gives me the tools to work inside that framework with more precision than most PMs can: I can run a usability session, catch a broken flow in a spec review, build a prototype to unblock a negotiation, or brief a designer with enough specificity that the first iteration lands close."
+               data-es="Trabajo en la intersección de las dos disciplinas y no considero que ninguna sea la principal. La gestión de producto me da el marco: discovery, priorización, roadmap, alineación de stakeholders, entrega. El product design me da las herramientas para trabajar dentro de ese marco con más precisión de lo que la mayoría de PMs puede: puedo facilitar una sesión de usabilidad, detectar un flujo roto en una revisión de spec, construir un prototipo para desbloquear una negociación, o hacer un briefing a un diseñador con suficiente especificidad para que la primera iteración ya esté cerca.">I work at the intersection of both disciplines and I don&rsquo;t think of one as primary. Product management gives me the framework: discovery, prioritization, roadmap, stakeholder alignment, delivery. Product design gives me the tools to work inside that framework with more precision than most PMs can: I can run a usability session, catch a broken flow in a spec review, build a prototype to unblock a negotiation, or brief a designer with enough specificity that the first iteration lands close.</p>
+            <p data-en="In practice that looks like: running discovery and coming back with both a prioritized requirements list and a validated interaction model. Sitting in a technical review and flagging UX debt before it ships. Knowing when a roadmap decision will create design complexity downstream, before the sprint starts. Neither role is the fallback. Both are the job."
+               data-es="En la práctica eso se ve así: llevar el discovery y volver con un listado de requisitos priorizado y un modelo de interacción validado. Sentarme en una revisión técnica y señalar deuda de UX antes de que se lance. Saber cuándo una decisión de roadmap va a generar complejidad de diseño más adelante, antes de que empiece el sprint. Ningún rol es el plan B. Los dos son el trabajo.">In practice that looks like: running discovery and coming back with both a prioritized requirements list and a validated interaction model. Sitting in a technical review and flagging UX debt before it ships. Knowing when a roadmap decision will create design complexity downstream, before the sprint starts. Neither role is the fallback. Both are the job.</p>
+            <div class="hiw-methods">
+              <span class="hiw-method" data-en="Problem framing" data-es="Framing de problemas">Problem framing</span>
+              <span class="hiw-method" data-en="Roadmap ownership" data-es="Ownership del roadmap">Roadmap ownership</span>
+              <span class="hiw-method" data-en="Design systems" data-es="Design systems">Design systems</span>
+              <span class="hiw-method" data-en="UX audit" data-es="Auditoría UX">UX audit</span>
+              <span class="hiw-method" data-en="Prototyping" data-es="Prototipado">Prototyping</span>
+              <span class="hiw-method" data-en="Cross-functional leadership" data-es="Liderazgo cross-funcional">Cross-functional leadership</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /view-how-i-work -->
+
   </div><!-- /dash-content -->
 </div><!-- /dash-main -->
 
@@ -841,6 +1035,10 @@ function showView(view, filter) {
     document.getElementById('nav-about').classList.add('active');
     document.getElementById('topbar-title').textContent = currentLang === 'es' ? 'Sobre mí' : 'About Me';
     document.getElementById('view-about').scrollTop = 0;
+  } else if (view === 'how-i-work') {
+    document.getElementById('nav-how-i-work').classList.add('active');
+    document.getElementById('topbar-title').textContent = currentLang === 'es' ? 'Cómo trabajo' : 'How I Work';
+    document.getElementById('view-how-i-work').scrollTop = 0;
   } else if (view === 'projects') {
     currentFilter = filter || 'all';
     document.querySelectorAll('.pill').forEach(b => b.classList.toggle('active', b.dataset.filter === currentFilter));
@@ -3075,7 +3273,7 @@ window.toggleTheme = function() { applyTheme(document.documentElement.dataset.th
 
 const LANG_STRINGS = {
   en: {
-    'nav-home':'Home', 'nav-about':'About Me', 'nav-selected':'Selected Work',
+    'nav-home':'Home', 'nav-about':'About Me / CV', 'nav-how-i-work':'How I Work', 'nav-selected':'Selected Work',
     'nav-all':'All Projects', 'nav-ux-consulting':'UX Consulting',
     'nav-apps':'APPs', 'nav-workshops':'Workshops', 'nav-web':'Web',
     'nav-branding':'Branding',
@@ -3088,10 +3286,10 @@ const LANG_STRINGS = {
     'profile-role':'Product Manager, Senior Product Designer & UX Strategist · 12+ years of experience',
     'profile-headline':"I turn challenges into digital solutions that simplify and enhance people's lives.",
     'about-me-btn':'About Me & CV',
-    'topbar-home':'Portfolio Dashboard', 'topbar-about':'About Me',
+    'topbar-home':'Portfolio Dashboard', 'topbar-about':'About Me', 'topbar-hiw':'How I Work',
   },
   es: {
-    'nav-home':'Inicio', 'nav-about':'Sobre mí', 'nav-selected':'Trabajo Destacado',
+    'nav-home':'Inicio', 'nav-about':'Sobre mí / CV', 'nav-how-i-work':'Cómo trabajo', 'nav-selected':'Trabajo Destacado',
     'nav-all':'Todos los proyectos', 'nav-ux-consulting':'UX Consultoría',
     'nav-apps':'APPs', 'nav-workshops':'Talleres', 'nav-web':'Web',
     'nav-branding':'Branding',
@@ -3104,7 +3302,7 @@ const LANG_STRINGS = {
     'profile-role':'Product Manager, Product Designer Senior & Estratega UX · 12+ años de experiencia',
     'profile-headline':'Convierto retos en soluciones digitales que simplifican y mejoran la vida de las personas.',
     'about-me-btn':'Sobre mí & CV',
-    'topbar-home':'Panel de portafolio', 'topbar-about':'Sobre mí',
+    'topbar-home':'Panel de portafolio', 'topbar-about':'Sobre mí', 'topbar-hiw':'Cómo trabajo',
   }
 };
 let currentLang = 'en';
@@ -3130,7 +3328,7 @@ window.setLang = function(lang) {
   const isEs = lang === 'es';
 
   // ── Nav items (text node, skip SVG/badge) ──────────────────
-  ['nav-home','nav-about','nav-selected','nav-all','nav-ux-consulting',
+  ['nav-home','nav-about','nav-how-i-work','nav-selected','nav-all','nav-ux-consulting',
    'nav-apps','nav-workshops','nav-web','nav-branding'].forEach(id => {
     if (s[id]) setNavItemText(id, s[id]);
   });
@@ -3225,6 +3423,7 @@ window.setLang = function(lang) {
     const vid = activeView.id;
     if (vid === 'view-home') document.getElementById('topbar-title').textContent = s['topbar-home'];
     else if (vid === 'view-about') document.getElementById('topbar-title').textContent = s['topbar-about'];
+    else if (vid === 'view-how-i-work') document.getElementById('topbar-title').textContent = s['topbar-hiw'];
     else if (vid === 'view-projects') {
       const lbl = CAT_LABELS[currentFilter] || currentFilter;
       document.getElementById('topbar-title').textContent = lbl;

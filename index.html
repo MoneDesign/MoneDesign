@@ -326,8 +326,10 @@ body{
   #proj-content .proj-hero{ padding:32px 16px 24px !important; }
 }
 @media(max-width:640px){
-  .profile-card{ flex-direction:column; height:auto; }
+  .profile-card{ flex-direction:column; height:auto; position:relative; }
   .profile-photo-col{ width:100%; height:200px; }
+  .profile-info{ position:static; }
+  .otw-badge{ top:12px; right:12px; }
   .profile-info{ padding:20px; }
   .proj-grid{ grid-template-columns:1fr; }
   .metrics-row{ grid-template-columns:1fr 1fr; }

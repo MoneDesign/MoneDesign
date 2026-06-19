@@ -12,7 +12,28 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mone Rodríguez · Portfolio Dashboard</title>
+
+<title>Mone Rodríguez — Senior UX Designer & Product Strategist</title>
+<meta name="description" content="Portfolio of Mone Rodríguez, Senior UX Designer and Product Strategist with 12+ years leading design for web, mobile and design systems. Open to opportunities in Europe.">
+<meta name="author" content="Mone Rodríguez">
+<link rel="canonical" href="https://monedesign.github.io/MoneDesign/">
+
+<!-- Open Graph / LinkedIn / WhatsApp -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://monedesign.github.io/MoneDesign/">
+<meta property="og:title" content="Mone Rodríguez — Senior UX Designer & Product Strategist">
+<meta property="og:description" content="12+ years designing web, mobile and design systems. Cross-functional leader, workshop facilitator, and systems thinker. Open to opportunities in Europe.">
+<meta property="og:image" content="https://monedesign.github.io/MoneDesign/images/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Mone Rodríguez · Portfolio">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mone Rodríguez — Senior UX Designer & Product Strategist">
+<meta name="twitter:description" content="12+ years designing web, mobile and design systems. Open to opportunities in Europe.">
+<meta name="twitter:image" content="https://monedesign.github.io/MoneDesign/images/og-cover.png">
 <style>
 /* ─── RESET ─────────────────────────────────────────────── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -1045,6 +1066,51 @@ function trackClick(action, label) {
   }
 }
 
+(function initScrollDepth() {
+  const MILESTONES = [25, 50, 75, 90];
+  const fired = new Set();
+
+  function getScrollPct(el) {
+    const scrollable = el.scrollHeight - el.clientHeight;
+    return scrollable > 0 ? Math.round((el.scrollTop / scrollable) * 100) : 0;
+  }
+
+  function onScroll(viewId) {
+    return function() {
+      const el = document.getElementById(viewId);
+      if (!el) return;
+      const pct = getScrollPct(el);
+      MILESTONES.forEach(m => {
+        const key = viewId + ':' + m;
+        if (pct >= m && !fired.has(key)) {
+          fired.add(key);
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'scroll_depth', {
+              event_category: 'engagement',
+              event_label: viewId.replace('view-', ''),
+              value: m
+            });
+          }
+        }
+      });
+    };
+  }
+
+  // Attach after DOM is ready; re-clear fired set on view change so
+  // each section tracks independently.
+  document.addEventListener('DOMContentLoaded', () => {
+    ['view-about', 'view-projects', 'view-how-i-work', 'view-project'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('scroll', onScroll(id), { passive: true });
+    });
+  });
+
+  // Reset milestones for a section each time it becomes active
+  window._resetScrollDepth = function(viewId) {
+    MILESTONES.forEach(m => fired.delete(viewId + ':' + m));
+  };
+})();
+
 function showView(view, filter, skipHistory) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + view).classList.add('active');
@@ -1059,11 +1125,13 @@ function showView(view, filter, skipHistory) {
     document.getElementById('topbar-title').textContent = currentLang === 'es' ? 'Sobre mí' : 'About Me';
     document.getElementById('view-about').scrollTop = 0;
     hash = '#about';
+    if (window._resetScrollDepth) window._resetScrollDepth('view-about');
   } else if (view === 'how-i-work') {
     document.getElementById('nav-how-i-work').classList.add('active');
     document.getElementById('topbar-title').textContent = currentLang === 'es' ? 'Cómo trabajo' : 'How I Work';
     document.getElementById('view-how-i-work').scrollTop = 0;
     hash = '#how-i-work';
+    if (window._resetScrollDepth) window._resetScrollDepth('view-how-i-work');
   } else if (view === 'projects') {
     currentFilter = filter || 'all';
     document.querySelectorAll('.pill').forEach(b => b.classList.toggle('active', b.dataset.filter === currentFilter));
@@ -1075,6 +1143,7 @@ function showView(view, filter, skipHistory) {
     renderProjects(currentFilter);
     document.getElementById('view-projects').scrollTop = 0;
     hash = '#projects/' + currentFilter;
+    if (window._resetScrollDepth) window._resetScrollDepth('view-projects');
   }
   if (!skipHistory) {
     history.pushState({ view, filter: filter || null }, '', hash);
@@ -3290,6 +3359,7 @@ window.showProject = function(id, href, title, skipHistory) {
   styleEl.textContent = scoped;
   container.innerHTML = data.html;
   document.getElementById('view-project').scrollTop = 0;
+  if (window._resetScrollDepth) window._resetScrollDepth('view-project');
 };
 
 window.goBackFromProject = function() {

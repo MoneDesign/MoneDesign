@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://monedesign.github.io/MoneDesign/sitemap.xml

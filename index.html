@@ -1092,6 +1092,26 @@ function trackClick(action, label) {
   }
 }
 
+let _currentSection = 'home';
+let _currentProjectId = null;
+let _currentProjectTitle = null;
+let _sectionEnterTime = Date.now();
+
+function _trackSectionEnter(sectionName) {
+  _sectionEnterTime = Date.now();
+  _currentSection = sectionName;
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'section_view', { section: sectionName });
+  }
+}
+
+function _trackSectionLeave() {
+  const seconds = Math.round((Date.now() - _sectionEnterTime) / 1000);
+  if (seconds > 1 && typeof gtag !== 'undefined') {
+    gtag('event', 'section_time', { section: _currentSection, value: seconds });
+  }
+}
+
 (function initScrollDepth() {
   const MILESTONES = [25, 50, 75, 90];
   const fired = new Set();
@@ -1111,19 +1131,26 @@ function trackClick(action, label) {
         if (pct >= m && !fired.has(key)) {
           fired.add(key);
           if (typeof gtag !== 'undefined') {
-            gtag('event', 'scroll_depth', {
+            const isProject = viewId === 'view-project';
+            const params = {
               event_category: 'engagement',
-              event_label: viewId.replace('view-', ''),
+              event_label: isProject && _currentProjectId ? _currentProjectId : viewId.replace('view-', ''),
               value: m
-            });
+            };
+            if (isProject && _currentProjectTitle) params.project_title = _currentProjectTitle;
+            gtag('event', 'scroll_depth', params);
+            if (isProject && m === 90) {
+              gtag('event', 'project_completed', {
+                project_id: _currentProjectId,
+                project_title: _currentProjectTitle
+              });
+            }
           }
         }
       });
     };
   }
 
-  // Attach after DOM is ready; re-clear fired set on view change so
-  // each section tracks independently.
   document.addEventListener('DOMContentLoaded', () => {
     ['view-about', 'view-projects', 'view-how-i-work', 'view-project'].forEach(id => {
       const el = document.getElementById(id);
@@ -1131,13 +1158,13 @@ function trackClick(action, label) {
     });
   });
 
-  // Reset milestones for a section each time it becomes active
   window._resetScrollDepth = function(viewId) {
     MILESTONES.forEach(m => fired.delete(viewId + ':' + m));
   };
 })();
 
 function showView(view, filter, skipHistory) {
+  _trackSectionLeave();
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + view).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -1171,6 +1198,7 @@ function showView(view, filter, skipHistory) {
     hash = '#projects/' + currentFilter;
     if (window._resetScrollDepth) window._resetScrollDepth('view-projects');
   }
+  _trackSectionEnter(view === 'projects' ? 'projects/' + (filter || 'all') : view);
   if (!skipHistory) {
     history.pushState({ view, filter: filter || null }, '', hash);
     trackPageView(hash);
@@ -3351,6 +3379,9 @@ function scopeCSS(css) {
 }
 
 window.showProject = function(id, href, title, skipHistory) {
+  _trackSectionLeave();
+  _currentProjectId = id;
+  _currentProjectTitle = title;
   const activeView = document.querySelector('.view.active');
   prevView = activeView ? activeView.id.replace('view-','') : 'home';
   prevFilter = currentFilter;
@@ -3358,6 +3389,10 @@ window.showProject = function(id, href, title, skipHistory) {
   document.getElementById('view-project').classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('topbar-title').textContent = title;
+  _trackSectionEnter('project/' + id);
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'project_open', { project_id: id, project_title: title });
+  }
   if (!skipHistory) {
     const hash = '#project/' + id;
     history.pushState({ view: 'project', id, prevView, prevFilter }, '', hash);

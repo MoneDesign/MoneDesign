@@ -328,6 +328,10 @@ tr:last-child td { border-bottom: none; }
     <svg class="sb-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M1 6h8M1 9h10M1 12h6" stroke="#333" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="10.5" r="2" stroke="#333" stroke-width="1.3"/></svg>
     Workshop
   </button>
+  <button class="sb-btn" onclick="show('puntos')" id="btn-puntos">
+    <svg class="sb-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#333" stroke-width="1.3"/><path d="M7 4v3l2 1.5" stroke="#333" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Sistema de puntos
+  </button>
 
 </nav>
 
@@ -3104,6 +3108,199 @@ tr:last-child td { border-bottom: none; }
     <!-- ════════ FIN workshop ════════ -->
 
 
+    <!-- ════════════════════ PUNTOS ════════════════════ -->
+    <div class="section" id="puntos">
+
+      <!-- Introducción -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:24px;">
+        <div class="section-label" style="margin-bottom:12px;">Por qué un sistema de puntos</div>
+        <p style="font-size:14px;color:#333;line-height:22px;margin:0 0 12px;">
+          Uno de los hallazgos del workshop fue que los usuarios no tenían ningún incentivo para quedarse en ZenderBox más allá de la necesidad inmediata. La gamificación surgió como solución a la baja retención y al desconocimiento de funciones clave como la consolidación y los referidos.
+        </p>
+        <p style="font-size:14px;color:#333;line-height:22px;margin:0;">
+          El prototipo que ves abajo es el documento de diseño funcional del programa: estructura de niveles, mecánica de puntos, opciones de canje y roadmap de implementación. Fue presentado al equipo técnico para estimar esfuerzo y sirvió como fuente de verdad para el desarrollo del módulo en la app y en el dashboard.
+        </p>
+      </div>
+
+      <!-- Categorías / Niveles -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:24px;">
+        <div class="section-label" style="margin-bottom:6px;">Estructura de categorías</div>
+        <p style="font-size:13px;color:#666;margin:0 0 20px;">El nivel lo determina el volumen mensual de libras enviadas O los puntos acumulados.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;">
+          <!-- Básico -->
+          <div style="border-radius:10px;border:1.5px solid #E8E8E8;overflow:hidden;">
+            <div style="padding:18px 20px;background:#F4F5F6;border-bottom:1px solid #E8E8E8;">
+              <div style="font-weight:700;font-size:15px;color:#575D6B;margin-bottom:4px;">Categoría Básica</div>
+              <div style="font-weight:500;font-size:12px;color:#8A8A8A;">0–99 lb/mes · Desde 0 pts</div>
+            </div>
+            <div style="padding:14px 20px;border-bottom:1px solid #F0F0F0;">
+              <div style="font-weight:500;font-size:11px;color:#8A8A8A;margin-bottom:4px;">Tarifa desde 11 lb</div>
+              <div style="font-weight:700;font-size:26px;color:#575D6B;line-height:1;">$2.99<span style="font-size:13px;font-weight:500;color:#8A8A8A;margin-left:4px;">/lb</span></div>
+            </div>
+            <div style="padding:10px 20px;font-weight:500;font-size:12px;color:#8A8A8A;">Sin suscripción mensual</div>
+          </div>
+          <!-- Frecuente -->
+          <div style="border-radius:10px;border:2px solid #029ECB;overflow:hidden;">
+            <div style="padding:18px 20px;background:#E8F4FA;border-bottom:1px solid #E8E8E8;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-weight:700;font-size:15px;color:#004B72;">Categoría Frecuente</div>
+                <span style="background:#029ECB;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">Siguiente nivel</span>
+              </div>
+              <div style="font-weight:500;font-size:12px;color:#8A8A8A;">100–249 lb/mes · ó 2.000 pts</div>
+            </div>
+            <div style="padding:14px 20px;border-bottom:1px solid #F0F0F0;">
+              <div style="font-weight:500;font-size:11px;color:#8A8A8A;margin-bottom:4px;">Tarifa desde 11 lb</div>
+              <div style="font-weight:700;font-size:26px;color:#004B72;line-height:1;">$2.61<span style="font-size:13px;font-weight:500;color:#8A8A8A;margin-left:4px;">/lb</span></div>
+            </div>
+            <div style="padding:10px 20px;font-weight:600;font-size:12px;color:#004B72;">Suscripción: $20 USD/mes</div>
+          </div>
+          <!-- Experto -->
+          <div style="border-radius:10px;border:1.5px solid #E8E8E8;overflow:hidden;">
+            <div style="padding:18px 20px;background:linear-gradient(135deg,#E8F6FB,#F4FAEA);border-bottom:1px solid #E8E8E8;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-weight:700;font-size:15px;color:#029ECB;">Categoría Experto</div>
+                <span style="background:linear-gradient(45deg,#029ECB,#CCD32A);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">Top</span>
+              </div>
+              <div style="font-weight:500;font-size:12px;color:#8A8A8A;">250+ lb/mes · ó 5.000 pts</div>
+            </div>
+            <div style="padding:14px 20px;border-bottom:1px solid #F0F0F0;">
+              <div style="font-weight:500;font-size:11px;color:#8A8A8A;margin-bottom:4px;">Tarifa desde 11 lb</div>
+              <div style="font-weight:700;font-size:26px;color:#029ECB;line-height:1;">$2.07<span style="font-size:13px;font-weight:500;color:#8A8A8A;margin-left:4px;">/lb</span></div>
+            </div>
+            <div style="padding:10px 20px;font-weight:600;font-size:12px;color:#029ECB;">Suscripción: $30 USD/mes</div>
+          </div>
+        </div>
+
+        <!-- Tabla comparativa -->
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <thead>
+              <tr>
+                <th style="text-align:left;padding:10px 12px;color:#8A8A8A;font-weight:600;border-bottom:1px solid #E8E8E8;">Beneficio</th>
+                <th style="text-align:center;padding:10px 12px;color:#575D6B;font-weight:600;border-bottom:1px solid #E8E8E8;">Básico</th>
+                <th style="text-align:center;padding:10px 12px;color:#004B72;font-weight:600;border-bottom:1px solid #E8E8E8;">Frecuente</th>
+                <th style="text-align:center;padding:10px 12px;color:#029ECB;font-weight:600;border-bottom:1px solid #E8E8E8;">Experto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding:10px 12px;font-weight:600;">Tarifa /lb (desde 11 lb)</td><td style="text-align:center;padding:10px 12px;">$2.99</td><td style="text-align:center;padding:10px 12px;">$2.61</td><td style="text-align:center;padding:10px 12px;">$2.07</td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 12px;font-weight:600;">Almacenamiento gratis</td><td style="text-align:center;padding:10px 12px;">30 días</td><td style="text-align:center;padding:10px 12px;">30 días</td><td style="text-align:center;padding:10px 12px;">45 días</td></tr>
+              <tr><td style="padding:10px 12px;font-weight:600;">Seguro incluido</td><td style="text-align:center;padding:10px 12px;">$200 USD</td><td style="text-align:center;padding:10px 12px;">$200 USD</td><td style="text-align:center;padding:10px 12px;">$200 USD</td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 12px;font-weight:600;">Atención</td><td style="text-align:center;padding:10px 12px;">Estándar</td><td style="text-align:center;padding:10px 12px;">WhatsApp preferencial</td><td style="text-align:center;padding:10px 12px;">Asesor asignado</td></tr>
+              <tr><td style="padding:10px 12px;font-weight:600;">Acceso a sorteos</td><td style="text-align:center;padding:10px 12px;color:#DBDBDB;">—</td><td style="text-align:center;padding:10px 12px;color:#008C31;font-weight:700;">✓</td><td style="text-align:center;padding:10px 12px;color:#008C31;font-weight:700;">✓</td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 12px;font-weight:600;">Puntos para ascender</td><td style="text-align:center;padding:10px 12px;color:#DBDBDB;">—</td><td style="text-align:center;padding:10px 12px;">2.000 pts</td><td style="text-align:center;padding:10px 12px;">5.000 pts</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top:14px;padding:12px 16px;background:#F6F6F6;border-radius:8px;">
+          <div style="font-weight:700;font-size:12px;color:#333;margin-bottom:4px;">Regla de descenso</div>
+          <div style="font-weight:500;font-size:12px;color:#666;line-height:18px;">Si en un mes el volumen cae por debajo del umbral, el nivel se mantiene 30 días de gracia antes de ajustarse. La suscripción mensual garantiza el nivel independientemente del volumen.</div>
+        </div>
+      </div>
+
+      <!-- Cómo ganar puntos -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:24px;">
+        <div class="section-label" style="margin-bottom:6px;">Cómo ganar puntos</div>
+        <p style="font-size:13px;color:#666;margin:0 0 16px;">Cada acción suma puntos hacia el siguiente nivel.</p>
+
+        <div style="display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #F0F0F0;"><span style="font-size:22px;flex-shrink:0;">📦</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Recibir un paquete en bodega</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">Por paquete procesado</div></div><div style="text-align:right;"><div style="font-weight:700;font-size:18px;color:#029ECB;">+50</div><div style="font-size:11px;color:#8A8A8A;">puntos</div></div></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #F0F0F0;"><span style="font-size:22px;flex-shrink:0;">🔄</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Consolidar envío</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">Por solicitud de consolidación</div></div><div style="text-align:right;"><div style="font-weight:700;font-size:18px;color:#029ECB;">+80</div><div style="font-size:11px;color:#8A8A8A;">puntos</div></div></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #F0F0F0;"><span style="font-size:22px;flex-shrink:0;">👤</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Referir un amigo activo</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">Máximo 5 referidos/mes</div></div><div style="text-align:right;"><div style="font-weight:700;font-size:18px;color:#029ECB;">+200</div><div style="font-size:11px;color:#8A8A8A;">puntos</div></div></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #F0F0F0;"><span style="font-size:22px;flex-shrink:0;">✅</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Completar tu perfil 100%</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">Una sola vez</div></div><div style="text-align:right;"><div style="font-weight:700;font-size:18px;color:#029ECB;">+150</div><div style="font-size:11px;color:#8A8A8A;">puntos</div></div></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #F0F0F0;"><span style="font-size:22px;flex-shrink:0;">🌟</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Primera compra del mes</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">Primer paquete cada mes</div></div><div style="text-align:right;"><div style="font-weight:700;font-size:18px;color:#029ECB;">+100</div><div style="font-size:11px;color:#8A8A8A;">puntos</div></div></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #F0F0F0;"><span style="font-size:22px;flex-shrink:0;">📸</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Subir factura al paquete</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">Por factura verificada</div></div><div style="text-align:right;"><div style="font-weight:700;font-size:18px;color:#029ECB;">+20</div><div style="font-size:11px;color:#8A8A8A;">puntos</div></div></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #F0F0F0;"><span style="font-size:22px;flex-shrink:0;">📅</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">3 meses consecutivos activo</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">Racha mensual</div></div><div style="text-align:right;"><div style="font-weight:700;font-size:18px;color:#029ECB;">+300</div><div style="font-size:11px;color:#8A8A8A;">puntos</div></div></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;"><span style="font-size:22px;flex-shrink:0;">💬</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Dejar reseña verificada</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">Máximo 2 por mes</div></div><div style="text-align:right;"><div style="font-weight:700;font-size:18px;color:#029ECB;">+75</div><div style="font-size:11px;color:#8A8A8A;">puntos</div></div></div>
+        </div>
+
+        <!-- Escenario máximo -->
+        <div style="margin-top:20px;background:#F6F6F6;border-radius:10px;padding:20px;">
+          <div style="font-weight:700;font-size:14px;color:#333;margin-bottom:12px;">Escenario máximo mensual</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:16px;">
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border-radius:8px;"><span style="font-size:18px;">📦</span><div style="flex:1;font-weight:600;font-size:12px;color:#333;">10 paquetes procesados</div><span style="background:#E8F4FA;color:#029ECB;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;">+500</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border-radius:8px;"><span style="font-size:18px;">🔄</span><div style="flex:1;font-weight:600;font-size:12px;color:#333;">2 consolidaciones</div><span style="background:#E8F4FA;color:#029ECB;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;">+160</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border-radius:8px;"><span style="font-size:18px;">👤</span><div style="flex:1;font-weight:600;font-size:12px;color:#333;">5 referidos activos</div><span style="background:#E8F4FA;color:#029ECB;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;">+1.000</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border-radius:8px;"><span style="font-size:18px;">🌟</span><div style="flex:1;font-weight:600;font-size:12px;color:#333;">Primera compra del mes</div><span style="background:#E8F4FA;color:#029ECB;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;">+100</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border-radius:8px;"><span style="font-size:18px;">💬</span><div style="flex:1;font-weight:600;font-size:12px;color:#333;">2 reseñas</div><span style="background:#E8F4FA;color:#029ECB;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;">+150</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border-radius:8px;"><span style="font-size:18px;">🔥</span><div style="flex:1;font-weight:600;font-size:12px;color:#333;">Racha (si aplica)</div><span style="background:#E8F4FA;color:#029ECB;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;">+300</span></div>
+          </div>
+          <div style="padding:16px 20px;background:linear-gradient(45deg,#029ECB,#CCD32A);border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <div><div style="font-weight:700;font-size:13px;color:rgba(255,255,255,.85);">Total potencial/mes</div><div style="font-weight:800;font-size:32px;color:#fff;line-height:1;">2.310 pts</div></div>
+            <div style="text-align:right;"><div style="font-weight:600;font-size:12px;color:rgba(255,255,255,.85);">Usuario nuevo a nivel Frecuente en</div><div style="font-weight:700;font-size:20px;color:#fff;">~1 mes activo</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Opciones de canje -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:24px;">
+        <div class="section-label" style="margin-bottom:6px;">Opciones de canje</div>
+        <p style="font-size:13px;color:#666;margin:0 0 16px;">Cómo usar los puntos acumulados.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;">
+          <div style="background:#F6F6F6;border-radius:10px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start;"><span style="font-size:24px;flex-shrink:0;">✈️</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Descuento en envío</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin:4px 0 10px;">$5 USD de descuento en el próximo envío</div><span style="font-weight:700;font-size:13px;color:#029ECB;">500 pts</span></div></div>
+          <div style="background:#F6F6F6;border-radius:10px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start;"><span style="font-size:24px;flex-shrink:0;">📦</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Consolidación gratis</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin:4px 0 10px;">Un consolidado sin costo de gestión</div><span style="font-weight:700;font-size:13px;color:#029ECB;">300 pts</span></div></div>
+          <div style="background:#F6F6F6;border-radius:10px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start;"><span style="font-size:24px;flex-shrink:0;">⚡</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Procesamiento prioritario</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin:4px 0 10px;">Paquete procesado en menos de 12 h</div><span style="font-weight:700;font-size:13px;color:#029ECB;">200 pts</span></div></div>
+          <div style="background:#F6F6F6;border-radius:10px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start;"><span style="font-size:24px;flex-shrink:0;">🏷️</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Mes de nivel superior</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin:4px 0 10px;">30 días con beneficios de Experto</div><span style="font-weight:700;font-size:13px;color:#029ECB;">1.500 pts</span></div></div>
+          <div style="background:#F6F6F6;border-radius:10px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start;"><span style="font-size:24px;flex-shrink:0;">💸</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Cashback en saldo</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin:4px 0 10px;">$10 USD a tu saldo ZenderBox</div><span style="font-weight:700;font-size:13px;color:#029ECB;">1.000 pts</span></div></div>
+          <div style="background:#F6F6F6;border-radius:10px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start;"><span style="font-size:24px;flex-shrink:0;">🛡️</span><div style="flex:1;"><div style="font-weight:700;font-size:14px;color:#333;">Seguro extendido</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin:4px 0 10px;">Cobertura adicional hasta $100 USD</div><span style="font-weight:700;font-size:13px;color:#029ECB;">400 pts</span></div></div>
+        </div>
+      </div>
+
+      <!-- Roadmap -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:24px;">
+        <div class="section-label" style="margin-bottom:6px;">Roadmap del programa</div>
+        <p style="font-size:13px;color:#666;margin:0 0 20px;">Plan de implementación por fases. Cada fase depende de validar la anterior con métricas reales.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-bottom:20px;">
+          <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:20px;">
+            <div style="font-weight:700;font-size:13px;color:#029ECB;margin-bottom:2px;">Q3 2026</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;"><div style="font-weight:700;font-size:15px;color:#333;">Lanzamiento MVP</div><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">En curso</span></div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:linear-gradient(45deg,#029ECB,#CCD32A);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;margin-top:1px;">✓</div><span style="font-size:13px;color:#333;line-height:18px;">Básico automático al registrarse</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:linear-gradient(45deg,#029ECB,#CCD32A);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;margin-top:1px;">✓</div><span style="font-size:13px;color:#333;line-height:18px;">Puntos por paquete y consolidación</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:linear-gradient(45deg,#029ECB,#CCD32A);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;margin-top:1px;">✓</div><span style="font-size:13px;color:#333;line-height:18px;">Barra de progreso en dashboard</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:linear-gradient(45deg,#029ECB,#CCD32A);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;margin-top:1px;">✓</div><span style="font-size:13px;color:#333;line-height:18px;">Referidos con tracking de puntos</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:linear-gradient(45deg,#029ECB,#CCD32A);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;margin-top:1px;">✓</div><span style="font-size:13px;color:#333;line-height:18px;">Canje básico: descuento en envío</span></div>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:20px;">
+            <div style="font-weight:700;font-size:13px;color:#029ECB;margin-bottom:2px;">Q4 2026</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;"><div style="font-weight:700;font-size:15px;color:#333;">Retención y engagement</div><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">Planeado</span></div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:#E8F6FB;display:flex;align-items:center;justify-content:center;font-size:9px;color:#029ECB;font-weight:700;margin-top:1px;">1</div><span style="font-size:13px;color:#333;line-height:18px;">Rachas mensuales (+300 pts)</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:#E8F6FB;display:flex;align-items:center;justify-content:center;font-size:9px;color:#029ECB;font-weight:700;margin-top:1px;">2</div><span style="font-size:13px;color:#333;line-height:18px;">Multiplicadores por eventos (Black Friday)</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:#E8F6FB;display:flex;align-items:center;justify-content:center;font-size:9px;color:#029ECB;font-weight:700;margin-top:1px;">3</div><span style="font-size:13px;color:#333;line-height:18px;">Notificaciones push de puntos ganados</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:#E8F6FB;display:flex;align-items:center;justify-content:center;font-size:9px;color:#029ECB;font-weight:700;margin-top:1px;">4</div><span style="font-size:13px;color:#333;line-height:18px;">Historial de puntos detallado</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:#E8F6FB;display:flex;align-items:center;justify-content:center;font-size:9px;color:#029ECB;font-weight:700;margin-top:1px;">5</div><span style="font-size:13px;color:#333;line-height:18px;">Suscripción mensual Frecuente y Experto</span></div>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:20px;opacity:.88;">
+            <div style="font-weight:700;font-size:13px;color:#8A8A8A;margin-bottom:2px;">Q1 2027</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;"><div style="font-weight:700;font-size:15px;color:#333;">Gamificación profunda</div><span style="background:#F0F0F0;color:#8A8A8A;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">Futuro</span></div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:#F0F0F0;display:flex;align-items:center;justify-content:center;font-size:9px;color:#8A8A8A;font-weight:700;margin-top:1px;">1</div><span style="font-size:13px;color:#333;line-height:18px;">Badges y logros coleccionables</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:#F0F0F0;display:flex;align-items:center;justify-content:center;font-size:9px;color:#8A8A8A;font-weight:700;margin-top:1px;">2</div><span style="font-size:13px;color:#333;line-height:18px;">Retos mensuales con bonus</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:#F0F0F0;display:flex;align-items:center;justify-content:center;font-size:9px;color:#8A8A8A;font-weight:700;margin-top:1px;">3</div><span style="font-size:13px;color:#333;line-height:18px;">Leaderboard regional (top compradores)</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:#F0F0F0;display:flex;align-items:center;justify-content:center;font-size:9px;color:#8A8A8A;font-weight:700;margin-top:1px;">4</div><span style="font-size:13px;color:#333;line-height:18px;">Nivel Diamante (500+ lb/mes)</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:99px;flex-shrink:0;background:#F0F0F0;display:flex;align-items:center;justify-content:center;font-size:9px;color:#8A8A8A;font-weight:700;margin-top:1px;">5</div><span style="font-size:13px;color:#333;line-height:18px;">Partner rewards: descuentos en tiendas aliadas</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Criterios de avance -->
+        <div>
+          <div style="font-weight:700;font-size:13px;color:#333;margin-bottom:10px;">Criterios de avance de fase</div>
+          <div style="display:flex;gap:14px;padding:12px 16px;background:#FAFAFA;border-radius:8px;border:1px solid #E8E8E8;margin-bottom:8px;"><span style="font-weight:700;font-size:12px;color:#029ECB;min-width:180px;flex-shrink:0;">MVP a Retención</span><span style="font-weight:500;font-size:13px;color:#333;line-height:18px;">Tasa de canje igual o mayor al 50% y retención 90d igual o mayor al 60% en nivel Básico</span></div>
+          <div style="display:flex;gap:14px;padding:12px 16px;background:#FAFAFA;border-radius:8px;border:1px solid #E8E8E8;margin-bottom:8px;"><span style="font-weight:700;font-size:12px;color:#029ECB;min-width:180px;flex-shrink:0;">Retención a Gamificación</span><span style="font-weight:500;font-size:13px;color:#333;line-height:18px;">NPS igual o mayor a 65 y al menos 20% de usuarios con racha de 3 o más meses</span></div>
+          <div style="display:flex;gap:14px;padding:12px 16px;background:#FAFAFA;border-radius:8px;border:1px solid #E8E8E8;"><span style="font-weight:700;font-size:12px;color:#029ECB;min-width:180px;flex-shrink:0;">Gamificación a Monetización</span><span style="font-weight:500;font-size:13px;color:#333;line-height:18px;">LTV Frecuente 2 veces mayor que Básico sostenido por 2 trimestres</span></div>
+        </div>
+      </div>
+
+    </div>
+    <!-- ════════ FIN puntos ════════ -->
+
+
   </div><!-- /#content -->
 </div><!-- /#main -->
 
@@ -3127,7 +3324,8 @@ function show(id) {
     blueprint: 'Service blueprint',
     priorizacion: 'Priorización',
     oportunidades: 'Árbol de oportunidades',
-    workshop: 'Workshop'
+    workshop: 'Workshop',
+    puntos: 'Sistema de puntos'
   };
   document.getElementById('topbar-title').textContent = titles[id] || '';
 }

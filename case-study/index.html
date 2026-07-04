@@ -333,6 +333,20 @@ tr:last-child td { border-bottom: none; }
     Sistema de puntos
   </button>
 
+  <div class="sb-section-label" style="margin-top:8px;">Entrega &amp; Handoff</div>
+  <button class="sb-btn" onclick="show('backlog')" id="btn-backlog">
+    <svg class="sb-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="#333" stroke-width="1.3"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="#333" stroke-width="1.3"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="#333" stroke-width="1.3"/><rect x="8" y="8" width="5" height="5" rx="1" stroke="#333" stroke-width="1.3"/></svg>
+    Backlog
+  </button>
+  <button class="sb-btn" onclick="show('tokens')" id="btn-tokens">
+    <svg class="sb-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4l3 3-3 3M7 10h5" stroke="#333" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Design tokens
+  </button>
+  <button class="sb-btn" onclick="show('handoff')" id="btn-handoff">
+    <svg class="sb-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h10M8 4l3 3-3 3" stroke="#333" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M1 3v8" stroke="#333" stroke-width="1.3" stroke-linecap="round"/></svg>
+    Handoff a developers
+  </button>
+
 </nav>
 
 <!-- MAIN -->
@@ -3301,6 +3315,548 @@ tr:last-child td { border-bottom: none; }
     <!-- ════════ FIN puntos ════════ -->
 
 
+    <!-- ════════════════════ BACKLOG ════════════════════ -->
+    <div class="section" id="backlog">
+
+      <!-- Intro -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:24px;">
+        <div class="section-label" style="margin-bottom:10px;">Backlog del proyecto</div>
+        <p style="font-size:14px;color:#333;line-height:22px;margin:0 0 10px;">Este backlog recoge todo el trabajo derivado de la auditoría heurística, los datos de GA4, los tickets de soporte, el workshop y el sistema de puntos. Está organizado por épica y ordenado por prioridad (P0 bloquea lanzamiento, P1 es sprint 1, P2 es sprint 2, P3 es deuda técnica y nice-to-have).</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <span style="background:#F4E8E9;color:#C0392B;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;">P0 · Bloqueante</span>
+          <span style="background:#FDF3EA;color:#E66B00;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;">P1 · Sprint 1</span>
+          <span style="background:#E8F4FA;color:#029ECB;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;">P2 · Sprint 2</span>
+          <span style="background:#F6F6F6;color:#8A8A8A;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;">P3 · Futuro</span>
+          <span style="background:#F1F6F5;color:#008C31;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;">Hecho</span>
+        </div>
+      </div>
+
+      <!-- Stats resumen -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;">
+        <div style="background:#fff;border:1px solid #E8E8E8;border-radius:10px;padding:16px 18px;"><div style="font-weight:700;font-size:26px;color:#333;">38</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">historias totales</div></div>
+        <div style="background:#fff;border:1px solid #E8E8E8;border-radius:10px;padding:16px 18px;"><div style="font-weight:700;font-size:26px;color:#C0392B;">6</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">P0 bloqueantes</div></div>
+        <div style="background:#fff;border:1px solid #E8E8E8;border-radius:10px;padding:16px 18px;"><div style="font-weight:700;font-size:26px;color:#E66B00;">14</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">P1 sprint 1</div></div>
+        <div style="background:#fff;border:1px solid #E8E8E8;border-radius:10px;padding:16px 18px;"><div style="font-weight:700;font-size:26px;color:#029ECB;">11</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">P2 sprint 2</div></div>
+        <div style="background:#fff;border:1px solid #E8E8E8;border-radius:10px;padding:16px 18px;"><div style="font-weight:700;font-size:26px;color:#8A8A8A;">7</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">P3 futuro</div></div>
+        <div style="background:#fff;border:1px solid #E8E8E8;border-radius:10px;padding:16px 18px;"><div style="font-weight:700;font-size:26px;color:#008C31;">121</div><div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-top:2px;">story points</div></div>
+      </div>
+
+      <!-- Épica 1: Onboarding -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
+        <div style="padding:16px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:10px;">
+          <span style="background:linear-gradient(45deg,#029ECB,#CCD32A);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">ÉPICA 1</span>
+          <div style="font-weight:700;font-size:14px;color:#333;">Onboarding y registro</div>
+          <div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-left:auto;">Fuente: Auditoría heurística H1, H2 · GA4 embudo de registro</div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <thead><tr style="background:#F6F6F6;"><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">ID</th><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Historia de usuario</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">Prior.</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">SP</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Estado</th></tr></thead>
+            <tbody>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">ONB-01</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario nuevo quiero ver un flow de onboarding de máximo 3 pasos que me explique qué es ZenderBox antes de crear cuenta, para llegar al registro con contexto.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F4E8E9;color:#C0392B;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P0</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">5</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">ONB-02</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero registrarme con Google, Apple o Facebook con un solo tap, para no tener que crear contraseña si no quiero.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F4E8E9;color:#C0392B;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P0</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">8</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">ONB-03</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero recibir mi dirección de Miami en pantalla inmediatamente después de crear cuenta, para usarla en mi primera compra sin buscarla en otro lado.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F4E8E9;color:#C0392B;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P0</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">3</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">ONB-04</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero poder copiar mi dirección de Miami con un tap, para no tener que escribirla manualmente en cada tienda.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">2</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Épica 2: Navegación -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
+        <div style="padding:16px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:10px;">
+          <span style="background:linear-gradient(45deg,#029ECB,#CCD32A);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">ÉPICA 2</span>
+          <div style="font-weight:700;font-size:14px;color:#333;">Navegación y arquitectura de información</div>
+          <div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-left:auto;">Fuente: Tree testing 34% → 81% · Workshop</div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <thead><tr style="background:#F6F6F6;"><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">ID</th><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Historia de usuario</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">Prior.</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">SP</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Estado</th></tr></thead>
+            <tbody>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">NAV-01</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero un tab bar de 4 ítems fijo (Inicio, Agregar, Mis paquetes, Consolidar), para navegar a cualquier sección sin tener que retroceder.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F4E8E9;color:#C0392B;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P0</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">5</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">NAV-02</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero que el home tenga un acceso directo a mi dirección de Miami en la parte superior, para verla sin navegar a otra pantalla.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">3</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">NAV-03</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero ver mi nivel y puntos en el home sin entrar a mi perfil, para estar motivado a subir de categoría desde el primer scroll.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">3</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">NAV-04</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero una pantalla de búsqueda global que me permita encontrar cualquier paquete por nombre de tienda, número de tracking o fecha.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P2</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">5</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">En curso</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Épica 3: Gestión de paquetes -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
+        <div style="padding:16px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:10px;">
+          <span style="background:linear-gradient(45deg,#029ECB,#CCD32A);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">ÉPICA 3</span>
+          <div style="font-weight:700;font-size:14px;color:#333;">Gestión de paquetes y tracking</div>
+          <div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-left:auto;">Fuente: GA4 funnel prealerta 27.7% · Tickets soporte cat. 1 y 2</div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <thead><tr style="background:#F6F6F6;"><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">ID</th><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Historia de usuario</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">Prior.</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">SP</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Estado</th></tr></thead>
+            <tbody>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">PKG-01</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero agregar un paquete con mínimo 3 campos (tienda, descripción, número de orden), para registrar lo que compré en menos de 60 segundos.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F4E8E9;color:#C0392B;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P0</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">5</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">PKG-02</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero ver el estado de cada paquete con un stepper visual de 5 pasos (comprado, en bodega, en camino, en aduana, entregado), para entender en qué punto está sin llamar a soporte.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F4E8E9;color:#C0392B;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P0</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">8</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">PKG-03</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero filtrar mis paquetes por estado (todos, en bodega, en camino, entregados), para no tener que hacer scroll infinito cuando tengo muchos paquetes.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">3</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">PKG-04</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero subir la factura de un paquete desde la app con la cámara o desde mis fotos, para agilizar el proceso de declaración de aduana.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">5</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">PKG-05</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero recibir una notificación push cuando mi paquete cambie de estado, para no tener que abrir la app a verificar.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">5</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Sprint 2</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">PKG-06</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero escanear el código de barras de mi número de tracking con la cámara, para no tener que escribirlo manualmente.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P2</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">3</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Sprint 2</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Épica 4: Consolidación -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
+        <div style="padding:16px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:10px;">
+          <span style="background:linear-gradient(45deg,#029ECB,#CCD32A);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">ÉPICA 4</span>
+          <div style="font-weight:700;font-size:14px;color:#333;">Consolidación de envíos</div>
+          <div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-left:auto;">Fuente: GA4 consolidación 8.3% uso · JTBD JB-3 · Workshop</div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <thead><tr style="background:#F6F6F6;"><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">ID</th><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Historia de usuario</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">Prior.</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">SP</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Estado</th></tr></thead>
+            <tbody>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">CON-01</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero seleccionar múltiples paquetes en bodega y solicitar consolidación con un botón, para ahorrar en flete pagando un solo envío.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">8</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">CON-02</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero ver la cotización estimada del consolidado antes de confirmar, para decidir si me conviene juntar esos paquetes.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">5</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Sprint 2</span></td></tr>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">CON-03</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero ver una explicación de qué es consolidar en la misma pantalla de "Consolidar" con un lenguaje simple, para entender la función sin buscarla en FAQs.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">2</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">CON-04</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero recibir un resumen por correo cuando se confirme mi consolidado, para tener el comprobante sin depender de la app.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P2</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">3</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Sprint 2</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Épica 5: Gamificación -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
+        <div style="padding:16px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:10px;">
+          <span style="background:linear-gradient(45deg,#029ECB,#CCD32A);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">ÉPICA 5</span>
+          <div style="font-weight:700;font-size:14px;color:#333;">Sistema de puntos y gamificación</div>
+          <div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-left:auto;">Fuente: Workshop · GA4 retención 61% día 30</div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <thead><tr style="background:#F6F6F6;"><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">ID</th><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Historia de usuario</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">Prior.</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">SP</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Estado</th></tr></thead>
+            <tbody>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">GAM-01</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero ver mi nivel actual (Básico, Frecuente, Experto) y cuántos puntos me faltan para el siguiente, para saber qué tengo que hacer para desbloquear mejores tarifas.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">5</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">GAM-02</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero ganar puntos automáticamente cada vez que recibo un paquete o hago una consolidación, sin tener que hacer nada extra.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">3</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">GAM-03</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero canjear mis puntos por descuentos en envío o consolidación gratuita, para sentir que mi lealtad tiene un beneficio concreto y monetizable.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">8</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Sprint 2</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">GAM-04</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero ver un historial de puntos ganados y canjeados con fechas, para saber exactamente cómo se movió mi saldo.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P2</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">5</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Sprint 2</span></td></tr>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">GAM-05</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero compartir mi enlace de referidos desde la app con un tap a WhatsApp, para invitar amigos fácilmente y ganar los 200 puntos de bonificación.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">3</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Épica 6: Perfil y datos -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
+        <div style="padding:16px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:10px;">
+          <span style="background:linear-gradient(45deg,#029ECB,#CCD32A);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">ÉPICA 6</span>
+          <div style="font-weight:700;font-size:14px;color:#333;">Perfil, direcciones y datos de entrega</div>
+          <div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-left:auto;">Fuente: Heurística H5, H6 · Tickets soporte cat. 3</div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <thead><tr style="background:#F6F6F6;"><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">ID</th><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Historia de usuario</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">Prior.</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">SP</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Estado</th></tr></thead>
+            <tbody>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">PRF-01</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero ver mi dirección de Miami formateada con todos los campos separados (nombre, dirección, ciudad, estado, ZIP) listos para copiar por separado, para no cometer errores al llenar formularios de tiendas.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F4E8E9;color:#C0392B;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P0</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">3</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">PRF-02</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero agregar múltiples direcciones de entrega en Colombia (casa, trabajo, bodega de mi negocio), para elegir a dónde mando cada paquete.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">5</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">PRF-03</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero editar mis datos de contacto (teléfono, correo) sin tener que contactar soporte, para mantener mi información actualizada de manera autónoma.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">3</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">PRF-04</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero ver mi historial de envíos anteriores con fechas y costos, para hacer seguimiento de mi gasto total y declarar importaciones si lo necesito.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P2</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">5</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Sprint 2</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Épica 7: Soporte y accesibilidad -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
+        <div style="padding:16px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:10px;">
+          <span style="background:linear-gradient(45deg,#029ECB,#CCD32A);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">ÉPICA 7</span>
+          <div style="font-weight:700;font-size:14px;color:#333;">Soporte, ayuda contextual y accesibilidad</div>
+          <div style="font-weight:500;font-size:12px;color:#8A8A8A;margin-left:auto;">Fuente: Heurística H9, H10 · Tickets soporte cat. 5, 6</div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <thead><tr style="background:#F6F6F6;"><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">ID</th><th style="text-align:left;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Historia de usuario</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">Prior.</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;white-space:nowrap;">SP</th><th style="text-align:center;padding:9px 14px;font-weight:600;color:#8A8A8A;border-bottom:1px solid #E8E8E8;">Estado</th></tr></thead>
+            <tbody>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">SUP-01</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero un botón flotante de WhatsApp en toda la app, para contactar soporte sin salir del contexto en el que tengo el problema.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">2</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">SUP-02</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero ver mensajes de error escritos en lenguaje simple que me digan qué pasó y qué hacer, para no tener que llamar a soporte por cada mensaje técnico.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#FDF3EA;color:#E66B00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P1</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">3</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F1F6F5;color:#008C31;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Hecho</span></td></tr>
+              <tr><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">SUP-03</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero que los formularios validen en tiempo real y muestren el error justo bajo el campo que está mal, para corregirlo sin tener que reenviar el formulario completo.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P2</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">3</td><td style="text-align:center;padding:10px 14px;"><span style="background:#E8F4FA;color:#029ECB;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Sprint 2</span></td></tr>
+              <tr style="background:#FAFAFA;"><td style="padding:10px 14px;font-weight:700;color:#8A8A8A;white-space:nowrap;">SUP-04</td><td style="padding:10px 14px;color:#333;line-height:18px;">Como usuario quiero que todos los textos de la app tengan mínimo 14px y contraste AA (4.5:1), para poder leer la app con comodidad en cualquier luz.</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F6F6F6;color:#8A8A8A;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">P3</span></td><td style="text-align:center;padding:10px 14px;font-weight:600;color:#333;">5</td><td style="text-align:center;padding:10px 14px;"><span style="background:#F6F6F6;color:#8A8A8A;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;">Backlog</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <!-- ════════ FIN backlog ════════ -->
+
+
+    <!-- ════════════════════ TOKENS ════════════════════ -->
+    <div class="section" id="tokens">
+
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:24px;">
+        <div class="section-label" style="margin-bottom:10px;">Design tokens en JSON</div>
+        <p style="font-size:14px;color:#333;line-height:22px;margin:0 0 6px;">Este es el archivo de tokens que le entregué al equipo de desarrollo. Está estructurado para ser compatible con Style Dictionary o con la definición manual de variables en React Native / Flutter. Cada valor tiene su nombre semántico, su valor raw y una descripción de uso.</p>
+        <p style="font-size:13px;color:#8A8A8A;margin:0;">Formato: JSON · Compatible con Style Dictionary 3.x · Variables CSS como fallback para web.</p>
+      </div>
+
+      <!-- Color tokens -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
+        <div style="padding:14px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;border-radius:99px;background:linear-gradient(45deg,#029ECB,#CCD32A);"></div>
+          <div style="font-weight:700;font-size:13px;color:#333;">color.json</div>
+        </div>
+        <pre style="margin:0;padding:20px 24px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:20px;color:#1F1F1F;background:#FAFBFC;overflow-x:auto;white-space:pre;">{
+  "color": {
+    "brand": {
+      "cyan":     { "value": "#029ECB", "usage": "Primary — botones, CTAs, tabs activos, links" },
+      "lime":     { "value": "#CCD32A", "usage": "Accent — barra de nivel, icono activo, top del gradiente" },
+      "gradient": { "value": "linear-gradient(45deg, #029ECB 0%, #CCD32A 85%)", "usage": "Botones primary, logo, barras de progreso, toggle ON" },
+      "navy":     { "value": "#004B72", "usage": "Datos en tarjeta gris de home, texto de datos clave" },
+      "darkCyan":  { "value": "#007B9F", "usage": "Hover / pressed / link secundario" }
+    },
+    "neutral": {
+      "900": { "value": "#1F1F1F", "usage": "Titulares de máximo peso" },
+      "800": { "value": "#333333", "usage": "Cuerpo de texto principal" },
+      "600": { "value": "#666666", "usage": "Texto secundario, subtítulos" },
+      "500": { "value": "#8A8A8A", "usage": "Texto terciario, metadatos, labels" },
+      "300": { "value": "#B8B8B8", "usage": "Placeholders en inputs" },
+      "200": { "value": "#DBDBDB", "usage": "Divisores, bordes sutiles" },
+      "100": { "value": "#F6F6F6", "usage": "Fondo de app, fondo de inputs deshabilitados" },
+      "000": { "value": "#FFFFFF", "usage": "Fondo dominante — White First" }
+    },
+    "semantic": {
+      "success":       { "value": "#008C31", "background": "#F1F6F5", "usage": "Estado: en bodega, confirmación" },
+      "error":         { "value": "#F32735", "background": "#F4E8E9", "usage": "Estado: error, campo inválido, alerta crítica" },
+      "warning":       { "value": "#E66B00", "background": "#FDF3EA", "usage": "Estado: despachado, advertencia" },
+      "info":          { "value": "#0260CB", "background": "#E8F0FB", "usage": "Estado: en tienda" },
+      "special":       { "value": "#FF28E2", "background": "#FDE8FC", "usage": "Estado: entregado" }
+    },
+    "text": {
+      "neutral":   { "value": "#FFFFFF", "usage": "Texto sobre fondos de color (botones, badges)" },
+      "dark":      { "value": "#333333", "usage": "Texto primario sobre blanco" },
+      "primary":   { "value": "#666666", "usage": "Texto secundario" },
+      "default":   { "value": "#B8B8B8", "usage": "Placeholder" },
+      "secondary": { "value": "#007B9F", "usage": "Links secundarios" },
+      "tertiary":  { "value": "#004B72", "usage": "Datos en tarjeta de nivel" }
+    },
+    "background": {
+      "white":   { "value": "#FFFFFF" },
+      "primary": { "value": "#029ECB" },
+      "nude":    { "value": "#F6F6F6" },
+      "nude2":   { "value": "#B8B8B8" }
+    }
+  }
+}</pre>
+      </div>
+
+      <!-- Typography tokens -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
+        <div style="padding:14px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;border-radius:99px;background:#333;"></div>
+          <div style="font-weight:700;font-size:13px;color:#333;">typography.json</div>
+        </div>
+        <pre style="margin:0;padding:20px 24px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:20px;color:#1F1F1F;background:#FAFBFC;overflow-x:auto;white-space:pre;">{
+  "typography": {
+    "fontFamily": {
+      "primary": { "value": "Plus Jakarta Sans", "weights": [400, 500, 700, 800] }
+    },
+    "scale": {
+      "displayL":    { "size": 32, "lineHeight": 38, "weight": 700, "usage": "Display grande, pantallas de bienvenida" },
+      "display":     { "size": 24, "lineHeight": 32, "weight": 700, "usage": "Titulares de sección principal" },
+      "sectionTitle":{ "size": 19, "lineHeight": 24, "weight": 700, "usage": "Encabezado de sección en pantallas internas" },
+      "title":       { "size": 16, "lineHeight": 20, "weight": 700, "usage": "Título de card, nombre de paquete" },
+      "titleSmall":  { "size": 14, "lineHeight": 18, "weight": 800, "usage": "Título de card pequeña, badge de nivel" },
+      "button":      { "size": 16, "lineHeight": 20, "weight": 800, "usage": "Label de botones full-width" },
+      "body":        { "size": 14, "lineHeight": 18, "weight": 500, "usage": "Cuerpo de texto general, listas, descripciones" },
+      "placeholder": { "size": 13, "lineHeight": 16, "weight": 500, "usage": "Placeholders en inputs" },
+      "id":          { "size": 13, "lineHeight": 16, "weight": 700, "usage": "Números de tracking, IDs de paquete" },
+      "navBar":      { "size": 12, "lineHeight": 15, "weight": 500, "usage": "Labels de tab bar inactivo" },
+      "navBarOn":    { "size": 12, "lineHeight": 15, "weight": 700, "usage": "Label de tab bar activo" },
+      "label":       { "size": 12, "lineHeight": 15, "weight": 700, "usage": "Labels de campos, badges UPPERCASE" },
+      "caption":     { "size": 10, "lineHeight": 13, "weight": 500, "usage": "Fechas, metadatos secundarios" },
+      "tag":         { "size": 10, "lineHeight": 13, "weight": 500, "usage": "Etiquetas de categoría UPPERCASE" }
+    }
+  }
+}</pre>
+      </div>
+
+      <!-- Spacing & layout tokens -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
+        <div style="padding:14px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;border-radius:99px;background:#CCD32A;"></div>
+          <div style="font-weight:700;font-size:13px;color:#333;">spacing.json</div>
+        </div>
+        <pre style="margin:0;padding:20px 24px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:20px;color:#1F1F1F;background:#FAFBFC;overflow-x:auto;white-space:pre;">{
+  "spacing": {
+    "padding": {
+      "margin": { "value": 16, "usage": "Padding lateral de pantalla" },
+      "xxxs":   { "value": 2  },
+      "xxs":    { "value": 4  },
+      "xs":     { "value": 8  },
+      "sm":     { "value": 10 },
+      "m":      { "value": 12 },
+      "md":     { "value": 16 },
+      "xl":     { "value": 20, "usage": "Padding interior de cards" },
+      "xxl":    { "value": 32, "usage": "Separación entre secciones" }
+    },
+    "gap": {
+      "xxs": { "value": 4  },
+      "xs":  { "value": 8  },
+      "sm":  { "value": 12 },
+      "md":  { "value": 16 },
+      "lg":  { "value": 24 },
+      "xl":  { "value": 48 }
+    },
+    "radius": {
+      "full": { "value": 99,  "usage": "Avatares, pills, badges, toggles" },
+      "md":   { "value": 10,  "usage": "Cards, modales, bottom sheets" },
+      "sm":   { "value": 8,   "usage": "Botones, inputs, chips" }
+    },
+    "border": {
+      "md": { "value": 1,    "usage": "Bordes de cards y inputs" },
+      "lg": { "value": 2,    "usage": "Borde activo / seleccionado" },
+      "xs": { "value": 0.33, "usage": "Divisores muy sutiles" }
+    }
+  },
+  "layout": {
+    "canvas":        { "width": 430, "height": 932 },
+    "headerHeight":  { "value": 130 },
+    "tabBarHeight":  { "value": 89  },
+    "contentArea":   { "paddingHorizontal": 16 }
+  }
+}</pre>
+      </div>
+
+      <!-- Variables CSS -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
+        <div style="padding:14px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;border-radius:99px;background:#E66B00;"></div>
+          <div style="font-weight:700;font-size:13px;color:#333;">variables.css <span style="font-weight:500;color:#8A8A8A;">(fallback web / dashboard)</span></div>
+        </div>
+        <pre style="margin:0;padding:20px 24px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:20px;color:#1F1F1F;background:#FAFBFC;overflow-x:auto;white-space:pre;">:root {
+  /* Brand */
+  --color-cyan:      #029ECB;
+  --color-lime:      #CCD32A;
+  --color-navy:      #004B72;
+  --color-dark-cyan: #007B9F;
+  --gradient-brand:  linear-gradient(45deg, #029ECB 0%, #CCD32A 85%);
+
+  /* Neutral */
+  --color-n900: #1F1F1F;
+  --color-n800: #333333;
+  --color-n600: #666666;
+  --color-n500: #8A8A8A;
+  --color-n300: #B8B8B8;
+  --color-n200: #DBDBDB;
+  --color-n100: #F6F6F6;
+  --color-n000: #FFFFFF;
+
+  /* Semantic */
+  --color-success:    #008C31;
+  --color-success-bg: #F1F6F5;
+  --color-error:      #F32735;
+  --color-error-bg:   #F4E8E9;
+  --color-warning:    #E66B00;
+  --color-info:       #0260CB;
+  --color-special:    #FF28E2;
+
+  /* Spacing */
+  --space-xs:  8px;
+  --space-sm:  10px;
+  --space-md:  16px;
+  --space-xl:  20px;
+  --space-xxl: 32px;
+
+  /* Radius */
+  --radius-full: 99px;
+  --radius-md:   10px;
+  --radius-sm:   8px;
+
+  /* Typography */
+  --font-primary: 'Plus Jakarta Sans', sans-serif;
+}</pre>
+      </div>
+
+    </div>
+    <!-- ════════ FIN tokens ════════ -->
+
+
+    <!-- ════════════════════ HANDOFF ════════════════════ -->
+    <div class="section" id="handoff">
+
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:24px;">
+        <div class="section-label" style="margin-bottom:10px;">Handoff a developers</div>
+        <p style="font-size:14px;color:#333;line-height:22px;margin:0 0 10px;">Así debí entregarle el diseño al equipo técnico. Un handoff no es solo el enlace de Figma: es el contexto, las reglas de comportamiento, los estados, las excepciones y el contrato de interacción por pantalla. Lo que no está escrito, el developer lo inventa.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 12px;background:#F6F6F6;border-radius:6px;font-size:12px;font-weight:600;color:#333;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="#029ECB" stroke-width="1.5"/><path d="M4 5h6M4 7.5h4" stroke="#029ECB" stroke-width="1.3" stroke-linecap="round"/></svg>
+            Pantalla: Agregar paquete
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 12px;background:#F6F6F6;border-radius:6px;font-size:12px;font-weight:600;color:#333;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#CCD32A" stroke-width="1.5"/><path d="M7 4.5v3l2 1" stroke="#CCD32A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Épica: Gestión de paquetes · PKG-01
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 12px;background:#F1F6F5;border-radius:6px;font-size:12px;font-weight:600;color:#008C31;">
+            Estado: Diseño aprobado — listo para dev
+          </div>
+        </div>
+      </div>
+
+      <!-- Layout de la pantalla -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;">
+
+        <!-- Mockup esquemático -->
+        <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:20px;">
+          <div style="font-weight:700;font-size:13px;color:#333;margin-bottom:14px;">Estructura visual</div>
+          <div style="background:#F6F6F6;border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;max-width:280px;margin:0 auto;">
+            <!-- Header -->
+            <div style="background:#fff;border-radius:6px;padding:10px 12px;border:1px solid #E8E8E8;">
+              <div style="font-size:9px;font-weight:700;color:#8A8A8A;letter-spacing:.5px;margin-bottom:4px;">HEADER · 130px fijo</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div style="width:18px;height:18px;border-radius:3px;background:#E8E8E8;"></div>
+                <div style="font-size:11px;font-weight:700;color:#333;">Agregar paquete</div>
+                <div style="width:18px;height:18px;border-radius:99px;background:linear-gradient(45deg,#029ECB,#CCD32A);"></div>
+              </div>
+            </div>
+            <!-- Step indicator -->
+            <div style="display:flex;gap:6px;align-items:center;padding:0 4px;">
+              <div style="flex:1;height:4px;border-radius:99px;background:linear-gradient(45deg,#029ECB,#CCD32A);"></div>
+              <div style="flex:1;height:4px;border-radius:99px;background:#E8E8E8;"></div>
+              <div style="flex:1;height:4px;border-radius:99px;background:#E8E8E8;"></div>
+              <div style="font-size:9px;color:#8A8A8A;font-weight:600;white-space:nowrap;">Paso 1/3</div>
+            </div>
+            <!-- Campos -->
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div>
+                <div style="font-size:9px;font-weight:700;color:#666;margin-bottom:4px;">TIENDA / SITIO WEB</div>
+                <div style="background:#fff;border:1px solid #B8B8B8;border-radius:8px;padding:10px 12px;font-size:11px;color:#B8B8B8;">ej. Amazon, Nike, Shein</div>
+              </div>
+              <div>
+                <div style="font-size:9px;font-weight:700;color:#666;margin-bottom:4px;">DESCRIPCIÓN DEL PAQUETE</div>
+                <div style="background:#fff;border:1px solid #B8B8B8;border-radius:8px;padding:10px 12px;font-size:11px;color:#B8B8B8;">¿Qué compraste?</div>
+              </div>
+              <div>
+                <div style="font-size:9px;font-weight:700;color:#666;margin-bottom:4px;">NÚMERO DE ORDEN (OPCIONAL)</div>
+                <div style="background:#fff;border:1px solid #B8B8B8;border-radius:8px;padding:10px 12px;font-size:11px;color:#B8B8B8;">#ORD-00000</div>
+              </div>
+            </div>
+            <!-- Botón -->
+            <div style="background:linear-gradient(45deg,#029ECB,#CCD32A);border-radius:8px;padding:14px;text-align:center;font-size:12px;font-weight:800;color:#fff;">Continuar</div>
+            <!-- Tab bar -->
+            <div style="background:#fff;border-radius:6px;border:1px solid #E8E8E8;padding:8px 6px;display:flex;justify-content:space-around;">
+              <div style="text-align:center;"><div style="width:18px;height:18px;background:#E8E8E8;border-radius:3px;margin:0 auto 3px;"></div><div style="font-size:8px;color:#B8B8B8;">Inicio</div></div>
+              <div style="text-align:center;"><div style="width:18px;height:18px;background:linear-gradient(45deg,#029ECB,#CCD32A);border-radius:3px;margin:0 auto 3px;"></div><div style="font-size:8px;font-weight:700;color:#029ECB;">Agregar</div></div>
+              <div style="text-align:center;"><div style="width:18px;height:18px;background:#E8E8E8;border-radius:3px;margin:0 auto 3px;"></div><div style="font-size:8px;color:#B8B8B8;">Paquetes</div></div>
+              <div style="text-align:center;"><div style="width:18px;height:18px;background:#E8E8E8;border-radius:3px;margin:0 auto 3px;"></div><div style="font-size:8px;color:#B8B8B8;">Consolidar</div></div>
+            </div>
+            <div style="font-size:9px;color:#8A8A8A;text-align:center;">TABBAR · 89px fijo · siempre visible</div>
+          </div>
+        </div>
+
+        <!-- Especificaciones -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <!-- Tokens usados -->
+          <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:18px 20px;">
+            <div style="font-weight:700;font-size:12px;color:#333;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Tokens aplicados</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid #F0F0F0;"><span style="color:#8A8A8A;">Botón primary</span><code style="color:#029ECB;background:#E8F4FA;padding:1px 6px;border-radius:4px;font-size:11px;">--gradient-brand</code></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid #F0F0F0;"><span style="color:#8A8A8A;">Label botón</span><code style="color:#029ECB;background:#E8F4FA;padding:1px 6px;border-radius:4px;font-size:11px;">button · 16px/800</code></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid #F0F0F0;"><span style="color:#8A8A8A;">Radius botón</span><code style="color:#029ECB;background:#E8F4FA;padding:1px 6px;border-radius:4px;font-size:11px;">--radius-sm (8px)</code></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid #F0F0F0;"><span style="color:#8A8A8A;">Altura botón</span><code style="color:#029ECB;background:#E8F4FA;padding:1px 6px;border-radius:4px;font-size:11px;">52px</code></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid #F0F0F0;"><span style="color:#8A8A8A;">Border input</span><code style="color:#029ECB;background:#E8F4FA;padding:1px 6px;border-radius:4px;font-size:11px;">1px --color-n300</code></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid #F0F0F0;"><span style="color:#8A8A8A;">Focus input</span><code style="color:#029ECB;background:#E8F4FA;padding:1px 6px;border-radius:4px;font-size:11px;">1px --color-cyan</code></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;"><span style="color:#8A8A8A;">Padding pantalla</span><code style="color:#029ECB;background:#E8F4FA;padding:1px 6px;border-radius:4px;font-size:11px;">--space-md (16px)</code></div>
+            </div>
+          </div>
+
+          <!-- Estados del campo -->
+          <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:18px 20px;">
+            <div style="font-weight:700;font-size:12px;color:#333;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Estados del input</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:center;gap:10px;"><div style="width:80px;height:32px;border:1px solid #B8B8B8;border-radius:8px;background:#fff;flex-shrink:0;"></div><div><div style="font-size:11px;font-weight:700;color:#333;">Default</div><div style="font-size:11px;color:#8A8A8A;">1px #B8B8B8 · fondo #FFF</div></div></div>
+              <div style="display:flex;align-items:center;gap:10px;"><div style="width:80px;height:32px;border:2px solid #029ECB;border-radius:8px;background:#fff;flex-shrink:0;"></div><div><div style="font-size:11px;font-weight:700;color:#029ECB;">Focused</div><div style="font-size:11px;color:#8A8A8A;">2px #029ECB · sin sombra</div></div></div>
+              <div style="display:flex;align-items:center;gap:10px;"><div style="width:80px;height:32px;border:1px solid #F32735;border-radius:8px;background:#FFF5F5;flex-shrink:0;"></div><div><div style="font-size:11px;font-weight:700;color:#F32735;">Error</div><div style="font-size:11px;color:#8A8A8A;">1px #F32735 · bg #FFF5F5</div></div></div>
+              <div style="display:flex;align-items:center;gap:10px;"><div style="width:80px;height:32px;border:1px solid #E8E8E8;border-radius:8px;background:#F6F6F6;flex-shrink:0;"></div><div><div style="font-size:11px;font-weight:700;color:#8A8A8A;">Disabled</div><div style="font-size:11px;color:#8A8A8A;">1px #E8E8E8 · bg #F6F6F6</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comportamiento e interacciones -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:24px;">
+        <div style="font-weight:700;font-size:13px;color:#333;margin-bottom:16px;text-transform:uppercase;letter-spacing:.5px;font-size:11px;">Comportamiento e interacciones</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+          <div>
+            <div style="font-weight:700;font-size:13px;color:#333;margin-bottom:8px;">Validación</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;gap:8px;padding:8px 12px;background:#FAFAFA;border-radius:6px;border-left:3px solid #029ECB;"><div style="font-size:12px;color:#333;line-height:18px;">El campo "Tienda" es obligatorio. Si el usuario toca "Continuar" sin llenarlo, muestra error inline: <em style="color:#F32735;">"Escribe la tienda donde compraste"</em>.</div></div>
+              <div style="display:flex;gap:8px;padding:8px 12px;background:#FAFAFA;border-radius:6px;border-left:3px solid #029ECB;"><div style="font-size:12px;color:#333;line-height:18px;">"Descripción" es obligatorio. Mínimo 3 caracteres. Error: <em style="color:#F32735;">"Cuéntanos qué compraste"</em>.</div></div>
+              <div style="display:flex;gap:8px;padding:8px 12px;background:#FAFAFA;border-radius:6px;border-left:3px solid #CCD32A;"><div style="font-size:12px;color:#333;line-height:18px;">"Número de orden" es opcional. Si el usuario lo llena, validar que solo tenga caracteres alfanuméricos y guiones.</div></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:13px;color:#333;margin-bottom:8px;">Botón primary</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;gap:8px;padding:8px 12px;background:#FAFAFA;border-radius:6px;border-left:3px solid #029ECB;"><div style="font-size:12px;color:#333;line-height:18px;"><strong>Hover:</strong> brightness(1.05) · transición 150ms ease.</div></div>
+              <div style="display:flex;gap:8px;padding:8px 12px;background:#FAFAFA;border-radius:6px;border-left:3px solid #029ECB;"><div style="font-size:12px;color:#333;line-height:18px;"><strong>Press:</strong> scale(0.98) + brightness(0.95) · 150ms ease.</div></div>
+              <div style="display:flex;gap:8px;padding:8px 12px;background:#FAFAFA;border-radius:6px;border-left:3px solid #029ECB;"><div style="font-size:12px;color:#333;line-height:18px;"><strong>Loading:</strong> spinner blanco centrado, botón deshabilitado, sin cambio de tamaño.</div></div>
+              <div style="display:flex;gap:8px;padding:8px 12px;background:#FAFAFA;border-radius:6px;border-left:3px solid #CCD32A;"><div style="font-size:12px;color:#333;line-height:18px;"><strong>Disabled:</strong> opacity 0.4, no interactivo. Solo si los campos requeridos están vacíos.</div></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:13px;color:#333;margin-bottom:8px;">Flujo completo de la pantalla</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;gap:8px;align-items:flex-start;padding:8px 12px;background:#FAFAFA;border-radius:6px;"><div style="width:18px;height:18px;border-radius:99px;background:linear-gradient(45deg,#029ECB,#CCD32A);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0;margin-top:1px;">1</div><div style="font-size:12px;color:#333;line-height:18px;">Usuario abre tab "Agregar paquete". Se muestra paso 1/3 con los 3 campos.</div></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;padding:8px 12px;background:#FAFAFA;border-radius:6px;"><div style="width:18px;height:18px;border-radius:99px;background:linear-gradient(45deg,#029ECB,#CCD32A);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0;margin-top:1px;">2</div><div style="font-size:12px;color:#333;line-height:18px;">Al tocar "Continuar" con campos válidos, slide hacia paso 2/3 (detalles de envío).</div></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;padding:8px 12px;background:#FAFAFA;border-radius:6px;"><div style="width:18px;height:18px;border-radius:99px;background:linear-gradient(45deg,#029ECB,#CCD32A);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0;margin-top:1px;">3</div><div style="font-size:12px;color:#333;line-height:18px;">Paso 3/3 confirma el paquete. Si el usuario tiene puntos acumulados por esta acción (+50 pts), muestra toast con animación de puntos.</div></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;padding:8px 12px;background:#F1F6F5;border-radius:6px;"><div style="width:18px;height:18px;border-radius:99px;background:#008C31;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0;margin-top:1px;">✓</div><div style="font-size:12px;color:#333;line-height:18px;"><strong>Éxito:</strong> navega a "Mis paquetes" con el nuevo paquete resaltado en la parte superior de la lista.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notas de accesibilidad y edge cases -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:20px;">
+          <div style="font-weight:700;font-size:12px;color:#333;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">Edge cases para cubrir</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:8px;padding:8px 12px;background:#FDF3EA;border-radius:6px;border-left:3px solid #E66B00;font-size:12px;color:#333;line-height:18px;">Sin conexión a internet al tocar "Continuar": mostrar banner de error offline, no perder datos del formulario.</div>
+            <div style="display:flex;gap:8px;padding:8px 12px;background:#FDF3EA;border-radius:6px;border-left:3px solid #E66B00;font-size:12px;color:#333;line-height:18px;">Usuario pega un número de orden con espacios: limpiar automáticamente los espacios antes de enviar.</div>
+            <div style="display:flex;gap:8px;padding:8px 12px;background:#FDF3EA;border-radius:6px;border-left:3px solid #E66B00;font-size:12px;color:#333;line-height:18px;">Nombre de tienda mayor a 50 caracteres: truncar en el input y en la vista de lista de paquetes.</div>
+            <div style="display:flex;gap:8px;padding:8px 12px;background:#F4E8E9;border-radius:6px;border-left:3px solid #F32735;font-size:12px;color:#333;line-height:18px;">Error de servidor (5xx) al guardar: toast de error con CTA "Intentar de nuevo" sin resetear el formulario.</div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:20px;">
+          <div style="font-weight:700;font-size:12px;color:#333;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">Accesibilidad</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:8px;padding:8px 12px;background:#FAFAFA;border-radius:6px;font-size:12px;color:#333;line-height:18px;"><strong style="color:#029ECB;flex-shrink:0;">AA</strong>Contraste mínimo 4.5:1 en todos los textos sobre fondo blanco. Los placeholders (#B8B8B8 sobre #FFF) están en 2.7:1 — son informativos, no críticos.</div>
+            <div style="display:flex;gap:8px;padding:8px 12px;background:#FAFAFA;border-radius:6px;font-size:12px;color:#333;line-height:18px;"><strong style="color:#029ECB;flex-shrink:0;">TAP</strong>Área mínima de toque 44×44px en todos los elementos interactivos.</div>
+            <div style="display:flex;gap:8px;padding:8px 12px;background:#FAFAFA;border-radius:6px;font-size:12px;color:#333;line-height:18px;"><strong style="color:#029ECB;flex-shrink:0;">A11Y</strong>Cada input tiene <code style="background:#E8F4FA;padding:1px 4px;border-radius:3px;">accessibilityLabel</code> explícito. Los errores de campo tienen <code style="background:#E8F4FA;padding:1px 4px;border-radius:3px;">role="alert"</code> para ser anunciados por VoiceOver / TalkBack.</div>
+            <div style="display:flex;gap:8px;padding:8px 12px;background:#FAFAFA;border-radius:6px;font-size:12px;color:#333;line-height:18px;"><strong style="color:#029ECB;flex-shrink:0;">RTL</strong>El flujo está diseñado LTR. Si en el futuro se agrega soporte RTL, los chevrons y la barra de progreso deben invertirse.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enlace Figma y assets -->
+      <div style="background:linear-gradient(120deg,#fff 60%,#E8F6FB 100%);border:1.5px solid #029ECB;border-radius:10px;padding:24px;display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;">
+        <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(45deg,#029ECB,#CCD32A);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="7" height="7" rx="2" fill="#fff"/><rect x="12" y="3" width="7" height="7" rx="2" fill="rgba(255,255,255,.6)"/><rect x="3" y="12" width="7" height="7" rx="2" fill="rgba(255,255,255,.6)"/><rect x="12" y="12" width="7" height="7" rx="2" fill="rgba(255,255,255,.4)"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-weight:700;font-size:15px;color:#333;margin-bottom:6px;">Lo que acompaña al handoff</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;">
+            <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:6px;height:6px;border-radius:99px;background:#029ECB;margin-top:5px;flex-shrink:0;"></div><div style="font-size:13px;color:#333;line-height:18px;">Archivo Figma con modo Dev activo, componentes anotados y variables de token vinculadas.</div></div>
+            <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:6px;height:6px;border-radius:99px;background:#029ECB;margin-top:5px;flex-shrink:0;"></div><div style="font-size:13px;color:#333;line-height:18px;">Archivo <code style="background:#E8F4FA;padding:1px 6px;border-radius:4px;font-size:12px;">tokens.json</code> con todos los valores del sistema de diseño.</div></div>
+            <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:6px;height=6px;border-radius:99px;background:#029ECB;margin-top:5px;flex-shrink:0;"></div><div style="font-size:13px;color:#333;line-height:18px;">Documento de interacciones por pantalla (este handoff) en Notion o Confluence.</div></div>
+            <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:6px;height:6px;border-radius:99px;background:#029ECB;margin-top:5px;flex-shrink:0;"></div><div style="font-size:13px;color:#333;line-height:18px;">Assets de iconos en SVG exportados individualmente y como sprite.</div></div>
+            <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:6px;height:6px;border-radius:99px;background:#CCD32A;margin-top:5px;flex-shrink:0;"></div><div style="font-size:13px;color:#333;line-height:18px;">Sesión de kickoff de dev de 30 min para resolver dudas antes de comenzar a codear.</div></div>
+            <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:6px;height:6px;border-radius:99px;background:#CCD32A;margin-top:5px;flex-shrink:0;"></div><div style="font-size:13px;color:#333;line-height:18px;">Criterios de aceptación por historia (los de la épica PKG-01 están arriba en el backlog).</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- ════════ FIN handoff ════════ -->
+
+
   </div><!-- /#content -->
 </div><!-- /#main -->
 
@@ -3325,7 +3881,10 @@ function show(id) {
     priorizacion: 'Priorización',
     oportunidades: 'Árbol de oportunidades',
     workshop: 'Workshop',
-    puntos: 'Sistema de puntos'
+    puntos: 'Sistema de puntos',
+    backlog: 'Backlog',
+    tokens: 'Design tokens',
+    handoff: 'Handoff a developers'
   };
   document.getElementById('topbar-title').textContent = titles[id] || '';
 }

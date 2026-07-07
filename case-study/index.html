@@ -3499,187 +3499,320 @@ tr:last-child td { border-bottom: none; }
     <!-- ════════════════════ TOKENS ════════════════════ -->
     <div class="section" id="tokens">
 
+      <!-- Intro + estructura -->
       <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;padding:24px;">
-        <div class="section-label" style="margin-bottom:10px;">Design tokens en JSON</div>
-        <p style="font-size:14px;color:#333;line-height:22px;margin:0 0 6px;">Este es el archivo de tokens que le entregué al equipo de desarrollo. Está estructurado para ser compatible con Style Dictionary o con la definición manual de variables en React Native / Flutter. Cada valor tiene su nombre semántico, su valor raw y una descripción de uso.</p>
-        <p style="font-size:13px;color:#8A8A8A;margin:0;">Formato: JSON · Compatible con Style Dictionary 3.x · Variables CSS como fallback para web.</p>
+        <div class="section-label" style="margin-bottom:10px;">Design tokens — Estructura DTCG</div>
+        <p style="font-size:14px;color:#333;line-height:22px;margin:0 0 12px;">Los tokens siguen el estándar W3C Design Token Community Group (DTCG): cada token usa <code style="background:#E8F4FA;padding:1px 6px;border-radius:4px;font-size:12px;">$type</code>, <code style="background:#E8F4FA;padding:1px 6px;border-radius:4px;font-size:12px;">$value</code> y <code style="background:#E8F4FA;padding:1px 6px;border-radius:4px;font-size:12px;">$description</code>. Los semánticos y de componente referencian primitivos con la notación <code style="background:#E8F4FA;padding:1px 6px;border-radius:4px;font-size:12px;">{ruta.al.token}</code>, compatible con Style Dictionary 4.x.</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <div style="padding:14px 16px;background:#F6F6F6;border-radius:8px;">
+            <div style="font-weight:700;font-size:11px;color:#8A8A8A;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;">01 — Primitivos</div>
+            <div style="font-size:12px;color:#333;line-height:17px;">Valores raw. Sin referencias. Escala de color, tipografía y espaciado. <code style="font-size:11px;background:#E8E8E8;padding:1px 4px;border-radius:3px;">primitives.json</code></div>
+          </div>
+          <div style="padding:14px 16px;background:#E8F6FB;border-radius:8px;border:1px solid #029ECB22;">
+            <div style="font-weight:700;font-size:11px;color:#029ECB;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;">02 — Semánticos</div>
+            <div style="font-size:12px;color:#333;line-height:17px;">Decisiones de diseño. Referencian primitivos. Color de texto, fondo, estado. <code style="font-size:11px;background:#E8F4FA;padding:1px 4px;border-radius:3px;">semantic.json</code></div>
+          </div>
+          <div style="padding:14px 16px;background:#F4FAEA;border-radius:8px;border:1px solid #CCD32A44;">
+            <div style="font-weight:700;font-size:11px;color:#7A8A00;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;">03 — Componentes</div>
+            <div style="font-size:12px;color:#333;line-height:17px;">Tokens por componente. Referencian semánticos. Botón, input, card, nav. <code style="font-size:11px;background:#F0F5D0;padding:1px 4px;border-radius:3px;">components.json</code></div>
+          </div>
+        </div>
       </div>
 
-      <!-- Color tokens -->
+      <!-- 01 primitives.json -->
       <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
         <div style="padding:14px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:8px;">
-          <div style="width:10px;height:10px;border-radius:99px;background:linear-gradient(45deg,#029ECB,#CCD32A);"></div>
-          <div style="font-weight:700;font-size:13px;color:#333;">color.json</div>
+          <span style="padding:2px 8px;border-radius:99px;background:#F6F6F6;color:#8A8A8A;font-size:10px;font-weight:700;">01</span>
+          <div style="font-weight:700;font-size:13px;color:#333;">primitives.json</div>
+          <span style="margin-left:auto;font-size:11px;color:#8A8A8A;font-weight:500;">Valores raw — sin referencias</span>
         </div>
-        <pre style="margin:0;padding:20px 24px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:20px;color:#1F1F1F;background:#FAFBFC;overflow-x:auto;white-space:pre;">{
+        <pre style="margin:0;padding:20px 24px;font-family:'SF Mono','Fira Code',monospace;font-size:11.5px;line-height:19px;color:#1F1F1F;background:#FAFBFC;overflow-x:auto;white-space:pre;">{
   "color": {
-    "brand": {
-      "cyan":     { "value": "#029ECB", "usage": "Primary — botones, CTAs, tabs activos, links" },
-      "lime":     { "value": "#CCD32A", "usage": "Accent — barra de nivel, icono activo, top del gradiente" },
-      "gradient": { "value": "linear-gradient(45deg, #029ECB 0%, #CCD32A 85%)", "usage": "Botones primary, logo, barras de progreso, toggle ON" },
-      "navy":     { "value": "#004B72", "usage": "Datos en tarjeta gris de home, texto de datos clave" },
-      "darkCyan":  { "value": "#007B9F", "usage": "Hover / pressed / link secundario" }
+    "cyan": {
+      "100": { "$type": "color", "$value": "#E8F6FB", "$description": "Tint muy claro de cyan — fondos hover y estados activos sutiles" },
+      "400": { "$type": "color", "$value": "#029ECB", "$description": "Cyan base — color primario de marca" },
+      "600": { "$type": "color", "$value": "#007B9F", "$description": "Cyan oscuro — hover, pressed, link secundario" },
+      "900": { "$type": "color", "$value": "#004B72", "$description": "Navy — datos de tarjeta, texto de énfasis sobre fondo claro" }
+    },
+    "lime": {
+      "400": { "$type": "color", "$value": "#CCD32A", "$description": "Lime base — acento de marca, tope del gradiente" }
     },
     "neutral": {
-      "900": { "value": "#1F1F1F", "usage": "Titulares de máximo peso" },
-      "800": { "value": "#333333", "usage": "Cuerpo de texto principal" },
-      "600": { "value": "#666666", "usage": "Texto secundario, subtítulos" },
-      "500": { "value": "#8A8A8A", "usage": "Texto terciario, metadatos, labels" },
-      "300": { "value": "#B8B8B8", "usage": "Placeholders en inputs" },
-      "200": { "value": "#DBDBDB", "usage": "Divisores, bordes sutiles" },
-      "100": { "value": "#F6F6F6", "usage": "Fondo de app, fondo de inputs deshabilitados" },
-      "000": { "value": "#FFFFFF", "usage": "Fondo dominante — White First" }
+      "0":   { "$type": "color", "$value": "#FFFFFF", "$description": "Blanco puro — fondo dominante (White First)" },
+      "100": { "$type": "color", "$value": "#F6F6F6", "$description": "Nude — fondo de app y inputs deshabilitados" },
+      "200": { "$type": "color", "$value": "#DBDBDB", "$description": "Divisores y bordes sutiles" },
+      "300": { "$type": "color", "$value": "#B8B8B8", "$description": "Placeholder text y borde de input default" },
+      "500": { "$type": "color", "$value": "#8A8A8A", "$description": "Texto terciario, metadatos, section labels" },
+      "600": { "$type": "color", "$value": "#666666", "$description": "Texto secundario, subtítulos" },
+      "800": { "$type": "color", "$value": "#333333", "$description": "Texto de cuerpo principal" },
+      "900": { "$type": "color", "$value": "#1F1F1F", "$description": "Titulares de máximo contraste" }
     },
-    "semantic": {
-      "success":       { "value": "#008C31", "background": "#F1F6F5", "usage": "Estado: en bodega, confirmación" },
-      "error":         { "value": "#F32735", "background": "#F4E8E9", "usage": "Estado: error, campo inválido, alerta crítica" },
-      "warning":       { "value": "#E66B00", "background": "#FDF3EA", "usage": "Estado: despachado, advertencia" },
-      "info":          { "value": "#0260CB", "background": "#E8F0FB", "usage": "Estado: en tienda" },
-      "special":       { "value": "#FF28E2", "background": "#FDE8FC", "usage": "Estado: entregado" }
-    },
-    "text": {
-      "neutral":   { "value": "#FFFFFF", "usage": "Texto sobre fondos de color (botones, badges)" },
-      "dark":      { "value": "#333333", "usage": "Texto primario sobre blanco" },
-      "primary":   { "value": "#666666", "usage": "Texto secundario" },
-      "default":   { "value": "#B8B8B8", "usage": "Placeholder" },
-      "secondary": { "value": "#007B9F", "usage": "Links secundarios" },
-      "tertiary":  { "value": "#004B72", "usage": "Datos en tarjeta de nivel" }
-    },
-    "background": {
-      "white":   { "value": "#FFFFFF" },
-      "primary": { "value": "#029ECB" },
-      "nude":    { "value": "#F6F6F6" },
-      "nude2":   { "value": "#B8B8B8" }
-    }
-  }
-}</pre>
-      </div>
-
-      <!-- Typography tokens -->
-      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
-        <div style="padding:14px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:8px;">
-          <div style="width:10px;height:10px;border-radius:99px;background:#333;"></div>
-          <div style="font-weight:700;font-size:13px;color:#333;">typography.json</div>
-        </div>
-        <pre style="margin:0;padding:20px 24px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:20px;color:#1F1F1F;background:#FAFBFC;overflow-x:auto;white-space:pre;">{
-  "typography": {
-    "fontFamily": {
-      "primary": { "value": "Plus Jakarta Sans", "weights": [400, 500, 700, 800] }
-    },
-    "scale": {
-      "displayL":    { "size": 32, "lineHeight": 38, "weight": 700, "usage": "Display grande, pantallas de bienvenida" },
-      "display":     { "size": 24, "lineHeight": 32, "weight": 700, "usage": "Titulares de sección principal" },
-      "sectionTitle":{ "size": 19, "lineHeight": 24, "weight": 700, "usage": "Encabezado de sección en pantallas internas" },
-      "title":       { "size": 16, "lineHeight": 20, "weight": 700, "usage": "Título de card, nombre de paquete" },
-      "titleSmall":  { "size": 14, "lineHeight": 18, "weight": 800, "usage": "Título de card pequeña, badge de nivel" },
-      "button":      { "size": 16, "lineHeight": 20, "weight": 800, "usage": "Label de botones full-width" },
-      "body":        { "size": 14, "lineHeight": 18, "weight": 500, "usage": "Cuerpo de texto general, listas, descripciones" },
-      "placeholder": { "size": 13, "lineHeight": 16, "weight": 500, "usage": "Placeholders en inputs" },
-      "id":          { "size": 13, "lineHeight": 16, "weight": 700, "usage": "Números de tracking, IDs de paquete" },
-      "navBar":      { "size": 12, "lineHeight": 15, "weight": 500, "usage": "Labels de tab bar inactivo" },
-      "navBarOn":    { "size": 12, "lineHeight": 15, "weight": 700, "usage": "Label de tab bar activo" },
-      "label":       { "size": 12, "lineHeight": 15, "weight": 700, "usage": "Labels de campos, badges UPPERCASE" },
-      "caption":     { "size": 10, "lineHeight": 13, "weight": 500, "usage": "Fechas, metadatos secundarios" },
-      "tag":         { "size": 10, "lineHeight": 13, "weight": 500, "usage": "Etiquetas de categoría UPPERCASE" }
-    }
-  }
-}</pre>
-      </div>
-
-      <!-- Spacing & layout tokens -->
-      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
-        <div style="padding:14px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:8px;">
-          <div style="width:10px;height:10px;border-radius:99px;background:#CCD32A;"></div>
-          <div style="font-weight:700;font-size:13px;color:#333;">spacing.json</div>
-        </div>
-        <pre style="margin:0;padding:20px 24px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:20px;color:#1F1F1F;background:#FAFBFC;overflow-x:auto;white-space:pre;">{
-  "spacing": {
-    "padding": {
-      "margin": { "value": 16, "usage": "Padding lateral de pantalla" },
-      "xxxs":   { "value": 2  },
-      "xxs":    { "value": 4  },
-      "xs":     { "value": 8  },
-      "sm":     { "value": 10 },
-      "m":      { "value": 12 },
-      "md":     { "value": 16 },
-      "xl":     { "value": 20, "usage": "Padding interior de cards" },
-      "xxl":    { "value": 32, "usage": "Separación entre secciones" }
-    },
-    "gap": {
-      "xxs": { "value": 4  },
-      "xs":  { "value": 8  },
-      "sm":  { "value": 12 },
-      "md":  { "value": 16 },
-      "lg":  { "value": 24 },
-      "xl":  { "value": 48 }
-    },
-    "radius": {
-      "full": { "value": 99,  "usage": "Avatares, pills, badges, toggles" },
-      "md":   { "value": 10,  "usage": "Cards, modales, bottom sheets" },
-      "sm":   { "value": 8,   "usage": "Botones, inputs, chips" }
-    },
-    "border": {
-      "md": { "value": 1,    "usage": "Bordes de cards y inputs" },
-      "lg": { "value": 2,    "usage": "Borde activo / seleccionado" },
-      "xs": { "value": 0.33, "usage": "Divisores muy sutiles" }
+    "status": {
+      "success":    { "$type": "color", "$value": "#008C31", "$description": "Verde éxito — En bodega, confirmación" },
+      "successBg":  { "$type": "color", "$value": "#F1F6F5", "$description": "Fondo tint éxito" },
+      "error":      { "$type": "color", "$value": "#F32735", "$description": "Rojo error — campo inválido, alerta crítica, En camino" },
+      "errorBg":    { "$type": "color", "$value": "#F4E8E9", "$description": "Fondo tint error" },
+      "warning":    { "$type": "color", "$value": "#E66B00", "$description": "Naranja aviso — Despachado" },
+      "warningBg":  { "$type": "color", "$value": "#FDF3EA", "$description": "Fondo tint aviso" },
+      "info":       { "$type": "color", "$value": "#0260CB", "$description": "Azul info — En tienda" },
+      "infoBg":     { "$type": "color", "$value": "#E8F0FB", "$description": "Fondo tint info" },
+      "delivered":  { "$type": "color", "$value": "#FF28E2", "$description": "Magenta — Entregado" },
+      "deliveredBg":{ "$type": "color", "$value": "#FDE8FC", "$description": "Fondo tint entregado" }
     }
   },
-  "layout": {
-    "canvas":        { "width": 430, "height": 932 },
-    "headerHeight":  { "value": 130 },
-    "tabBarHeight":  { "value": 89  },
-    "contentArea":   { "paddingHorizontal": 16 }
+
+  "font": {
+    "family": {
+      "primary": { "$type": "fontFamily", "$value": "Plus Jakarta Sans", "$description": "Única tipografía del producto. Pesos 400–800." }
+    },
+    "size": {
+      "10": { "$type": "dimension", "$value": "10px" },
+      "12": { "$type": "dimension", "$value": "12px" },
+      "13": { "$type": "dimension", "$value": "13px" },
+      "14": { "$type": "dimension", "$value": "14px" },
+      "16": { "$type": "dimension", "$value": "16px" },
+      "19": { "$type": "dimension", "$value": "19px" },
+      "24": { "$type": "dimension", "$value": "24px" },
+      "32": { "$type": "dimension", "$value": "32px" }
+    },
+    "weight": {
+      "medium":    { "$type": "fontWeight", "$value": 500 },
+      "bold":      { "$type": "fontWeight", "$value": 700 },
+      "extraBold": { "$type": "fontWeight", "$value": 800 }
+    },
+    "lineHeight": {
+      "13": { "$type": "dimension", "$value": "13px" },
+      "15": { "$type": "dimension", "$value": "15px" },
+      "16": { "$type": "dimension", "$value": "16px" },
+      "18": { "$type": "dimension", "$value": "18px" },
+      "20": { "$type": "dimension", "$value": "20px" },
+      "24": { "$type": "dimension", "$value": "24px" },
+      "32": { "$type": "dimension", "$value": "32px" },
+      "38": { "$type": "dimension", "$value": "38px" }
+    }
+  },
+
+  "space": {
+    "2":  { "$type": "dimension", "$value": "2px" },
+    "4":  { "$type": "dimension", "$value": "4px" },
+    "8":  { "$type": "dimension", "$value": "8px" },
+    "10": { "$type": "dimension", "$value": "10px" },
+    "12": { "$type": "dimension", "$value": "12px" },
+    "16": { "$type": "dimension", "$value": "16px" },
+    "20": { "$type": "dimension", "$value": "20px" },
+    "24": { "$type": "dimension", "$value": "24px" },
+    "32": { "$type": "dimension", "$value": "32px" },
+    "48": { "$type": "dimension", "$value": "48px" }
+  },
+
+  "radius": {
+    "none": { "$type": "dimension", "$value": "0px" },
+    "sm":   { "$type": "dimension", "$value": "8px" },
+    "md":   { "$type": "dimension", "$value": "10px" },
+    "full": { "$type": "dimension", "$value": "99px" }
+  },
+
+  "border": {
+    "hairline": { "$type": "dimension", "$value": "0.33px" },
+    "default":  { "$type": "dimension", "$value": "1px" },
+    "thick":    { "$type": "dimension", "$value": "2px" }
   }
 }</pre>
       </div>
 
-      <!-- Variables CSS -->
+      <!-- 02 semantic.json -->
       <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
         <div style="padding:14px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:8px;">
-          <div style="width:10px;height:10px;border-radius:99px;background:#E66B00;"></div>
-          <div style="font-weight:700;font-size:13px;color:#333;">variables.css <span style="font-weight:500;color:#8A8A8A;">(fallback web / dashboard)</span></div>
+          <span style="padding:2px 8px;border-radius:99px;background:#E8F6FB;color:#029ECB;font-size:10px;font-weight:700;">02</span>
+          <div style="font-weight:700;font-size:13px;color:#333;">semantic.json</div>
+          <span style="margin-left:auto;font-size:11px;color:#8A8A8A;font-weight:500;">Referencias a primitivos — decisiones de diseño</span>
         </div>
-        <pre style="margin:0;padding:20px 24px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:20px;color:#1F1F1F;background:#FAFBFC;overflow-x:auto;white-space:pre;">:root {
-  /* Brand */
-  --color-cyan:      #029ECB;
-  --color-lime:      #CCD32A;
-  --color-navy:      #004B72;
-  --color-dark-cyan: #007B9F;
-  --gradient-brand:  linear-gradient(45deg, #029ECB 0%, #CCD32A 85%);
+        <pre style="margin:0;padding:20px 24px;font-family:'SF Mono','Fira Code',monospace;font-size:11.5px;line-height:19px;color:#1F1F1F;background:#FAFBFC;overflow-x:auto;white-space:pre;">{
+  "color": {
+    "text": {
+      "primary":     { "$type": "color", "$value": "{color.neutral.800}", "$description": "Texto de cuerpo principal sobre fondo blanco" },
+      "secondary":   { "$type": "color", "$value": "{color.neutral.600}", "$description": "Texto secundario, subtítulos, descripciones" },
+      "tertiary":    { "$type": "color", "$value": "{color.neutral.500}", "$description": "Metadatos, fechas, labels de sección" },
+      "placeholder": { "$type": "color", "$value": "{color.neutral.300}", "$description": "Placeholder en inputs vacíos" },
+      "onColor":     { "$type": "color", "$value": "{color.neutral.0}",   "$description": "Texto sobre fondos de color (botones, badges con fill)" },
+      "brand":       { "$type": "color", "$value": "{color.cyan.400}",    "$description": "Texto de acción, links, tab activo" },
+      "emphasis":    { "$type": "color", "$value": "{color.cyan.900}",    "$description": "Datos clave en tarjetas, texto de énfasis navy" },
+      "link":        { "$type": "color", "$value": "{color.cyan.600}",    "$description": "Link secundario, hover sobre texto de marca" },
+      "error":       { "$type": "color", "$value": "{color.status.error}", "$description": "Mensaje de error inline bajo un campo" }
+    },
 
-  /* Neutral */
-  --color-n900: #1F1F1F;
-  --color-n800: #333333;
-  --color-n600: #666666;
-  --color-n500: #8A8A8A;
-  --color-n300: #B8B8B8;
-  --color-n200: #DBDBDB;
-  --color-n100: #F6F6F6;
-  --color-n000: #FFFFFF;
+    "background": {
+      "base":        { "$type": "color", "$value": "{color.neutral.0}",   "$description": "Fondo de pantalla dominante — White First" },
+      "surface":     { "$type": "color", "$value": "{color.neutral.100}", "$description": "Fondo de app, fondo de cards secundarias" },
+      "brand":       { "$type": "color", "$value": "{color.cyan.400}",    "$description": "Fondo de botón secondary y elementos de marca sólidos" },
+      "brandSubtle": { "$type": "color", "$value": "{color.cyan.100}",    "$description": "Fondo sutil de elementos activos o seleccionados" }
+    },
 
-  /* Semantic */
-  --color-success:    #008C31;
-  --color-success-bg: #F1F6F5;
-  --color-error:      #F32735;
-  --color-error-bg:   #F4E8E9;
-  --color-warning:    #E66B00;
-  --color-info:       #0260CB;
-  --color-special:    #FF28E2;
+    "border": {
+      "default":  { "$type": "color", "$value": "{color.neutral.200}", "$description": "Borde de card, input default, divisores de lista" },
+      "subtle":   { "$type": "color", "$value": "{color.neutral.300}", "$description": "Borde de input en reposo" },
+      "brand":    { "$type": "color", "$value": "{color.cyan.400}",    "$description": "Borde de input focused, card seleccionada" },
+      "error":    { "$type": "color", "$value": "{color.status.error}", "$description": "Borde de input en estado error" }
+    },
 
-  /* Spacing */
-  --space-xs:  8px;
-  --space-sm:  10px;
-  --space-md:  16px;
-  --space-xl:  20px;
-  --space-xxl: 32px;
+    "status": {
+      "success":    { "$type": "color", "$value": "{color.status.success}",    "$description": "Texto e icono de estado En bodega" },
+      "successBg":  { "$type": "color", "$value": "{color.status.successBg}",  "$description": "Fondo de badge/chip En bodega" },
+      "error":      { "$type": "color", "$value": "{color.status.error}",      "$description": "Texto e icono de estado En camino / error" },
+      "errorBg":    { "$type": "color", "$value": "{color.status.errorBg}",    "$description": "Fondo de badge/chip En camino" },
+      "warning":    { "$type": "color", "$value": "{color.status.warning}",    "$description": "Texto e icono de estado Despachado" },
+      "warningBg":  { "$type": "color", "$value": "{color.status.warningBg}",  "$description": "Fondo de badge/chip Despachado" },
+      "info":       { "$type": "color", "$value": "{color.status.info}",       "$description": "Texto e icono de estado En tienda" },
+      "infoBg":     { "$type": "color", "$value": "{color.status.infoBg}",     "$description": "Fondo de badge/chip En tienda" },
+      "delivered":  { "$type": "color", "$value": "{color.status.delivered}",  "$description": "Texto e icono de estado Entregado" },
+      "deliveredBg":{ "$type": "color", "$value": "{color.status.deliveredBg}","$description": "Fondo de badge/chip Entregado" }
+    }
+  },
 
-  /* Radius */
-  --radius-full: 99px;
-  --radius-md:   10px;
-  --radius-sm:   8px;
+  "typography": {
+    "display-l":     { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.bold}",      "fontSize": "{font.size.32}", "lineHeight": "{font.lineHeight.38}" }, "$description": "Display grande — pantallas de bienvenida" },
+    "display":       { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.bold}",      "fontSize": "{font.size.24}", "lineHeight": "{font.lineHeight.32}" }, "$description": "Titular de sección principal" },
+    "section-title": { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.bold}",      "fontSize": "{font.size.19}", "lineHeight": "{font.lineHeight.24}" }, "$description": "Encabezado de sección en pantallas internas" },
+    "title":         { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.bold}",      "fontSize": "{font.size.16}", "lineHeight": "{font.lineHeight.20}" }, "$description": "Título de card, nombre de paquete" },
+    "title-sm":      { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.extraBold}", "fontSize": "{font.size.14}", "lineHeight": "{font.lineHeight.18}" }, "$description": "Título de card pequeña, badge de nivel" },
+    "button":        { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.extraBold}", "fontSize": "{font.size.16}", "lineHeight": "{font.lineHeight.20}" }, "$description": "Label de botones full-width" },
+    "body":          { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.medium}",    "fontSize": "{font.size.14}", "lineHeight": "{font.lineHeight.18}" }, "$description": "Cuerpo de texto general, listas, descripciones" },
+    "body-sm":       { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.medium}",    "fontSize": "{font.size.13}", "lineHeight": "{font.lineHeight.16}" }, "$description": "Placeholder e ID de paquete" },
+    "label":         { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.bold}",      "fontSize": "{font.size.12}", "lineHeight": "{font.lineHeight.15}" }, "$description": "Labels de campos, badges UPPERCASE, nav activo" },
+    "nav":           { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.medium}",    "fontSize": "{font.size.12}", "lineHeight": "{font.lineHeight.15}" }, "$description": "Tab bar inactivo" },
+    "caption":       { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.medium}",    "fontSize": "{font.size.10}", "lineHeight": "{font.lineHeight.13}" }, "$description": "Fechas, metadatos secundarios, tags de categoría" }
+  },
 
-  /* Typography */
-  --font-primary: 'Plus Jakarta Sans', sans-serif;
+  "spacing": {
+    "screen-h":  { "$type": "dimension", "$value": "{space.16}", "$description": "Padding horizontal de pantalla" },
+    "card-p":    { "$type": "dimension", "$value": "{space.20}", "$description": "Padding interior de cards" },
+    "section-g": { "$type": "dimension", "$value": "{space.32}", "$description": "Gap entre secciones principales" },
+    "item-g":    { "$type": "dimension", "$value": "{space.8}",  "$description": "Gap entre items de una lista" },
+    "inline-g":  { "$type": "dimension", "$value": "{space.4}",  "$description": "Gap inline entre icono y texto" }
+  },
+
+  "radius": {
+    "card":   { "$type": "dimension", "$value": "{radius.md}",   "$description": "Radio de cards, modales y bottom sheets" },
+    "input":  { "$type": "dimension", "$value": "{radius.sm}",   "$description": "Radio de inputs y botones" },
+    "pill":   { "$type": "dimension", "$value": "{radius.full}", "$description": "Badges, avatares, toggles, pills de estado" }
+  }
+}</pre>
+      </div>
+
+      <!-- 03 components.json -->
+      <div style="background:#fff;border-radius:10px;border:1px solid #E8E8E8;overflow:hidden;">
+        <div style="padding:14px 20px;background:#FAFAFA;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:8px;">
+          <span style="padding:2px 8px;border-radius:99px;background:#F4FAEA;color:#7A8A00;font-size:10px;font-weight:700;">03</span>
+          <div style="font-weight:700;font-size:13px;color:#333;">components.json</div>
+          <span style="margin-left:auto;font-size:11px;color:#8A8A8A;font-weight:500;">Referencias a semánticos — tokens por componente</span>
+        </div>
+        <pre style="margin:0;padding:20px 24px;font-family:'SF Mono','Fira Code',monospace;font-size:11.5px;line-height:19px;color:#1F1F1F;background:#FAFBFC;overflow-x:auto;white-space:pre;">{
+  "button": {
+    "primary": {
+      "background":    { "$type": "color",     "$value": "linear-gradient(45deg, {color.cyan.400} 0%, {color.lime.400} 85%)", "$description": "Gradiente de marca — botón de acción principal" },
+      "label-color":   { "$type": "color",     "$value": "{color.text.onColor}",    "$description": "Texto blanco sobre gradiente" },
+      "label-style":   { "$type": "typography","$value": "{typography.button}",     "$description": "Plus Jakarta Sans ExtraBold 16/20" },
+      "height":        { "$type": "dimension", "$value": "52px",                    "$description": "Altura fija del botón full-width" },
+      "radius":        { "$type": "dimension", "$value": "{radius.input}",          "$description": "8px — igual que inputs" },
+      "hover":         { "$type": "other",     "$value": "brightness(1.05)",        "$description": "Transición 150ms ease" },
+      "pressed":       { "$type": "other",     "$value": "scale(0.98) brightness(0.95)", "$description": "Transición 150ms ease" }
+    },
+    "secondary": {
+      "background":    { "$type": "color",     "$value": "{color.background.brand}", "$description": "Fondo cyan sólido" },
+      "label-color":   { "$type": "color",     "$value": "{color.text.onColor}",     "$description": "Texto blanco" },
+      "height":        { "$type": "dimension", "$value": "52px" },
+      "radius":        { "$type": "dimension", "$value": "{radius.input}" }
+    },
+    "stroke": {
+      "background":    { "$type": "color",     "$value": "{color.background.surface}", "$description": "Fondo nude #F6F6F6" },
+      "border-color":  { "$type": "color",     "$value": "{color.text.link}",          "$description": "Borde cyan oscuro #007B9F" },
+      "border-width":  { "$type": "dimension", "$value": "{border.default}",           "$description": "1px" },
+      "label-color":   { "$type": "color",     "$value": "{color.text.link}" },
+      "height":        { "$type": "dimension", "$value": "52px" },
+      "radius":        { "$type": "dimension", "$value": "{radius.input}" }
+    },
+    "small": {
+      "height":        { "$type": "dimension", "$value": "34px", "$description": "Variante compacta — mismos fills que los botones full-width" }
+    }
+  },
+
+  "input": {
+    "default": {
+      "background":    { "$type": "color",     "$value": "{color.background.base}",    "$description": "Fondo blanco" },
+      "border-color":  { "$type": "color",     "$value": "{color.border.subtle}",      "$description": "#B8B8B8" },
+      "border-width":  { "$type": "dimension", "$value": "{border.default}" },
+      "radius":        { "$type": "dimension", "$value": "{radius.input}" },
+      "label-color":   { "$type": "color",     "$value": "{color.text.primary}" },
+      "placeholder":   { "$type": "color",     "$value": "{color.text.placeholder}" }
+    },
+    "focused": {
+      "border-color":  { "$type": "color",     "$value": "{color.border.brand}",  "$description": "#029ECB — 2px en web, 1px en móvil nativo" },
+      "border-width":  { "$type": "dimension", "$value": "{border.thick}" }
+    },
+    "error": {
+      "background":    { "$type": "color",     "$value": "{color.status.errorBg}" },
+      "border-color":  { "$type": "color",     "$value": "{color.border.error}" },
+      "message-color": { "$type": "color",     "$value": "{color.text.error}" }
+    },
+    "disabled": {
+      "background":    { "$type": "color",     "$value": "{color.background.surface}", "$description": "#F6F6F6" },
+      "border-color":  { "$type": "color",     "$value": "{color.border.default}" },
+      "label-color":   { "$type": "color",     "$value": "{color.text.tertiary}" }
+    }
+  },
+
+  "card": {
+    "default": {
+      "background":    { "$type": "color",     "$value": "{color.background.base}" },
+      "border-color":  { "$type": "color",     "$value": "{color.border.default}" },
+      "border-width":  { "$type": "dimension", "$value": "{border.default}" },
+      "radius":        { "$type": "dimension", "$value": "{radius.card}" },
+      "padding":       { "$type": "dimension", "$value": "{spacing.card-p}" }
+    },
+    "selected": {
+      "border-color":  { "$type": "color",     "$value": "{color.border.brand}",  "$description": "Card activa o seleccionada — borde cyan" }
+    }
+  },
+
+  "badge": {
+    "status-text":     { "$type": "typography","$value": "{typography.label}",     "$description": "UPPERCASE Bold 12px" },
+    "radius":          { "$type": "dimension", "$value": "{radius.pill}" },
+    "success": {
+      "color":         { "$type": "color",     "$value": "{color.status.success}" },
+      "background":    { "$type": "color",     "$value": "{color.status.successBg}" }
+    },
+    "error": {
+      "color":         { "$type": "color",     "$value": "{color.status.error}" },
+      "background":    { "$type": "color",     "$value": "{color.status.errorBg}" }
+    },
+    "warning": {
+      "color":         { "$type": "color",     "$value": "{color.status.warning}" },
+      "background":    { "$type": "color",     "$value": "{color.status.warningBg}" }
+    },
+    "info": {
+      "color":         { "$type": "color",     "$value": "{color.status.info}" },
+      "background":    { "$type": "color",     "$value": "{color.status.infoBg}" }
+    },
+    "delivered": {
+      "color":         { "$type": "color",     "$value": "{color.status.delivered}" },
+      "background":    { "$type": "color",     "$value": "{color.status.deliveredBg}" }
+    }
+  },
+
+  "header": {
+    "height":          { "$type": "dimension", "$value": "130px",                   "$description": "Header fijo — nunca cambia de altura" },
+    "background":      { "$type": "color",     "$value": "{color.background.base}" },
+    "title-style":     { "$type": "typography","$value": "{typography.section-title}" }
+  },
+
+  "tabbar": {
+    "height":          { "$type": "dimension", "$value": "89px",                    "$description": "Tab bar fijo — siempre visible sobre el contenido" },
+    "background":      { "$type": "color",     "$value": "{color.background.base}" },
+    "active-color":    { "$type": "color",     "$value": "{color.text.brand}",      "$description": "Icono y label del tab activo" },
+    "inactive-color":  { "$type": "color",     "$value": "{color.text.tertiary}",   "$description": "Icono y label de tabs inactivos" },
+    "label-active":    { "$type": "typography","$value": "{typography.label}" },
+    "label-inactive":  { "$type": "typography","$value": "{typography.nav}" }
+  }
 }</pre>
       </div>
 
